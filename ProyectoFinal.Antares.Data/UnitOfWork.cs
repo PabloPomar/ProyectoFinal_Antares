@@ -1,6 +1,6 @@
-﻿using Netto.Vertragsmanagement.Domain;
+﻿using ProyectoFinal.Antares.Domain;
 
-namespace Netto.Vertragsmanagement.Data
+namespace ProyectoFinal.Antares.Data
 {
     public class UnitOfWork : IUnitOfWork
     {

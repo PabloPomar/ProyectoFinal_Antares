@@ -6,7 +6,7 @@ public class PedidoProducto
     
     public int IdUsuario { get; set; }
     
-    public bool Activo { get; set; }
+    public bool IdProducto { get; set; }
     
-    public string Nota { get; set; }
+    public int Cantidad { get; set; }
 }

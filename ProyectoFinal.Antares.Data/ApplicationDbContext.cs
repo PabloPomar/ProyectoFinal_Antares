@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Netto.Vertragsmanagement.Data
+namespace ProyectoFinal.Antares.Data
 {
     [ExcludeFromCodeCoverage]
     public class ApplicationDbContext : DbContext

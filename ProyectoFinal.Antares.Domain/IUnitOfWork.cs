@@ -1,4 +1,4 @@
-﻿namespace Netto.Vertragsmanagement.Domain
+﻿namespace ProyectoFinal.Antares.Domain
 {
     public interface IUnitOfWork
     {
