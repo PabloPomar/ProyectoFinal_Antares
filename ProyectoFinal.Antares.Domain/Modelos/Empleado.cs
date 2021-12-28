@@ -1,4 +1,6 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿using ProyectoFinal.Antares.Domain.Enums;
+
+namespace ProyectoFinal.Antares.Domain.Models;
 
 public class Empleado
 {
@@ -10,5 +12,5 @@ public class Empleado
     
     public bool Activo { get; set; }
     
-    public int Tipo { get; set; }
+    public TipoEmpleado Tipo { get; set; }
 }

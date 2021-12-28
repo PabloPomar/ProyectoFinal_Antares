@@ -1,4 +1,6 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿using ProyectoFinal.Antares.Domain.Enums;
+
+namespace ProyectoFinal.Antares.Domain.Models;
 
 public class Usuario
 {
@@ -6,7 +8,7 @@ public class Usuario
     
     public string NombreUsuario { get; set; }
     
-    public int Tipo { get; set; }
+    public TipoUsuario Tipo { get; set; }
     
     public int Dni { get; set; }
     

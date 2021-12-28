@@ -8,7 +8,7 @@ public class Reserva
     
     public int IdMesa { get; set; }
     
-    public int CantidadComenzales { get; set; }
+    public int CantidadComensales { get; set; }
     
     public string Hora { get; set; }
     
