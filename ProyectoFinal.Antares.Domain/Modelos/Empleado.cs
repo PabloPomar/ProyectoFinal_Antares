@@ -1,11 +1,9 @@
 ﻿using ProyectoFinal.Antares.Domain.Enums;
 
-namespace ProyectoFinal.Antares.Domain.Models;
+namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class Empleado
+public class Empleado : BaseModel
 {
-    public int Id { get; set; }
-    
     public string Nombre { get; set; }
     
     public string Dni { get; set; }

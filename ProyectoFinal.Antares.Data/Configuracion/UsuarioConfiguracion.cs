@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProyectoFinal.Antares.Domain.Models;
+using ProyectoFinal.Antares.Domain.Modelos;
 
 namespace ProyectoFinal.Antares.Data.Configuracion;
 

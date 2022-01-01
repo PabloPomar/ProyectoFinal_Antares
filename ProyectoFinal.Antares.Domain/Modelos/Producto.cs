@@ -1,9 +1,7 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class Producto
+public class Producto : BaseModel
 {
-    public int Id { get; set; }
-    
     public string Descripcion { get; set; }
     
     public int Stock { get; set; }
@@ -11,4 +9,6 @@ public class Producto
     public bool Activo { get; set; }
     
     public string Nota { get; set; }
+    
+    public ImagenProducto Imagen { get; set; }
 }
