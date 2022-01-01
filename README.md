@@ -3,7 +3,9 @@ Proyecto Final UTN Rosario
 
 Agregar migración para cambiar base de datos
 
-Tienen que ejecutar este comando en terminal en donde tengan la carpeta ..\ProyectoFinal_Antares\ProyectoFinal.Antares.Api
+Tienen que ejecutar este comando en terminal en donde tengan la carpeta 
+
+(o usen el comando: cd ..\ProyectoFinal_Antares\ProyectoFinal.Antares.Api) 
 
 Necesitan tener instalado SQL server con dblocal
 

@@ -1,11 +1,9 @@
 ﻿using ProyectoFinal.Antares.Domain.Enums;
 
-namespace ProyectoFinal.Antares.Domain.Models;
+namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class Usuario
+public class Usuario : BaseModel
 {
-    public int Id { get; set; }
-    
     public string NombreUsuario { get; set; }
     
     public TipoUsuario Tipo { get; set; }

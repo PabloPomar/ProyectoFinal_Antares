@@ -1,9 +1,7 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class Ubicacion
+public class Ubicacion : BaseModel
 {
-    public int Id { get; set; }
-    
     public string Descripcion { get; set; }
     
     public decimal Superficie { get; set; }

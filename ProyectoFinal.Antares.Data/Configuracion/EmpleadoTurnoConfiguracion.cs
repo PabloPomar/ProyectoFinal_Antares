@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProyectoFinal.Antares.Domain.Models;
+using ProyectoFinal.Antares.Domain.Modelos;
 
 namespace ProyectoFinal.Antares.Data.Configuracion;
 
@@ -11,11 +11,9 @@ public class EmpleadoTurnoConfiguracion : IEntityTypeConfiguration<EmpleadoTurno
     public void Configure(EntityTypeBuilder<EmpleadoTurno> builder)
     {
         builder.HasKey(x => new { x.Id });
-            
-        builder.Property(x => x.IdEmpleado)
-            .IsRequired();
+
+        builder.HasOne(x => x.Empleado);
         
-        builder.Property(x => x.IdTurno)
-            .IsRequired();
+        builder.HasOne(x => x.Turno);
     }
 }

@@ -1,12 +1,10 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class EmpleadoTurno
+public class EmpleadoTurno : BaseModel
 {
-     public int Id { get; set; }
+     public Empleado Empleado { get; set; }
      
-     public int IdEmpleado { get; set; }
-     
-     public int IdTurno { get; set; }
+     public Turno Turno { get; set; }
      
      public bool Activo { get; set; }
 }

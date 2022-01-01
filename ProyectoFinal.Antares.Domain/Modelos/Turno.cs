@@ -1,9 +1,7 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class Turno
+public class Turno : BaseModel
 {
-    public int Id { get; set; }
-    
     public string Descripcion { get; set; }
 
     public int Dia { get; set; }

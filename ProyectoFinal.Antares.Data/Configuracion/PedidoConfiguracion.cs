@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProyectoFinal.Antares.Domain.Models;
+using ProyectoFinal.Antares.Domain.Modelos;
 
 namespace ProyectoFinal.Antares.Data.Configuracion;
 
@@ -12,7 +12,6 @@ public class PedidoConfiguracion : IEntityTypeConfiguration<Pedido>
     {
         builder.HasKey(x => new { x.Id });
         
-        builder.Property(x => x.IdUsuario)
-            .IsRequired();
+        builder.HasOne(x => x.Usuario);
     }
 }

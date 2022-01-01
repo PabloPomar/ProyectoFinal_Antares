@@ -1,12 +1,8 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class Mesa
+public class Mesa : BaseModel
 {
-    public int Id { get; set; }
-    
     public string Descripcion { get; set; }
-    
-    public int IdMozo { get; set; }
     
     public bool Activo { get; set; }
     

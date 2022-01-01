@@ -1,12 +1,10 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class Reserva
+public class Reserva : BaseModel
 {
-    public int Id { get; set; }
+    public Usuario Usuario { get; set; }
     
-    public int IdUsuario { get; set; }
-    
-    public int IdMesa { get; set; }
+    public Mesa Mesa { get; set; }
     
     public int CantidadComensales { get; set; }
     

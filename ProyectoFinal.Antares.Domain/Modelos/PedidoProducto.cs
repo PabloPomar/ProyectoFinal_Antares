@@ -1,12 +1,10 @@
-﻿namespace ProyectoFinal.Antares.Domain.Models;
+﻿namespace ProyectoFinal.Antares.Domain.Modelos;
 
-public class PedidoProducto
+public class PedidoProducto : BaseModel
 {
-    public int Id { get; set; }
+    public Usuario Usuario { get; set; }
     
-    public int IdUsuario { get; set; }
-    
-    public bool IdProducto { get; set; }
+    public Producto Producto { get; set; }
     
     public int Cantidad { get; set; }
 }
