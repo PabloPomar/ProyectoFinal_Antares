@@ -4,13 +4,13 @@ namespace ProyectoFinal.Antares.Domain.Modelos;
 
 public class Usuario : BaseModel
 {
-    public string NombreUsuario { get; set; }
-    
+    public string NombreUsuario { get; set; } = null!;
+
     public TipoUsuario Tipo { get; set; }
     
     public int Dni { get; set; }
     
-    public string Mail { get; set; }
-    
-    public string Telefono { get; set; }
+    public string Mail { get; set; } = null!;
+
+    public string Telefono { get; set; } = null!;
 }

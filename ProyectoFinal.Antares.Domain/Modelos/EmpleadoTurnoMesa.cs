@@ -2,9 +2,9 @@
 
 public class EmpleadoTurnoMesa : BaseModel
 {
-    public EmpleadoTurno EmpleadoTurno { get; set; }
-    
-    public Mesa Mesa { get; set; }
-    
+    public EmpleadoTurno EmpleadoTurno { get; set; } = null!;
+
+    public Mesa Mesa { get; set; } = null!;
+
     public bool Activo { get; set; }
 }

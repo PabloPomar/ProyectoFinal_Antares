@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using ProyectoFinal.Antares.Api.ApplicationStart;
 using ProyectoFinal.Antares.Data;

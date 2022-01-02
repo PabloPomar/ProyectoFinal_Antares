@@ -2,13 +2,13 @@
 
 public class Producto : BaseModel
 {
-    public string Descripcion { get; set; }
-    
+    public string Descripcion { get; set; } = null!;
+
     public int Stock { get; set; }
     
     public bool Activo { get; set; }
     
-    public string Nota { get; set; }
-    
-    public ImagenProducto Imagen { get; set; }
+    public string Nota { get; set; } = null!;
+
+    public ImagenProducto Imagen { get; set; } = null!;
 }

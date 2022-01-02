@@ -1,7 +1,4 @@
-﻿using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 using NSwag.Generation.Processors.Security;

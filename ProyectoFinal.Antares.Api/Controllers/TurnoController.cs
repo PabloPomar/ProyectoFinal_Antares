@@ -4,7 +4,7 @@ using ProyectoFinal.Antares.Domain.Servicios;
 
 namespace ProyectoFinal.Antares.Api.Controllers;
 
-[Route("api/v1/[Controller]")]
+[Route("api/v1/Turno")]
 public class TurnoController : ControllerBase
 {
     private readonly ITurnoService _turnoService;
@@ -40,6 +40,6 @@ public class TurnoController : ControllerBase
             return StatusCode(500, ex);
         }
         
-        return CreatedAtAction(turno.Descripcion, new { id = turno.Id }, turno);
+        return Ok(turno);
     }
 }
