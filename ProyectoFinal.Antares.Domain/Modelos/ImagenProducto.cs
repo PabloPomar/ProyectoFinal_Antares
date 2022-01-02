@@ -2,5 +2,5 @@
 
 public class ImagenProducto  : BaseModel
 {
-    public string Base64Image { get; set; }
+    public string Base64Image { get; set; } = null!;
 }
