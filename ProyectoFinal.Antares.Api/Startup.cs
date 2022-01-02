@@ -43,9 +43,6 @@ namespace ProyectoFinal.Antares.Api;
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>(t => t.ValidatorType.Name.EndsWith("Validator")));
-
             ApplicationServices.ConfigureApplicationServices(services, Configuration);
         }
         
