@@ -33,11 +33,18 @@ namespace ProyectoFinal.Antares.Data.Repositories
             if (entity != null) Context.Set<T>().Remove(entity);
         }
 
-        public async Task<PageQueryResult<T>> GetAllAsync()
+        public async Task<PageQueryResult<T>> GetAllPagedAsync()
         {
             var list = await Context.Set<T>().AsSplitQuery().ToListAsync();
 
             return new PageQueryResult<T>(list, list.Count);
+        }
+        
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            var list = await Context.Set<T>().AsSplitQuery().ToListAsync();
+
+            return list;
         }
 
         public async Task RemoveRangeAsync(IEnumerable<T> items)
@@ -49,6 +56,12 @@ namespace ProyectoFinal.Antares.Data.Repositories
         public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter)
         {
             return await Context.Set<T>().Where(filter).AsSplitQuery().ToListAsync();
+        }
+        
+        public async Task UpdateAsync(T entity)
+        {
+            Context.Update(entity);
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using ProyectoFinal.Antares.Domain.Dtos;
 using ProyectoFinal.Antares.Domain.Modelos;
 using ProyectoFinal.Antares.Domain.Repositories;
 using Microsoft.Extensions.Logging;
@@ -32,7 +31,9 @@ namespace ProyectoFinal.Antares.Domain.Servicios
             }
             else
             {
-                var existingEntity = await _repository.FindAsync(entity.Id);
+                var existingEntity = await _repository.FindAsync(entity.Id, true);
+
+                await _repository.UpdateAsync(entity);
 
                 _logger.LogInformation(LogStrings.ReferenceService.EditedValue, typeof(T).Name, existingEntity,
                     entity);
@@ -49,13 +50,7 @@ namespace ProyectoFinal.Antares.Domain.Servicios
             await _unitOfWork.SaveAsync();
             _logger.LogInformation(LogStrings.ReferenceService.Deleted, typeof(T).Name, id);
         }
-
-        public async Task<PageQueryResult<T>> GetAllAsync()
-        {
-            _logger.LogInformation(LogStrings.ReferenceService.RequestedAll, typeof(T).Name);
-            return await _repository.GetAllAsync();
-        } 
-
+        
         public async Task<T> FindAsync(int id)
         {
             _logger.LogInformation(LogStrings.ReferenceService.RequestedOne, typeof(T).Name, id); 
@@ -66,6 +61,12 @@ namespace ProyectoFinal.Antares.Domain.Servicios
         {
             _logger.LogInformation(LogStrings.ReferenceService.RequestedFind, typeof(T).Name, filter); 
             return await _repository.GetAsync(filter);
+        } 
+        
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            _logger.LogInformation(LogStrings.ReferenceService.RequestedAll, typeof(T).Name); 
+            return await _repository.GetAllAsync();
         } 
 
         public async Task AddRangeAsync(IEnumerable<T?> entities)

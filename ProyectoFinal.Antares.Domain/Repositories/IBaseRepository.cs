@@ -11,10 +11,14 @@ namespace ProyectoFinal.Antares.Domain.Repositories
 
         Task<T?> FindAsync(int id, bool asNoTracking = false);
 
-        Task<PageQueryResult<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync();
+        
+        Task<PageQueryResult<T>> GetAllPagedAsync();
 
         Task RemoveRangeAsync(IEnumerable<T> items);
 
         Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter);
+
+        Task UpdateAsync(T entity);
     }
 }

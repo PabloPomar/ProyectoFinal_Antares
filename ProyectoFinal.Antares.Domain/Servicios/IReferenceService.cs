@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using ProyectoFinal.Antares.Domain.Dtos;
 
 namespace ProyectoFinal.Antares.Domain.Servicios
 {
@@ -9,7 +8,7 @@ namespace ProyectoFinal.Antares.Domain.Servicios
 
         Task DeleteAsync(int id);
 
-        Task<PageQueryResult<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync();
 
         Task SaveAsync(T entity);
         
