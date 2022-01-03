@@ -8,7 +8,7 @@ public static class LogStrings
     
     public static class ReferenceService
     {
-        public const string RequestedAll = "Buscando elemento de tipo: {entity}.";
+        public const string RequestedAll = "Buscando todos los elemento de tipo: {entity}.";
 
         public const string RequestedFind = "Buscando elemento de tipo: {entity} con filtro: {@filter}.";
 

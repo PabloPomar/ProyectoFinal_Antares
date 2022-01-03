@@ -33,12 +33,34 @@ namespace ProyectoFinal.Antares.Api.ApplicationStart
 
             services.AddAutoMapper(typeof(ApplicationMappingProfile));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(IReferenceService<>), typeof(ReferenceService<>));
+            
+            services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
+            services.AddScoped<IEmpleadoService, EmpleadoService>();
+            
+            services.AddScoped<IMesaRepository, MesaRepository>();
+            services.AddScoped<IMesaService, MesaService>();
+            
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<IPedidoService, PedidoService>();
+            
+            services.AddScoped<IProductoRepository, ProductoRepository>();
+            services.AddScoped<IProductoService, ProductoService>();
+            
+            services.AddScoped<IReservaRepository, ReservaRepository>();
+            services.AddScoped<IReservaService, ReservaService>();
             
             services.AddScoped<ITurnoRepository, TurnoRepository>();
             services.AddScoped<ITurnoService, TurnoService>();
             
+            services.AddScoped<IUbicacionRepository, UbicacionRepository>();
+            services.AddScoped<IUbicacionService, UbicacionService>();
+            
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+
             services.AddHealthChecks();
 
             services.AddHttpContextAccessor();
