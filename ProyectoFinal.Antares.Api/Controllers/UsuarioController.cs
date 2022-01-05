@@ -13,4 +13,10 @@ public class UsuarioController : BaseController<Usuario>
     {
         _usuarioService = usuarioService;
     }
+    
+    [HttpGet("validarUsuario")]
+    public async Task<bool> ValidarUsuario(string nombreUsuario, string contraseña)
+    {
+        return await _usuarioService.ValidarUsuario(nombreUsuario, contraseña);
+    }
 }
