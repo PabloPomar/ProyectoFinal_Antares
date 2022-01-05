@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.Antares.Data"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoFinal.Antares.Api", "ProyectoFinal.Antares.Api\ProyectoFinal.Antares.Api.csproj", "{43EAF6BC-9B58-41A2-9D69-85591BEEFA9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProyectoFinal.Antares.Web", "ProyectoFinal.Antares.Web", "{4D21E00D-CA79-4396-8B33-BA877B29D839}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
