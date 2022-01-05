@@ -5,6 +5,8 @@ namespace ProyectoFinal.Antares.Domain.Modelos;
 public class Usuario : BaseModel
 {
     public string NombreUsuario { get; set; } = null!;
+    
+    public string Password { get; set; } = null!;
 
     public TipoUsuario Tipo { get; set; }
     
