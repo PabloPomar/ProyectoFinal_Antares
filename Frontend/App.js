@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, Tab, TabView, ThemeProvider } from "react-native-elements";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { TabView, ThemeProvider } from "react-native-elements";
 import { useColorScheme } from "react-native";
 import { useState } from "react";
+import BottomBar from "./components/BottomBar/BottomBar";
+import { styles } from "./constants/styles";
 
 const theme = {
   Button: {
@@ -34,45 +35,7 @@ export default function App() {
           <Text h1>Recent</Text>
         </TabView.Item>
       </TabView>
-      <Tab
-        value={index}
-        onChange={(e) => setIndex(e)}
-        indicatorStyle={{
-          backgroundColor: "white",
-          height: 3,
-        }}
-        variant="default"
-      >
-        <Tab.Item
-          title="Home"
-          titleStyle={styles.tabItemTitle}
-          icon={{ name: "home", type: "ionicon", color: "black" }}
-        />
-        <Tab.Item
-          title="favorite"
-          titleStyle={styles.tabItemTitle}
-          icon={{ name: "heart", type: "ionicon", color: "black" }}
-        />
-        <Tab.Item
-          title="Recent"
-          titleStyle={styles.tabItemTitle}
-          icon={{ name: "timer", type: "ionicon", color: "black" }}
-        />
-      </Tab>
+      <BottomBar changeFunc={setIndex} pos={index}/>
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  tabViewItems: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: '100%',
-    backgroundColor: 'rgb(53,53,80)'
-  },
-  tabItemTitle: {
-    fontSize: 12,
-    color: "black",
-  },
-});
