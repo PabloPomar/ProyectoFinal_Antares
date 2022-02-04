@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     marginTop: Dimensions.get("window").height / 20,
   },
   boldText: {
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   container: {
     flex: 1,
@@ -23,7 +23,12 @@ export const styles = StyleSheet.create({
     marginVertical: 4,
     marginHorizontal: 8,
     borderBottomColor: "black",
-    borderBottomWidth: 0.5
+    borderBottomWidth: 0.5,
+  },
+  AntaresLogo: {
+    marginLeft: 28,
+    width: 110,
+    height: 60,
   },
   paragraph: {
     padding: 16,

@@ -51,8 +51,10 @@ import {
   Modal,
   Pressable,
   FlatList,
+  Image,
 } from "react-native";
 import { Icon } from "react-native-elements";
+import { SvgUri } from "react-native-svg";
 import { styles } from "./constants/styles";
 
 const App = () => {
@@ -73,9 +75,7 @@ const App = () => {
     </View>
   );
 
-  const renderItem = ({ item }) => (
-    <NavOption title={item.title} />
-  );
+  const renderItem = ({ item }) => <NavOption title={item.title} />;
 
   const navigationView = () => (
     <View style={[styles.container, styles.navigationContainer]}>
@@ -84,10 +84,14 @@ const App = () => {
         type="ant-design"
         onPress={() => drawer.current.closeDrawer()}
       />
-      <FlatList 
-        data={[{id:1, title: "ABM1"},{id:2, title: "ABM2"},{id:3, title: "ABM3"}]}
+      <FlatList
+        data={[
+          { id: 1, title: "ABM1" },
+          { id: 2, title: "ABM2" },
+          { id: 3, title: "ABM3" },
+        ]}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );
@@ -116,6 +120,17 @@ const App = () => {
             size={40}
             onPress={() => drawer.current.openDrawer()}
           />
+          {/* Logo Antares ... TODO: cambiar por un svg local */}
+          {/* <SvgUri
+            width="50%"
+            height="50%"
+            // uri="https://www.cervezaantares.com/themes/antares/assets/img/logo_antares.svg"
+            // uri="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"
+          /> */}
+          <Image 
+            style={styles.AntaresLogo}
+            source={require("./assets/logo_antares.png")}
+          />
           {/* boton para mostrar u ocultar modal */}
           <Icon
             raised
@@ -142,10 +157,17 @@ const App = () => {
                 </Text>
                 <Text style={styles.paragraph}>
                   El menú se abre actualmente desde la
-                  <Text style={styles.boldText}>{drawerPosition == "left" ? " izquierda" : " derecha"}</Text>
+                  <Text style={styles.boldText}>
+                    {drawerPosition == "left" ? " izquierda" : " derecha"}
+                  </Text>
+                  <Text>
+                    Toque el siguiente botón para cambiar el comportamiento
+                  </Text>
                 </Text>
-                <Button
-                  title="Change Drawer Position"
+                <Icon
+                  name={drawerPosition == "left" ? "right" : "left"}
+                  type="ant-design"
+                  reverse
                   onPress={() => changeDrawerPosition()}
                 />
 
