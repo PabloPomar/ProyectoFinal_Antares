@@ -34,6 +34,8 @@ namespace ProyectoFinal.Antares.Api;
             app.UseAuthentication();
             app.UseAuthorization();
             
+            app.UseCors("MyPolicy");
+
             app.UseOpenApi();
             app.UseSwaggerUi3();
             app.UseReDoc(options => options.Path = "/redoc");
