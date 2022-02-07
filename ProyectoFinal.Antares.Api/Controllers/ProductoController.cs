@@ -13,4 +13,18 @@ public class ProductoController : BaseController<Producto>
     {
         _productoService = productoService;
     }
+    
+    [HttpGet]
+    [Route("Menu")]
+    public async Task<IList<Producto>> GetMenu()
+    {
+        return await _productoService.GetMenu();
+    }
+    
+    [HttpGet("id")]
+    [Route("ItemMenu")]
+    public async Task<Producto> GetItemMenu(int id)
+    {
+        return await _productoService.GetProductoConImagen(id);
+    }
 }
