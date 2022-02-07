@@ -26,6 +26,14 @@ namespace ProyectoFinal.Antares.Api.ApplicationStart
                     w.Ignore(CoreEventId.RowLimitingOperationWithoutOrderByWarning);
                 });
             });
+            
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin();
+            }));
 
             services.AddControllers()
                 .AddNewtonsoftJson(
