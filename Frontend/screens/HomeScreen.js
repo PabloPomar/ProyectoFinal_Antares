@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Text, View, StyleSheet, Image, Linking } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input, Button } from "react-native-elements";
+import {PostTurnos} from "../ApiBridge/Turnos";
 
 
 const antaresURL = "https://www.cervezaantares.com/";
@@ -36,7 +37,7 @@ function HomeScreen() {
         <Text style={styles.importantText}>Bienvenido!</Text>
       </View>
       <View style={styles.content}>
-        <View style={styles.loginForm}>
+{/*        <View style={styles.loginForm}>
           <Input
             placeholder="Email"
             leftIcon={<Icon name="user" size={24} color="black" />}
@@ -52,6 +53,15 @@ function HomeScreen() {
           />
 
           <Button title={"Login"}/>
+        </View>
+        <View style={styles.linkButton}>
+          <OpenURLButton url={antaresURL}>Visita nuestra página web</OpenURLButton>
+        </View>*/}
+        {/*        <View style={styles.linkButton}>
+          <Button title={'Buscar data'} onPress={GetAllTurnos} />
+        </View>*/}
+        <View style={styles.linkButton}>
+          <Button title={'Agregar data'} onPress={PostTurnos} />
         </View>
 
         <View style={styles.linkButton}>
