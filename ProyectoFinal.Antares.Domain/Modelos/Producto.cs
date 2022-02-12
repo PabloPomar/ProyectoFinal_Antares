@@ -11,4 +11,6 @@ public class Producto : BaseModel
     public string Nota { get; set; } = null!;
 
     public ImagenProducto Imagen { get; set; } = null!;
+    
+    public decimal Precio { get; set; }
 }

@@ -3,6 +3,7 @@
 public enum TipoUsuario
 {
     Admin,
-    Empleado,
+    Mozo,
+    Delivery,
     Cliente
 }

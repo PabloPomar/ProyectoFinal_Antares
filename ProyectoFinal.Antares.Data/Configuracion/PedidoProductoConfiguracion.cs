@@ -11,9 +11,7 @@ public class PedidoProductoConfiguracion : IEntityTypeConfiguration<PedidoProduc
     public void Configure(EntityTypeBuilder<PedidoProducto> builder)
     {
         builder.HasKey(x => new { x.Id });
-        
-        builder.HasOne(x => x.Usuario);
-        
+
         builder.HasOne(x => x.Producto);
 
         builder.Property(x => x.Cantidad)
