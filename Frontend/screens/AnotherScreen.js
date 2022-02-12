@@ -1,11 +1,11 @@
-import { Text, View } from "react-native";
-import tw from "tailwind-react-native-classnames";
+import { Image, SafeAreaView, Text, View } from "react-native";
+import ScreenLayout from "../components/ScreenLayout";
 
 function AnotherScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Another screen!</Text>
-    </View>
+    <ScreenLayout>
+      <Text>Another Screen</Text>
+    </ScreenLayout>
   );
 }
 
