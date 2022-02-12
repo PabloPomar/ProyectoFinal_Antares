@@ -1,137 +1,76 @@
-import React, { useState, useCallback } from "react";
-import { Text, View, StyleSheet, Image, Linking } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Input, Button } from "react-native-elements";
-import {PostTurnos} from "../ApiBridge/Turnos";
-
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  Image,
+  FlatList,
+} from "react-native";
+import { Icon } from "react-native-elements";
+import { useDispatch } from "react-redux";
+import tw from "tailwind-react-native-classnames";
+import { OpenURLButton } from "../components/UrlButton";
+import { setData } from "../slices/navSlice";
 
 const antaresURL = "https://www.cervezaantares.com/";
-
-const OpenURLButton = ({ url, children }) => {
-  const handlePress = useCallback(async () => {
-    // Checking if the link is supported for links with custom URL scheme.
-    const supported = await Linking.canOpenURL(url);
-
-    if (supported) {
-      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-      // by some browser in the mobile
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
-  }, [url]);
-
-  return <Button title={children} onPress={handlePress} />;
-};
+const menuOptions = [
+  {
+    id: "1",
+    name: "HomeScreen",
+    type: "antdesign",
+    icon: "home",
+  },
+  {
+    id: "2",
+    name: "AnotherScreen",
+    type: "antdesign",
+    icon: "home",
+  },
+];
 
 function HomeScreen() {
-  const [error, setError] = useState("");
+  const navigation = useNavigation();
+  const dispatch = useDispatch()
 
   return (
-    <View style={styles.screen}>
-      <Image
-        style={styles.logo}
-        source={require("../assets/logo_antares.png")}
-      />
-      <View style={styles.title}>
-        <Text style={styles.importantText}>Bienvenido!</Text>
+    <SafeAreaView style={tw`bg-white h-full`}>
+      <View style={tw`h-5/6 mb-20 items-center`}>
+        <Image
+          style={{
+            width: 200,
+            height: 200,
+            resizeMode: "contain",
+          }}
+          source={require("../assets/logo_antares.png")}
+        />
+        <Text>HomeScreen</Text>
       </View>
-      <View style={styles.content}>
-{/*        <View style={styles.loginForm}>
-          <Input
-            placeholder="Email"
-            leftIcon={<Icon name="user" size={24} color="black" />}
-          />
 
-          <Input
-            placeholder="Password"
-            secureTextEntry
-            leftIcon={{ type: "font-awesome", name: "lock" }}
-            // onChangeText={(value) => setError("algun error")}
-            errorStyle={{ color: "red" }}
-            errorMessage="algun error"
-          />
-
-          <Button title={"Login"}/>
-        </View>
-        <View style={styles.linkButton}>
-          <OpenURLButton url={antaresURL}>Visita nuestra página web</OpenURLButton>
-        </View>*/}
-        {/*        <View style={styles.linkButton}>
-          <Button title={'Buscar data'} onPress={GetAllTurnos} />
-        </View>*/}
-        <View style={styles.linkButton}>
-          <Button title={'Agregar data'} onPress={PostTurnos} />
-        </View>
-
-        <View style={styles.linkButton}>
-            <OpenURLButton url={antaresURL}>Visita nuestra página web</OpenURLButton>
-        </View>
+      <View style={tw`border-t border-gray-200 flex-grow `}>
+        <FlatList
+          data={menuOptions}
+          keyExtractor={(item) => item.id}
+          horizontal
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(item.name)} }
+            >
+              <Icon
+                name={item.icon}
+                type={item.type}
+                color={"white"}
+                style={tw`p-2 bg-black rounded-full w-10 mt-4`}
+              />
+            </TouchableOpacity>
+          )}
+        />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    height: "100%",
-    backgroundColor: "white",
-  },
-  title: {
-    textAlign: "center",
-  },
-  content: {
-    flexDirection: "column",
-    width: "80%",
-    height: "95%"
-  },
-  loginForm: {
-    height:"50%",
-    marginTop: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  linkButton: {
-    marginTop: 50,  
-    justifyContent: "flex-end"
-  },
-  logo: {
-    margin: 20,
-    width: 110,
-    height: 60,
-  },
-  importantText: {
-    fontSize: 25,
-    fontWeight: "bold",
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-});
 
 export default HomeScreen;
