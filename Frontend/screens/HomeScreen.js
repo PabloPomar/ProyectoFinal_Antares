@@ -23,7 +23,7 @@ function HomeScreen() {
             A continuación ingrese sus datos para iniciar sesión.
           </Text>
           <View
-            style={tw`bg-gray-50 w-10/12 p-10 border border-gray-300 rounded-lg shadow-xl mb-8`}
+            style={tw`bg-gray-50 w-10/12 p-10 border border-gray-300 rounded-lg shadow-lg mb-8`}
           >
             <Input
               onChangeText={(value) =>
