@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {ComunComponent} from "./Components/Ejemplos/comun/comun.component";
+import {RouterModule, Routes} from "@angular/router";
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'comun', component: ComunComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
