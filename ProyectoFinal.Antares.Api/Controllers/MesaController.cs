@@ -7,10 +7,7 @@ namespace ProyectoFinal.Antares.Api.Controllers;
 [Route("api/v1/Mesa")]
 public class MesaController : BaseController<Mesa>
 {
-    private readonly IMesaService _mesaService;
-
     public MesaController(IMesaService mesaService) : base(mesaService)
     {
-        _mesaService = mesaService;
     }
 }
