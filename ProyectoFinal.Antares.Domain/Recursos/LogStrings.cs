@@ -8,17 +8,17 @@ public static class LogStrings
     
     public static class ReferenceService
     {
-        public const string RequestedAll = "Buscando todos los elemento de tipo: {entity}.";
+        public const string All = "Buscando todos los elemento de tipo: {entity}.";
 
-        public const string RequestedFind = "Buscando elemento de tipo: {entity} con filtro: {@filter}.";
+        public const string Find = "Buscando elemento de tipo: {entity} con filtro: {@filter}.";
 
-        public const string RequestedOne = "Buscando elemento de tipo: {entity} con id: {id}.";
+        public const string One = "Buscando elemento de tipo: {entity} con id: {id}.";
 
-        public const string RequestedSave = "Guardado de entidad: {entity} demandada. Valor {@value}.";
+        public const string Save = "Guardado de entidad: {entity} demandada. Valor {@value}.";
 
-        public const string RequestedAddRange = "Guardado de entidad: {entity} demandada.";
+        public const string AddRange = "Guardado de entidad: {entity} demandada.";
 
-        public const string RequestedDelete = "Borrado de entidad {entity} con id {id} requerida.";
+        public const string Delete = "Borrado de entidad {entity} con id {id} requerida.";
 
         public const string AddedNewValue = "Agregado de entidad {entity} con valor {@value} requerida.";
 

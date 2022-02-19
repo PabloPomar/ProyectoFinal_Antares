@@ -7,11 +7,8 @@ namespace ProyectoFinal.Antares.Data.Repositories;
 
 public class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepository
 {
-    private readonly ApplicationDbContext _context;
-    
     public UsuarioRepository(ApplicationDbContext context) : base(context)
     {
-        _context = context;
     }
 
     public async Task<bool> ValidarNombreUsuarioAsync(string nombreUsuario)

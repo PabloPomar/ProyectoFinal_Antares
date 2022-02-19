@@ -15,7 +15,7 @@ public class PedidoConfiguracion : IEntityTypeConfiguration<Pedido>
 
         builder.Property(user => user.ListaPedido)
             .HasConversion(
-                a => (string)JsonConvert.SerializeObject(a),
+                a => JsonConvert.SerializeObject(a),
                 a => JsonConvert.DeserializeObject<List<PedidoProducto>>(a) ?? new List<PedidoProducto>());
         
         builder.HasOne(x => x.Usuario);
