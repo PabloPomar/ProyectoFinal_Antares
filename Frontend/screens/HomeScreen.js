@@ -1,75 +1,65 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-  FlatList,
-} from "react-native";
-import { Icon } from "react-native-elements";
-import { useDispatch } from "react-redux";
+import { Text, TouchableOpacity, View } from "react-native";
+import { Button, Icon, Input } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
-import { OpenURLButton } from "../components/UrlButton";
-import { setData } from "../slices/navSlice";
+import ScreenLayout from "../components/ScreenLayout";
+import { logInOut, selectLoginStatus } from "../slices/loginSlice";
+import { validate } from "react-email-validator";
 
 const antaresURL = "https://www.cervezaantares.com/";
-const menuOptions = [
-  {
-    id: "1",
-    name: "HomeScreen",
-    type: "antdesign",
-    icon: "home",
-  },
-  {
-    id: "2",
-    name: "AnotherScreen",
-    type: "antdesign",
-    icon: "home",
-  },
-];
 
 function HomeScreen() {
-  const navigation = useNavigation();
-  const dispatch = useDispatch()
+  const [userData, setUserData] = useState({ email: "", pwd: "" });
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectLoginStatus);
 
   return (
-    <SafeAreaView style={tw`bg-white h-full`}>
-      <View style={tw`h-5/6 mb-20 items-center`}>
-        <Image
-          style={{
-            width: 200,
-            height: 200,
-            resizeMode: "contain",
-          }}
-          source={require("../assets/logo_antares.png")}
-        />
-        <Text>HomeScreen</Text>
-      </View>
-
-      <View style={tw`border-t border-gray-200 flex-grow `}>
-        <FlatList
-          data={menuOptions}
-          keyExtractor={(item) => item.id}
-          horizontal
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate(item.name)} }
-            >
-              <Icon
-                name={item.icon}
-                type={item.type}
-                color={"white"}
-                style={tw`p-2 bg-black rounded-full w-10 mt-4`}
-              />
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-    </SafeAreaView>
+    <ScreenLayout>
+      {!isLoggedIn ? (
+        <>
+          <Text style={tw`text-2xl font-bold `}>Bienvenido!</Text>
+          <Text style={tw`w-10/12 pt-5 pb-5 text-center`}>
+            A continuación ingrese sus datos para iniciar sesión.
+          </Text>
+          <View
+            style={tw`bg-gray-50 w-10/12 p-10 border border-gray-300 rounded-lg shadow-lg mb-8`}
+          >
+            <Input
+              onChangeText={(value) =>
+                setUserData({ ...userData, email: value })
+              }
+              placeholder="correo"
+              errorStyle={{ color: 'red' }}
+              errorMessage={ !validate(userData.email) && userData.email.length > 0 ? 'Ingrese un correo válido' : null}
+              leftIcon={<Icon name="email" size={24} color="black" />}
+            />
+            <Input
+              onChangeText={(value) => setUserData({ ...userData, pwd: value })}
+              placeholder="contraseña"
+              secureTextEntry
+              errorStyle={{ color: 'red' }}
+              errorMessage={ userData.pwd.length > 0 && userData.pwd.length < 6 ? 'Ingrese una contraseña válida' : null}
+              leftIcon={<Icon name="lock" size={24} color="black" />}
+            />
+          </View>
+          <Button
+            title={"Iniciar sesión"}
+            type="outline"
+            raised
+            disabled={!validate(userData.email) || userData.pwd.length == 0}
+            containerStyle={{ width: "80%" }}
+            onPress={() => {
+              if (validate(userData.email) && userData.pwd.length > 0) {
+                dispatch(logInOut({ loggedIn: !isLoggedIn }));
+              }
+            }}
+          />
+        </>
+      ) : (
+        <Text>Logged in</Text>
+      )}
+    </ScreenLayout>
   );
 }
 

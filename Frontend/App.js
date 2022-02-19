@@ -10,6 +10,7 @@ import AnotherScreen from "./screens/AnotherScreen";
 import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { store } from "./store";
+import { StatusBar } from "expo-status-bar";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const App = () => {
             style={{ flex: 1 }}
             keyboardVerticalOffset={Platform.OS == "ios" ? -64 : 0}
           >
+            <StatusBar />
             <Stack.Navigator>
               <Stack.Screen
                 name="HomeScreen"
