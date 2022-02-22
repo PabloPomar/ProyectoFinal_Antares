@@ -9,16 +9,18 @@ import {
 } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { FAB } from "react-native-paper";
-import { useSelector } from "react-redux";
+import InputSpinner from "react-native-input-spinner";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
 import ScreenLayout from "../components/ScreenLayout";
 import { selectLoginStatus } from "../slices/loginSlice";
-import { selectProducts } from "../slices/productSlice";
+import { changeProductQuantity, selectProducts } from "../slices/productSlice";
 
 function MenuScreen() {
   const isLoggedIn = useSelector(selectLoginStatus);
   const products = useSelector(selectProducts);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <ScreenLayout>
@@ -32,23 +34,48 @@ function MenuScreen() {
             </View>
             <View style={tw`flex-1 flex-col pt-3`}>
               <ScrollView style={tw`mb-2`} nestedScrollEnabled={true}>
-                {products?.productList.map((item) => (
-                  <Card key={item.id}>
+                {Object.keys(products?.productList).map((key) => (
+                  <Card key={products.productList[key].id}>
                     <View style={tw`flex-row`}>
                       {/* IMAGE */}
                       <Card.Image
                         style={tw`w-28`}
                         resizeMode="contain"
-                        source={{ uri: item.imageURL }}
+                        source={{ uri: products.productList[key].imageURL }}
                       />
                       {/* CONTENT */}
                       <View style={styles.cardContent}>
-                        <Text style={tw`font-bold text-lg`}>{item.title}</Text>
+                        <View style={tw`flex-row justify-between`}>
+                          <Text style={tw`font-bold text-lg`}>
+                            {products.productList[key].title}
+                          </Text>
+                          {/* counter */}
+                          <InputSpinner
+                            max={4}
+                            min={0}
+                            step={1}
+                            colorMax={"red"}
+                            color={"blue"}
+                            colorMin={"black"}
+                            value={products.productList[key].quantity}
+                            onChange={(num) => {
+                              console.log(num);
+                            }}
+                            buttonStyle={tw`w-8 h-8`}
+                            buttonTextStyle={tw`leading-7`}
+                            buttonFontSize={22}
+                            style={tw`flex-row items-center`}
+                            
+                          />
+                        </View>
+
                         <Text style={tw`italic pt-0 text-xs pb-1`}>
-                          {item.subtitle}
+                          {products.productList[key].subtitle}
                         </Text>
                         <ScrollView>
-                          <Text style={tw`text-xs w-60`}>{item.desc}</Text>
+                          <Text style={tw`text-xs w-60`}>
+                            {products.productList[key].desc}
+                          </Text>
                         </ScrollView>
                       </View>
                     </View>
