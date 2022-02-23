@@ -22,7 +22,7 @@ export class ProductosService {
 
   findOne(id: number)
   {
-    return this.http.get<Producto[]>(this.requestUrl + '/id?id=' + id);
+    return this.http.get<Producto>(this.requestUrl + '/id?id=' + id);
   }
 
   agregarProducto(producto: Producto, params: HttpParams = new HttpParams())

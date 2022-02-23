@@ -7,7 +7,8 @@ import {ProductosFormComponent} from "./Components/Productos/productos-form/prod
 const routes: Routes = [
   { path: 'comun', component: ComunComponent},
   { path: 'productos', component: ProductosGridComponent},
-  { path: 'producto-form', component: ProductosFormComponent}
+  { path: 'producto-form-add', component: ProductosFormComponent},
+  { path: 'producto-form-edit/:id', component: ProductosFormComponent}
 ];
 
 @NgModule({

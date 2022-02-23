@@ -42,6 +42,6 @@ export class ProductosGridComponent implements OnInit {
   }
 
   async crearProducto(): Promise<void> {
-    await this.router.navigate(['/producto-form'])
+    await this.router.navigate(['/producto-form-add'])
   }
 }
