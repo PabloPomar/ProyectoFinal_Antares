@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // pasamos el estado inicial de la app
 const initialState = {
+  selectedProducts: {},
   productTypes: ["cerveza", "hamburguesa", "pizza"],
   productList: {
     kolsch1: {
@@ -66,13 +67,26 @@ export const productSlice = createSlice({
     changeProductQuantity: (state, action) => {
       state.productList[action.payload.id].quantity = action.payload.quantity;
     },
+    addToRemoveFromCart: (state, action) => {
+      if (state.selectedProducts[action.payload.id]) {
+        if (action.payload.quantity == 0) {
+          delete state.selectedProducts[action.payload.id];
+        } else {
+          state.selectedProducts[action.payload.id] = action.payload.quantity;
+        }
+      } else {
+        state.selectedProducts[action.payload.id] = action.payload.quantity;
+      }
+    },
   },
 });
 
 // Actions
-export const { changeProductQuantity } = productSlice.actions;
+export const { changeProductQuantity, addToRemoveFromCart } =
+  productSlice.actions;
 
 // Selectors
 export const selectProducts = (state) => state.products;
+export const selectOrder = (state) => state.products.selectedProducts;
 
 export default productSlice.reducer;

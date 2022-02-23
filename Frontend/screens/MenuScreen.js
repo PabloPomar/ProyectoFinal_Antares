@@ -14,11 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
 import ScreenLayout from "../components/ScreenLayout";
 import { selectLoginStatus } from "../slices/loginSlice";
-import { changeProductQuantity, selectProducts } from "../slices/productSlice";
+import {
+  addToRemoveFromCart,
+  selectOrder,
+  selectProducts,
+} from "../slices/productSlice";
 
 function MenuScreen() {
   const isLoggedIn = useSelector(selectLoginStatus);
   const products = useSelector(selectProducts);
+  const selectedProducts = useSelector(selectOrder);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -28,7 +33,7 @@ function MenuScreen() {
         <>
           <View style={tw`flex-1 w-full`}>
             <View style={tw`flex-row justify-between`}>
-              <Text style={tw`text-xl font-bold p-2`}>
+              <Text style={tw`text-xl font-bold p-2 pt-0`}>
                 ¿Qué desea pedir hoy?
               </Text>
             </View>
@@ -59,13 +64,15 @@ function MenuScreen() {
                             colorMin={"black"}
                             value={products.productList[key].quantity}
                             onChange={(num) => {
-                              console.log(num);
+                              console.log(num, key);
+                              dispatch(
+                                addToRemoveFromCart({ id: key, quantity: num })
+                              );
                             }}
                             buttonStyle={tw`w-8 h-8`}
                             buttonTextStyle={tw`leading-7`}
                             buttonFontSize={22}
                             style={tw`flex-row items-center`}
-                            
                           />
                         </View>
 
@@ -85,8 +92,10 @@ function MenuScreen() {
             </View>
           </View>
           <FAB
-            style={styles.fab}
+            style={Object.keys(selectedProducts).length == 0 ? styles.fabDisabled : styles.fab}
             small
+            animated
+            disabled={Object.keys(selectedProducts).length == 0}
             label="Agregar al pedido"
             icon="plus"
             onPress={() => console.log("Pressed")}
@@ -115,7 +124,16 @@ const styles = StyleSheet.create({
     margin: 3,
     right: 3,
     bottom: 3,
-    backgroundColor: "#000",
+    backgroundColor: "black",
+    elevation: 3
+  },
+  fabDisabled: {
+    position: "absolute",
+    margin: 3,
+    right: 3,
+    bottom: 3,
+    backgroundColor: "#ebecec",
+    elevation: 3
   },
   cardContent: {
     flexDirection: "column",
