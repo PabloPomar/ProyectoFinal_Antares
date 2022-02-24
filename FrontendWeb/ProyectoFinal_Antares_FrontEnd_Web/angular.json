@@ -103,9 +103,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "ProyectoFinal_Antares_FrontEnd_Web"
+  "defaultProject": "ProyectoFinal_Antares_FrontEnd_Web",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

@@ -1,12 +1,12 @@
-﻿import {imagenProducto} from "./imagenProducto";
+﻿import { imagenProducto } from './imagenProducto';
 
 export interface Producto
 {
-  id: number;
-  descripcion: string;
-  stock: number;
-  activo: boolean;
-  nota: string;
-  imagen: imagenProducto;
-  precio: number;
+    id: number;
+    descripcion: string;
+    stock: number;
+    activo: boolean;
+    nota: string;
+    imagen: imagenProducto;
+    precio: number;
 }

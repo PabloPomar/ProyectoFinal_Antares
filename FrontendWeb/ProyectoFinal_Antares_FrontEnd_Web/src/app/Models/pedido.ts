@@ -1,22 +1,22 @@
-﻿import {Usuario} from "./usuario";
-import {PedidoProducto} from "./pedidoProducto";
+﻿import { Usuario } from './usuario';
+import { PedidoProducto } from './pedidoProducto';
 
 export interface Pedido
 {
-  id: number;
-  usuario: Usuario;
-  estadoPedido: EstadoPedido;
-  listaPedido: PedidoProducto[];
-  precioTotal: number;
-  nota: string;
+    id: number;
+    usuario: Usuario;
+    estadoPedido: EstadoPedido;
+    listaPedido: PedidoProducto[];
+    precioTotal: number;
+    nota: string;
 }
 
 export enum EstadoPedido
 {
-  Creado,
-  Pagado,
-  Preparando,
-  EnCamino,
-  Entregado,
-  Finalizado
+    Creado,
+    Pagado,
+    Preparando,
+    EnCamino,
+    Entregado,
+    Finalizado
 }
