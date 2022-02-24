@@ -6,7 +6,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
-import AnotherScreen from "./screens/AnotherScreen";
+import MenuScreen from "./screens/MenuScreen";
 import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { store } from "./store";
@@ -34,8 +34,8 @@ const App = () => {
                 }}
               />
               <Stack.Screen
-                name="AnotherScreen"
-                component={AnotherScreen}
+                name="MenuScreen"
+                component={MenuScreen}
                 options={{
                   headerShown: false,
                 }}

@@ -6,7 +6,7 @@ import NavOptions from "./NavOptions";
 const ScreenLayout = ({ children, ...props }) => {
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
-      <View style={tw`h-5/6 mb-20 items-center`}>
+      <View style={tw`flex-grow items-center`}>
         <Image
           style={{
             width: 150,

@@ -13,7 +13,7 @@ const menuOptions = [
   },
   {
     id: "2",
-    name: "AnotherScreen",
+    name: "MenuScreen",
     type: "entypo",
     icon: "text-document",
   },
@@ -22,7 +22,7 @@ const menuOptions = [
 const NavOptions = () => {
   const navigation = useNavigation();
   return (
-    <View style={tw`border-t border-gray-200 flex-grow `}>
+    <View style={tw`border-t border-gray-300 bg-white w-full pb-2 `}>
       <FlatList
         data={menuOptions}
         keyExtractor={(item) => item.id}
