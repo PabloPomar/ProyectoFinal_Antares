@@ -1,10 +1,10 @@
-﻿import {Empleado} from "./empleado";
-import {Turno} from "./turno";
+﻿import { Empleado } from './empleado';
+import { Turno } from './turno';
 
 export interface EmpleadoTurno
 {
-  id: number;
-  empleado : Empleado;
-  turno: Turno;
-  activo: boolean;
+    id: number;
+    empleado : Empleado;
+    turno: Turno;
+    activo: boolean;
 }

@@ -1,31 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import {ComunService} from "../../../Services/Ejemplo/comun.service";
-import {Turno} from "../../../Models/turno";
-import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
+import { ComunService } from '../../../Services/Ejemplo/comun.service';
+import { Turno } from '../../../Models/turno';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 
 @Component({
-  selector: 'app-comun',
-  templateUrl: './comun.component.html',
-  styleUrls: ['./comun.component.scss']
+    selector: 'app-comun',
+    templateUrl: './comun.component.html',
+    styleUrls: ['./comun.component.scss']
 })
-export class ComunComponent implements OnInit {
+export class ComunComponent
+{
+    modules = [ClientSideRowModelModule];
 
-  modules = [ClientSideRowModelModule];
+    turnos: Turno[] = [];
 
-  constructor(public comunService: ComunService) { }
+    columnDefs = [
+        { field: 'id', filter: true },
+        { field: 'descripcion', sortable: true }
+    ];
 
-  turnos: Turno[] = [];
+    constructor(public comunService: ComunService)
+    { }
 
-  columnDefs = [
-    { field: 'id', filter: true },
-    { field: 'descripcion' , sortable: true},
-  ];
-
-  ngOnInit(): void {
-  }
-
-  getAllTurnos()
-  {
-    this.comunService.getConfig().subscribe((data: Turno[]) => this.turnos = data);
-  }
+    getAllTurnos()
+    {
+        this.comunService.getConfig().subscribe((data: Turno[]) => this.turnos = data);
+    }
 }

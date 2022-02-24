@@ -1,6 +1,6 @@
 ﻿export interface Mesa
 {
-  id: number;
-  descripcion: string;
-  idUbicacion: number;
+    id: number;
+    descripcion: string;
+    idUbicacion: number;
 }

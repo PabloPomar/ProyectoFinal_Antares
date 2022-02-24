@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import {Turno} from "../../Models/turno";
+import { Turno } from '../../Models/turno';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class ComunService {
+export class ComunService
+{
 
-  public requestUrl = 'https://localhost:7001/api/v1/Turno'
+    public requestUrl = 'https://localhost:7001/api/v1/Turno';
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient)
+    { }
 
-  getConfig() {
-    return this.http.get<Turno[]>(this.requestUrl);
-  }
+    getConfig()
+    {
+        return this.http.get<Turno[]>(this.requestUrl);
+    }
 
 }
