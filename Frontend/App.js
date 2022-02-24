@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { store } from "./store";
 import { StatusBar } from "expo-status-bar";
+import OrderScreen from "./screens/OrderScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,13 @@ const App = () => {
               <Stack.Screen
                 name="MenuScreen"
                 component={MenuScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="OrderScreen"
+                component={OrderScreen}
                 options={{
                   headerShown: false,
                 }}

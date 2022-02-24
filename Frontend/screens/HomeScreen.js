@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Button, Icon, Input } from "react-native-elements";
+import { Avatar, Button, Icon, Input } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
 import ScreenLayout from "../components/ScreenLayout";
 import { logInOut, selectLoginStatus } from "../slices/loginSlice";
 import { validate } from "react-email-validator";
+import { useNavigation } from "@react-navigation/native";
 
 const antaresURL = "https://www.cervezaantares.com/";
 
@@ -13,6 +14,7 @@ function HomeScreen() {
   const [userData, setUserData] = useState({ email: "", pwd: "" });
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectLoginStatus);
+  const navigation = useNavigation();
 
   return (
     <ScreenLayout>
@@ -30,16 +32,24 @@ function HomeScreen() {
                 setUserData({ ...userData, email: value })
               }
               placeholder="correo"
-              errorStyle={{ color: 'red' }}
-              errorMessage={ !validate(userData.email) && userData.email.length > 0 ? 'Ingrese un correo válido' : null}
+              errorStyle={{ color: "red" }}
+              errorMessage={
+                !validate(userData.email) && userData.email.length > 0
+                  ? "Ingrese un correo válido"
+                  : null
+              }
               leftIcon={<Icon name="email" size={24} color="black" />}
             />
             <Input
               onChangeText={(value) => setUserData({ ...userData, pwd: value })}
               placeholder="contraseña"
               secureTextEntry
-              errorStyle={{ color: 'red' }}
-              errorMessage={ userData.pwd.length > 0 && userData.pwd.length < 6 ? 'Ingrese una contraseña válida' : null}
+              errorStyle={{ color: "red" }}
+              errorMessage={
+                userData.pwd.length > 0 && userData.pwd.length < 6
+                  ? "Ingrese una contraseña válida"
+                  : null
+              }
               leftIcon={<Icon name="lock" size={24} color="black" />}
             />
           </View>
@@ -57,7 +67,31 @@ function HomeScreen() {
           />
         </>
       ) : (
-        <Text>Logged in</Text>
+        <View style={tw`flex-col flex-1 items-center w-full `}>
+          <Avatar
+            size="xlarge"
+            onPress={() => console.log("Works!")}
+            imageProps={{
+              resizeMode: "contain"
+            }}
+            source={{
+              uri: "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/profile_pictures%2Fleodicaprio.jpeg?alt=media&token=6aadb338-5c59-4a35-ab09-130929f6ab0d",
+            }}
+            rounded
+            activeOpacity={0.7}
+          />
+          <View>
+            <Text style={tw`text-xl font-bold leading-10`}>Bienvenida, Loquita</Text>
+          </View>
+          <Button
+            title={"Nuevo pedido"}
+            raised
+            containerStyle={{ width: "80%" }}
+            onPress={() => {
+              navigation.navigate("MenuScreen");
+            }}
+          />
+        </View>
       )}
     </ScreenLayout>
   );

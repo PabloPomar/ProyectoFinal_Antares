@@ -14,6 +14,12 @@ const menuOptions = [
   {
     id: "2",
     name: "MenuScreen",
+    type: "font-awesome-5",
+    icon: "beer",
+  },
+  {
+    id: "3",
+    name: "OrderScreen",
     type: "entypo",
     icon: "text-document",
   },
