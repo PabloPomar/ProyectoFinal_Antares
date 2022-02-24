@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'comun', component: ComunComponent},
   { path: 'productos', component: ProductosGridComponent},
   { path: 'producto-form-add', component: ProductosFormComponent},
-  { path: 'producto-form-edit/:id', component: ProductosFormComponent}
+  { path: 'producto-form-edit/:id', component: ProductosFormComponent},
+  { path: 'producto-form-view/:idView', component: ProductosFormComponent}
 ];
 
 @NgModule({

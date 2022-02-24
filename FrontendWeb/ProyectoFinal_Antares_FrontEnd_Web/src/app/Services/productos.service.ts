@@ -25,18 +25,21 @@ export class ProductosService {
     return this.http.get<Producto>(this.requestUrl + '/id?id=' + id);
   }
 
-  agregarProducto(producto: Producto, params: HttpParams = new HttpParams())
+  create(producto: Producto, params: HttpParams = new HttpParams())
   {
     return this.http.post<Producto>(this.requestUrl, producto);
   }
 
-  editarProducto(producto: Producto)
+  edit(producto: Producto)
   {
-    return this.http.put<Producto>(this.requestUrl, JSON.stringify(producto));
+    return this.http.put<Producto>(this.requestUrl, producto);
   }
 
-  borrarProducto(id: number)
+  delete(id: number)
   {
-    return this.http.delete(this.requestUrl + '/' + id);
+    console.log("Esta entrando");
+    console.log(id);
+    console.log(`${this.requestUrl}/${id}`);
+    return this.http.delete<Producto>(`${this.requestUrl}/${id}`);
   }
 }

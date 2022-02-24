@@ -8,19 +8,25 @@ import {AgGridModule} from "@ag-grid-community/angular";
 import { ProductosGridComponent } from './Components/Productos/productos-grid/productos-grid.component';
 import { ProductosFormComponent } from './Components/Productos/productos-form/productos-form.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { EditButtonComponent } from './Components/GridActions/edit-button/edit-button.component';
+import { DeleteButtonComponent } from './Components/GridActions/delete-button/delete-button.component';
+import { ViewButtonComponent } from './Components/GridActions/view-button/view-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ComunComponent,
     ProductosGridComponent,
-    ProductosFormComponent
+    ProductosFormComponent,
+    EditButtonComponent,
+    DeleteButtonComponent,
+    ViewButtonComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([EditButtonComponent, DeleteButtonComponent, ViewButtonComponent]),
     ReactiveFormsModule,
     FormsModule
   ],

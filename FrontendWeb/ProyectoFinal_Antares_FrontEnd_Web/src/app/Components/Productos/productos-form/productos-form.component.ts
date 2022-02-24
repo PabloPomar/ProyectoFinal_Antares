@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Producto} from "../../../Models/producto";
 import {ProductosService} from "../../../Services/productos.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {imagenProducto} from "../../../Models/imagenProducto";
 import {first} from "rxjs";
 
@@ -16,7 +16,9 @@ export class ProductosFormComponent implements OnInit {
   imageSrc: string = '';
   producto: Producto;
   id: number;
+  idView: number;
   isAddMode: boolean;
+  isViewMode: boolean;
   browserForm: FormGroup;
 
   titulo: string = "Agregar producto";
@@ -29,6 +31,13 @@ export class ProductosFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.id = this.route.snapshot.params['id'];
+    this.idView = this.route.snapshot.params['idView'];
+
+    if(this.idView !== undefined){
+      this.isViewMode = true;
+      this.id = this.idView;
+    }
+
     this.isAddMode = !this.id;
 
     this.initForm();
@@ -47,12 +56,12 @@ export class ProductosFormComponent implements OnInit {
   private initForm(): void{
     this.browserForm = this.fb.group({
       id: 0,
-      descripcion: '',
-      stock: 0,
+      descripcion: new FormControl({value: '', disabled: this.isViewMode}),
+      stock: new FormControl({value: 0, disabled: this.isViewMode}),
       activo: true,
-      nota: '',
-      precio: 0,
-      base64Image: ''
+      nota: new FormControl({value: '', disabled: this.isViewMode}),
+      precio: new FormControl({value: 0, disabled: this.isViewMode}),
+      base64Image: new FormControl({value: '', disabled: this.isViewMode})
     });
   }
 
@@ -71,20 +80,15 @@ export class ProductosFormComponent implements OnInit {
     }
 
     if (this.isAddMode) {
-      await this.productoService.agregarProducto(this.producto).subscribe(_ => this.router.navigate(['/productos']));
+      await this.productoService.create(this.producto).subscribe(_ => this.router.navigate(['/productos']));
     } else {
-      await this.productoService.editarProducto(this.producto).subscribe(_ => this.router.navigate(['/productos']));
+      await this.productoService.edit(this.producto).subscribe(_ => this.router.navigate(['/productos']));
     }
   }
 
   onFileChange(event:any) {
-
     const reader = new FileReader();
-
-
-
     if(event.target.files && event.target.files.length) {
-
       const [file] = event.target.files;
       reader.readAsDataURL(file);
       reader.onload = () => {

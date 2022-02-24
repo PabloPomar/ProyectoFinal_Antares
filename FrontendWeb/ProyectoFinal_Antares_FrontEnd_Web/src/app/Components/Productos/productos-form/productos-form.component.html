@@ -41,7 +41,7 @@
 
       <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px" alt="Birra">
 
-      <button type="submit" class="btn btn-success">Agregar</button>
+      <button type="submit" class="btn btn-success" [hidden]="isViewMode">Agregar</button>
       <button type="button" class="btn btn-default" (click)="regresar()">Volver</button>
     </form>
   </div>
