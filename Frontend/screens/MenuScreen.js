@@ -15,15 +15,17 @@ import tw from "tailwind-react-native-classnames";
 import ScreenLayout from "../components/ScreenLayout";
 import { selectLoginStatus } from "../slices/loginSlice";
 import {
-  addToRemoveFromCart,
-  selectOrder,
+  addToRemoveFromSelection,
+  createOrder,
+  selectProductSelection,
   selectProducts,
 } from "../slices/productSlice";
+import { setSelected } from "../slices/navOptionsSlice";
 
 function MenuScreen() {
   const isLoggedIn = useSelector(selectLoginStatus);
   const products = useSelector(selectProducts);
-  const selectedProducts = useSelector(selectOrder);
+  const selectedProducts = useSelector(selectProductSelection);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -62,11 +64,10 @@ function MenuScreen() {
                             colorMax={"red"}
                             color={"blue"}
                             colorMin={"black"}
-                            value={products.productList[key].quantity}
+                            value={selectedProducts[key] || 0}
                             onChange={(num) => {
-                              console.log(num, key);
                               dispatch(
-                                addToRemoveFromCart({ id: key, quantity: num })
+                                addToRemoveFromSelection({ id: key, quantity: num })
                               );
                             }}
                             buttonStyle={tw`w-8 h-8`}
@@ -93,12 +94,15 @@ function MenuScreen() {
           </View>
           <FAB
             style={Object.keys(selectedProducts).length == 0 ? styles.fabDisabled : styles.fab}
-            small
+            big
             animated
             disabled={Object.keys(selectedProducts).length == 0}
-            label="Agregar al pedido"
-            icon="plus"
-            onPress={() => console.log("Pressed")}
+            icon="arrow-right"
+            onPress={() => {
+              dispatch(setSelected({id: 2})) // se selecciona la pantalla de order
+              dispatch(createOrder())
+              navigation.navigate("OrderScreen")
+            }}
           />
         </>
       ) : (
