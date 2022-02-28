@@ -14,9 +14,27 @@ public class UsuarioController : BaseController<Usuario>
         _usuarioService = usuarioService;
     }
     
-    [HttpGet("validarUsuario")]
-    public async Task<bool> ValidarUsuario(string nombreUsuario, string contraseña)
+    [HttpPost("validarUsuario")]
+    public async Task<bool> ValidarUsuario(GetUsuarioRequest request)
     {
-        return await _usuarioService.ValidarUsuario(nombreUsuario, contraseña);
+        return await _usuarioService.ValidarUsuario(request.Usuario, request.Contrasenia);
+    }
+    
+    [HttpPost("token")]
+    public async Task<IActionResult> GenerarTokenDeUsuario(GetUsuarioRequest request)
+    {
+        var validUser = await _usuarioService.ValidarUsuario(request.Usuario, request.Contrasenia);
+
+        if (!validUser)
+            return NotFound();
+
+        var user = await _usuarioService.GetUsuario(request.Usuario, request.Contrasenia);
+        
+        if(user == null)
+            return NotFound();
+
+        var token = _usuarioService.GenerateToken(user);
+
+        return Ok(token);
     }
 }

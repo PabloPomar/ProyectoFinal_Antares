@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditButtonComponent } from './Components/GridActions/edit-button/edit-button.component';
 import { DeleteButtonComponent } from './Components/GridActions/delete-button/delete-button.component';
 import { ViewButtonComponent } from './Components/GridActions/view-button/view-button.component';
+import { LoginComponent } from './Components/Login/login/login.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { ViewButtonComponent } from './Components/GridActions/view-button/view-b
         ProductosFormComponent,
         EditButtonComponent,
         DeleteButtonComponent,
-        ViewButtonComponent
+        ViewButtonComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,

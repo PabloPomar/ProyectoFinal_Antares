@@ -13,15 +13,25 @@ public class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepository
 
     public async Task<bool> ValidarNombreUsuarioAsync(string nombreUsuario)
     {
-        var usuario = await Context.Set<Usuario>().AsSplitQuery().FirstOrDefaultAsync(x => x.NombreUsuario == nombreUsuario);
+        var usuario = await Context.Set<Usuario>().FirstOrDefaultAsync(x => x.NombreUsuario == nombreUsuario);
 
         return usuario != null;
     }
     
     public async Task<bool> ValidarUsuarioContraseñaAsync(string nombreUsuario, string password)
     {
-        var usuario = await Context.Set<Usuario>().AsSplitQuery().FirstOrDefaultAsync(x => x.NombreUsuario == nombreUsuario);
+        var usuario = await Context.Set<Usuario>().FirstOrDefaultAsync(x => x.NombreUsuario == nombreUsuario);
 
         return usuario != null && PasswordHash.ValidatePassword(password, usuario.Password);
+    }
+    
+    public async Task<Usuario?> GetUsuario(string nombreUsuario, string password)
+    {
+        var usuario = await Context.Set<Usuario>().FirstOrDefaultAsync(x => x.NombreUsuario == nombreUsuario);
+
+        if (usuario != null && PasswordHash.ValidatePassword(password, usuario.Password))
+            return usuario;
+
+        return null;
     }
 }
