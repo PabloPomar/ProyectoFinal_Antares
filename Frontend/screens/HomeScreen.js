@@ -7,12 +7,15 @@ import ScreenLayout from "../components/ScreenLayout";
 import { logInOut, selectLoginStatus } from "../slices/loginSlice";
 import { validate } from "react-email-validator";
 import { useNavigation } from "@react-navigation/native";
+import { setSelected } from "../slices/navOptionsSlice";
+import { selectOrder } from "../slices/productSlice";
 
 const antaresURL = "https://www.cervezaantares.com/";
 
 function HomeScreen() {
   const [userData, setUserData] = useState({ email: "", pwd: "" });
   const dispatch = useDispatch();
+  const orderLines = useSelector(selectOrder);
   const isLoggedIn = useSelector(selectLoginStatus);
   const navigation = useNavigation();
 
@@ -72,7 +75,7 @@ function HomeScreen() {
             size="xlarge"
             onPress={() => console.log("Works!")}
             imageProps={{
-              resizeMode: "contain"
+              resizeMode: "contain",
             }}
             source={{
               uri: "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/profile_pictures%2Fleodicaprio.jpeg?alt=media&token=6aadb338-5c59-4a35-ab09-130929f6ab0d",
@@ -80,17 +83,41 @@ function HomeScreen() {
             rounded
             activeOpacity={0.7}
           />
-          <View>
-            <Text style={tw`text-xl font-bold leading-10`}>Bienvenida, Loquita</Text>
+          <View style={tw`h-1/2`}>
+            <Text style={tw`text-xl font-bold leading-10`}>
+              Bienvenida, Loquita
+            </Text>
           </View>
-          <Button
-            title={"Nuevo pedido"}
-            raised
-            containerStyle={{ width: "80%" }}
-            onPress={() => {
-              navigation.navigate("MenuScreen");
-            }}
-          />
+          <View style={tw`flex-1 w-full px-5 py-5`}>
+            <View style={tw`mb-3`}>
+              <Button
+                title={"Pedir"}
+                raised
+                icon={
+                  <Icon
+                    name="right"
+                    type="ant-design"
+                    size={24}
+                    color="white"
+                  />
+                }
+                iconRight
+                onPress={() => {
+                  dispatch(setSelected({ id: 1 })); // seteo que el seleccionado es la pantalla de menu
+                  navigation.navigate("MenuScreen");
+                }}
+              />
+            </View>
+            <Button
+              title={"Ver orden creada"}
+              raised
+              disabled={Object.keys(orderLines).length == 0}
+              onPress={() => {
+                dispatch(setSelected({ id: 2 })); // seteo que el seleccionado es la pantalla de orden
+                navigation.navigate("OrderScreen");
+              }}
+            />
+          </View>
         </View>
       )}
     </ScreenLayout>

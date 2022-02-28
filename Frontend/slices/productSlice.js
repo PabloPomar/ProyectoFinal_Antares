@@ -16,7 +16,7 @@ const initialState = {
       amargor: "2/4",
       imageURL:
         "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/productos%2Fcervezas%2Fkolsch_beer.png?alt=media&token=0b744a21-74d5-4983-aaa6-adc6c11662e9",
-      quantity: 0,
+      price: 150,
     },
     scotch1: {
       id: "scotch1",
@@ -29,7 +29,7 @@ const initialState = {
       amargor: "1/4",
       imageURL:
         "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/productos%2Fcervezas%2Fscotch_beer.png?alt=media&token=a3ed2418-6382-4541-9dbe-e996a565bcf6",
-      quantity: 0,
+      price: 145,
     },
     porter1: {
       id: "porter1",
@@ -42,7 +42,7 @@ const initialState = {
       amargor: "2/4",
       imageURL:
         "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/productos%2Fcervezas%2Fporter_beer.png?alt=media&token=070b0f73-9ba4-4d75-ac16-999fd65f2b35",
-      quantity: 0,
+      price: 125,
     },
     barleywine1: {
       id: "barleywine1",
@@ -55,9 +55,10 @@ const initialState = {
       amargor: "3/4",
       imageURL:
         "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/productos%2Fcervezas%2Fbarleywine_beer.png?alt=media&token=9ae135c2-7cba-415b-8263-925786b26867",
-      quantity: 0,
+      price: 165,
     },
   },
+  order: {},
 };
 
 export const productSlice = createSlice({
@@ -67,7 +68,7 @@ export const productSlice = createSlice({
     changeProductQuantity: (state, action) => {
       state.productList[action.payload.id].quantity = action.payload.quantity;
     },
-    addToRemoveFromCart: (state, action) => {
+    addToRemoveFromSelection: (state, action) => {
       if (state.selectedProducts[action.payload.id]) {
         if (action.payload.quantity == 0) {
           delete state.selectedProducts[action.payload.id];
@@ -78,15 +79,20 @@ export const productSlice = createSlice({
         state.selectedProducts[action.payload.id] = action.payload.quantity;
       }
     },
+    createOrder: (state, _action) => {
+      state.order = state.selectedProducts;
+    },
   },
 });
 
 // Actions
-export const { changeProductQuantity, addToRemoveFromCart } =
+export const { changeProductQuantity, addToRemoveFromSelection, createOrder } =
   productSlice.actions;
 
 // Selectors
 export const selectProducts = (state) => state.products;
-export const selectOrder = (state) => state.products.selectedProducts;
+export const selectProductSelection = (state) =>
+  state.products.selectedProducts;
+export const selectOrder = (state) => state.products.order;
 
 export default productSlice.reducer;
