@@ -63,7 +63,8 @@ public class UsuarioService : ReferenceService<Usuario>, IUsuarioService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                new("userId", usuario.Id.ToString()),
+                new("userName", usuario.NombreUsuario),
                 new("userType", usuario.Tipo.ToString())
             }),
             Expires = DateTime.UtcNow.AddDays(7),

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComunComponent } from './Components/Ejemplos/comun/comun.component';
@@ -12,6 +12,8 @@ import { EditButtonComponent } from './Components/GridActions/edit-button/edit-b
 import { DeleteButtonComponent } from './Components/GridActions/delete-button/delete-button.component';
 import { ViewButtonComponent } from './Components/GridActions/view-button/view-button.component';
 import { LoginComponent } from './Components/Login/login/login.component';
+import { UserRegisterComponent } from './Components/Login/user-register/user-register.component';
+import {AuthInterceptor} from "./Interceptors/auth-interceptor.interceptor";
 
 @NgModule({
     declarations: [
@@ -22,7 +24,8 @@ import { LoginComponent } from './Components/Login/login/login.component';
         EditButtonComponent,
         DeleteButtonComponent,
         ViewButtonComponent,
-        LoginComponent
+        LoginComponent,
+        UserRegisterComponent
     ],
     imports: [
         BrowserModule,
@@ -32,7 +35,9 @@ import { LoginComponent } from './Components/Login/login/login.component';
         ReactiveFormsModule,
         FormsModule
     ],
-    providers: [],
+    providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule
