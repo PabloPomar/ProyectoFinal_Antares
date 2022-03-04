@@ -27,6 +27,13 @@
       placeholder="Email"
       required="required"
     />
+    <select [(ngModel)]="usuario.tipo" name="tipo">
+      <option disabled selected>Tipo Usuario</option>
+      <option [value]="0">Admin</option>
+      <option [value]="1">Mozo</option>
+      <option [value]="2">Delivery</option>
+      <option [value]="3">Cliente</option>
+    </select>
     <input
       type="password"
       [(ngModel)]="usuario.password"
