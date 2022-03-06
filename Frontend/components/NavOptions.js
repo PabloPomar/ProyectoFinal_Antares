@@ -5,6 +5,7 @@ import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectNavOptions, setSelected } from "../slices/navOptionsSlice";
+import { createOrder } from "../slices/productSlice";
 
 const NavOptions = () => {
   const menuOptions = useSelector(selectNavOptions);
@@ -23,6 +24,9 @@ const NavOptions = () => {
             style={tw`pl-3 pr-3`}
             onPress={() => {
               dispatch(setSelected({id: item[1].id}))
+              if (item[1].name == "OrderScreen") {
+                dispatch(createOrder())
+              }
               navigation.navigate(item[1].name);
             }}
           >

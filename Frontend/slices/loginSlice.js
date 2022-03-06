@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // pasamos el estado inicial de la app
 const initialState = {
-  loggedIn: true,
+  loggedIn: false,
   user: "pepito",
   email: "pepito@gmail.com",
   pwd: "123",

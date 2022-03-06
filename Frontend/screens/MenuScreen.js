@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { FAB } from "react-native-paper";
