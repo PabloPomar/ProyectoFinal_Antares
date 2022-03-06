@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ScreenLayout from "../components/ScreenLayout";
 import tw from "tailwind-react-native-classnames";
 import { selectOrder, selectProducts } from "../slices/productSlice";
-import { Divider } from "react-native-elements";
+import { Button, Divider } from "react-native-elements";
 
 const OrderScreen = () => {
   const orderLines = useSelector(selectOrder);
@@ -69,7 +69,7 @@ const OrderScreen = () => {
               <View style={tw`py-2`}>
                 <Divider width={3} orientation="horizontal" />
               </View>
-              <View style={tw`items-end pr-2`}>
+              <View style={tw`flex-row items-start pl-2`}>
                 <View style={tw` w-1/3`}>
                   <View style={tw`flex-row`}>
                     <Text style={tw`w-20`}>Subtotal:</Text>
@@ -83,6 +83,12 @@ const OrderScreen = () => {
                     <Text style={tw`text-lg font-bold w-20`}>Total:</Text>
                     <Text style={tw`text-lg font-bold`}>${total}</Text>
                   </View>
+                </View>
+                <View style={tw`flex-col flex-1 justify-center ml-2 mr-2 h-20`}>
+                    <Button
+                      buttonStyle={tw`rounded-full`}
+                      title={"Pagar"}
+                    />
                 </View>
               </View>
             </View>
