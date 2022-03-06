@@ -11,8 +11,15 @@
 
 export enum TipoUsuario
 {
-    Admin,
-    Mozo,
-    Delivery,
-    Cliente
+    Admin = 0,
+    Mozo = 1,
+    Delivery = 2,
+    Cliente = 3
 }
+
+export const TipoUsuarioMapping: Record<string, TipoUsuario> = {
+  "Admin" : TipoUsuario.Admin,
+  "Mozo" : TipoUsuario.Mozo,
+  "Delivery": TipoUsuario.Delivery,
+  "Cliente": TipoUsuario.Cliente
+};
