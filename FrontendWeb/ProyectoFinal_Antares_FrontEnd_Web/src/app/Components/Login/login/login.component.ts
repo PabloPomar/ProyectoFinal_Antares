@@ -11,24 +11,26 @@ import {TipoUsuario} from "../../../Models/usuario";
 export class LoginComponent {
   user: string;
   password: string;
+  userName: string;
+  userType: string;
+  isLogged: boolean = false;
 
   constructor(public loginService: LoginService) {}
 
   login() {
-    this.loginService.validarUsuario(this.user, this.password).subscribe(result => console.log(result));
+    this.loginService.validarUsuario(this.user, this.password).subscribe((data: any) => {
+      if (data != null)
+        this.checkToken()
+    });
   }
 
-  checkToken(){
+  checkToken() {
     let token = localStorage.getItem('loggedInUser');
-    const tokenInfo = this.getDecodedAccessToken(token); // decode token
-    const expireDate = tokenInfo.exp; // get token expiration dateTime
-    console.log(tokenInfo); // show decoded token object in console
-    console.log(tokenInfo.userId);
-    console.log(tokenInfo.userName);
-    console.log(tokenInfo.userType);
-
-    if(tokenInfo.userType == "Admin")
-      console.log("True");
+    const tokenInfo = this.getDecodedAccessToken(token);
+    const expireDate = tokenInfo.exp;
+    this.userName = tokenInfo.userName;
+    this.userType = tokenInfo.userType;
+    this.isLogged = true;
   }
 
   getDecodedAccessToken(token: string): any {

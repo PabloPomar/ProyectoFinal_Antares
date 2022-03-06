@@ -1,4 +1,9 @@
 <div class="login">
+  <div *ngIf="isLogged">
+    <p>Usuario logeado como: {{userName}}</p>
+    <p>Tipo usuario: {{userType}}</p>
+  </div>
+
   <form class="custom-form" method="post">
     <h1>Login</h1>
     <input
@@ -17,5 +22,4 @@
     />
     <button type="submit" (click)="login()">Log in</button>
   </form>
-  <button type="submit" (click)="checkToken()">Ver Token Data</button>
 </div>
