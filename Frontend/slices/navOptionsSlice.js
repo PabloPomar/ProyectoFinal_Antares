@@ -23,6 +23,13 @@ const initialState = {
     icon: "text-document",
     selected: false,
   },
+  3: {
+    id: 3,
+    name: "PaymentScreen",
+    type: "font-awesome-5",
+    icon: "money-bill-wave",
+    selected: false,
+  },
 };
 
 export const navOptionSlice = createSlice({
