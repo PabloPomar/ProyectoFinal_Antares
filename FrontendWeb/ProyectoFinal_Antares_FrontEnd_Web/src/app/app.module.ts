@@ -14,6 +14,7 @@ import { ViewButtonComponent } from './Components/GridActions/view-button/view-b
 import { LoginComponent } from './Components/Login/login/login.component';
 import { UserRegisterComponent } from './Components/Login/user-register/user-register.component';
 import {AuthInterceptor} from "./Interceptors/auth-interceptor.interceptor";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import {AuthInterceptor} from "./Interceptors/auth-interceptor.interceptor";
         AppRoutingModule,
         AgGridModule.withComponents([EditButtonComponent, DeleteButtonComponent, ViewButtonComponent]),
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        FontAwesomeModule
     ],
     providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

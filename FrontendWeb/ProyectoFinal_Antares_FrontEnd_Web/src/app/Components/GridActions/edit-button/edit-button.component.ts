@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { ICellRendererParams } from '@ag-grid-community/core';
 import { Router } from '@angular/router';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-edit-button',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 export class EditButtonComponent implements ICellRendererAngularComp
 {
     private params: any;
+    public faEdit = faEdit;
 
     constructor(private router: Router)
     {
