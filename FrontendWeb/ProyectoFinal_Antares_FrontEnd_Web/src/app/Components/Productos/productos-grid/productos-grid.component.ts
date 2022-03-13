@@ -19,6 +19,8 @@ export class ProductosGridComponent implements OnInit
 
     public api: any;
 
+    public rowHeight: number;
+
     public columnApi: any;
 
     constructor(public productoService: ProductosService,
@@ -27,6 +29,8 @@ export class ProductosGridComponent implements OnInit
         this.context = {
             componentParent: this
         };
+        this.rowHeight = 50;
+
     }
 
     productos: Producto[] = [];
@@ -38,11 +42,11 @@ export class ProductosGridComponent implements OnInit
     }
 
     columnDefs = [
-        { field: 'id', filter: true },
-        { field: 'descripcion', filter: true, sortable: true },
-        { field: 'stock', sortable: true },
-        { field: 'activo', sortable: true },
-        { field: 'precio', sortable: true },
+        { field: 'id', filter: true, cellStyle: {fontSize: '20px'}},
+        { field: 'descripcion', filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
+        { field: 'stock', sortable: true , cellStyle: {fontSize: '20px'}},
+        { field: 'activo', sortable: true , cellStyle: {fontSize: '20px'}},
+        { field: 'precio', sortable: true , cellStyle: {fontSize: '20px'}},
         {
             headerName: '',
             field: 'id',
@@ -50,7 +54,7 @@ export class ProductosGridComponent implements OnInit
             cellRendererParams: {
                 route: '/producto-form-view/'
             },
-            maxWidth: 75
+            maxWidth: 50
         },
         {
             headerName: '',
@@ -59,7 +63,7 @@ export class ProductosGridComponent implements OnInit
             cellRendererParams: {
                 route: '/producto-form-edit/'
             },
-            maxWidth: 75
+            maxWidth: 50
         },
         {
             headerName: '',

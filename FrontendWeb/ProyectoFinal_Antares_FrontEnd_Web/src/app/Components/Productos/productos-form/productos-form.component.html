@@ -1,97 +1,50 @@
-<div class="container">
-  <form [formGroup]="browserForm" (ngSubmit)="onSubmit()">
+<div class="register">
+  <form [formGroup]="browserForm" class="custom-form" (ngSubmit)="onSubmit()">
+    <h1>{{titulo}}</h1>
     <div class="form">
-      <div class="title">{{titulo}}</div>
       <div class="subtitle">
         <img [src]="imageSrc" *ngIf="imageSrc" alt="Birra">
       </div>
       <div class="input-container ic1">
-        <input id="descripcion" class="form-control input" type="text" placeholder=" "
+        <label for="descripcion">Nombre</label>
+        <input id="descripcion" class="form-control" type="text" placeholder="nombre"
                formControlName="descripcion" name="descripcion"/>
-        <div class="cut"></div>
-        <label for="descripcion" class="placeholder">Nombre</label>
       </div>
       <div class="input-container ic2">
-        <input type="number" class="form-control input" id="stock"
+        <label for="stock">Stock inicial</label>
+        <input type="number" class="form-control" id="stock"
                formControlName="stock"  name="stock">
-        <div class="cut"></div>
-        <label for="stock" class="placeholder">Stock inicial</label>
       </div>
       <div class="input-container ic2">
-        <input type="text" class="form-control input" id="nota"
-               placeholder=" " formControlName="nota" name="nota">
-        <div class="cut cut-short"></div>
-        <label for="nota" class="placeholder">Nota</label>
+        <label for="nota">Nota</label>
+        <input type="text" class="form-control" id="nota"
+               placeholder="nota" formControlName="nota" name="nota">
       </div>
       <div class="input-container ic2">
-        <input type="text" class="form-control input" id="precio"
-               placeholder=" " formControlName="precio" name="precio">
-        <div class="cut cut-short"></div>
-        <label for="precio" class="placeholder">Precio</label>
+        <label for="precio">Precio</label>
+        <input type="text" class="form-control" id="precio"
+               placeholder="precio" formControlName="precio" name="precio">
       </div>
-      <div class="input-container ic2">
+      <div class="input-container ic2" [hidden]="isViewMode">
+        <label for="base64Image">Foto</label>
         <input
           formControlName="base64Image"
           id="base64Image"
           type="file"
-          class="form-control input"
+          class="form-control"
           (change)="onFileChange($event)">
         <div *ngIf="f['base64Image'].touched && f['base64Image'].invalid" class="alert alert-danger">
           <div *ngIf="f['base64Image'].errors && f['base64Image'].errors['required']">La foto es necesaria.</div>
         </div>
-        <div class="cut cut-short"></div>
-        <label for="base64Image" class="placeholder">Foto</label>
       </div>
       <button type="submit" class="btn btn-success submit" [hidden]="isViewMode">Agregar</button>
       <button type="button" class="btn btn-default return" (click)="regresar()">Volver</button>
     </div>
   </form>
 </div>
-
-<!--<div class="container">
-    <h1>{{titulo}}</h1>
-    <form [formGroup]="browserForm" (ngSubmit)="onSubmit()" >
-      <div class="form-group">
-        <label for="descripcion">Descripcion (nombre)</label>
-        <input type="text" class="form-control" id="descripcion"
-               required
-               formControlName="descripcion" name="descripcion">
-      </div>
-      <div class="form-group">
-        <label for="stock" class="placeholder">Stock inicial</label>
-        <input type="number" class="form-control input" id="stock"
-               formControlName="stock"  name="stock">
-      </div>
-      <div class="form-group">
-        <label for="nota">Nota</label>
-        <input type="text" class="form-control input" id="nota"
-          placeholder=" " formControlName="nota" name="nota">
-      </div>
-      <div class="form-group" >
-        <label for="precio" class="placeholder">Precio</label>
-        <input type="text" class="form-control input" id="precio"
-          placeholder=" " formControlName="precio" name="precio">
-      </div>
-
-      <div class="form-group">
-
-        <label for="base64Image" class="placeholder">Foto</label>
-
-        <input
-          formControlName="base64Image"
-          id="base64Image"
-          type="file"
-          class="form-control input"
-          (change)="onFileChange($event)">
-        <div *ngIf="f['base64Image'].touched && f['base64Image'].invalid" class="alert alert-danger">
-          <div *ngIf="f['base64Image'].errors && f['base64Image'].errors['required']">La foto es necesaria.</div>
-        </div>
-
-      </div>
-
-      <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px" alt="Birra">
-
-      <button type="submit" class="btn btn-success submit" [hidden]="isViewMode">Agregar</button>
-      <button type="button" class="btn btn-default" (click)="regresar()">Volver</button>
-    </form>
-  </div>-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

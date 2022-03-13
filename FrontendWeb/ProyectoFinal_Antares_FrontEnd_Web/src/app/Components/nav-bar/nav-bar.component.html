@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/login">
+      <img src="/assets/logo_antares.svg" width="100" height="40" alt="LogoAntares"
+           loading="lazy">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav" mdbCollapse>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/userRegister" routerLinkActive="active">Registro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/productos" routerLinkActive="active">Productos</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li *ngIf="checkToken" class="nav-item float-right">
+          <fa-icon [icon]="faUser" style="color: green"></fa-icon>  {{userName}} : {{userType}}
+          <br>
+          <button class="btn default" (click)="logOut()">Log out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -15,6 +15,8 @@ import { LoginComponent } from './Components/Login/login/login.component';
 import { UserRegisterComponent } from './Components/Login/user-register/user-register.component';
 import {AuthInterceptor} from "./Interceptors/auth-interceptor.interceptor";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
+import { FooterComponent } from './Components/footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,9 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
         DeleteButtonComponent,
         ViewButtonComponent,
         LoginComponent,
-        UserRegisterComponent
+        UserRegisterComponent,
+        NavBarComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

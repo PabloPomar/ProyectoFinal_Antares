@@ -1,6 +1,6 @@
 @import "@ag-grid-community/core/dist/styles/ag-grid.css";
 @import "@ag-grid-community/core/dist/styles/ag-theme-alpine.css";
-
+@import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
 .iconHighlighter:hover{
   color:red !important;
   border-bottom: 2px solid red;
