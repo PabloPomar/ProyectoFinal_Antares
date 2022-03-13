@@ -7,16 +7,13 @@ import jwtDecode from "jwt-decode";
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
 
   userName: string;
   userType: string;
   isLogged: boolean = false;
   public faUser = faUser;
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get checkToken() {
     let token = localStorage.getItem('loggedInUser');
