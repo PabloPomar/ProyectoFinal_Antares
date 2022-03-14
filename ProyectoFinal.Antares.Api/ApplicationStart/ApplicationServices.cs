@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 using NSwag.Generation.Processors.Security;
@@ -72,6 +73,10 @@ namespace ProyectoFinal.Antares.Api.ApplicationStart
             services.AddHealthChecks();
 
             services.AddHttpContextAccessor();
+            
+            services.AddAuthentication(
+                    CertificateAuthenticationDefaults.AuthenticationScheme)
+                .AddCertificate();
             
             services.AddOpenApiDocument(doc =>
             {
