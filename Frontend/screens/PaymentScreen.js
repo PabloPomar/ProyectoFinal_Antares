@@ -24,12 +24,14 @@ const PaymentScreen = () => {
   return (
     <ScreenLayout>
       {isLoggedIn ? (
-        <View style={tw`flex-1 w-full`}>
+        <View style={tw`flex-1 w-80`}>
+          <Text style={tw`font-bold text-xl`}>Elija un medio de pago</Text>
           <ScrollView>
               {paymentMethods ? Object.keys(paymentMethods).map((key) => (
                   <Card key={key}>
-                      <View>
+                      <View style={tw`flex-row justify-evenly`}>
                           <Icon name={paymentMethods[key].icon} type={paymentMethods[key].type}/>
+                          <Text>{paymentMethods[key].desc}</Text>
                       </View>
                   </Card>
               )) : null}

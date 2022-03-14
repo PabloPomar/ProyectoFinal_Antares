@@ -7,6 +7,7 @@ const initialState = {
     name: "Visa",
     type: "font-awesome",
     icon: "cc-visa",
+    desc: "terminada en **** 1234",
     selected: true,
   },
   1: {
@@ -14,6 +15,7 @@ const initialState = {
     name: "MasterCard",
     type: "font-awesome",
     icon: "cc-mastercard",
+    desc: "terminada en **** 1234",
     selected: true,
   },
   2: {
@@ -21,6 +23,7 @@ const initialState = {
     name: "Amex",
     type: "font-awesome",
     icon: "cc-amex",
+    desc: "terminada en **** 1234",
     selected: true,
   },
   
