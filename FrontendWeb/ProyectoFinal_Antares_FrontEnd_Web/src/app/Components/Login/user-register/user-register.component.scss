@@ -10,27 +10,30 @@ body {
 h1 {
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 .custom-form {
   min-width: 300px;
   max-width: 60%;
   padding: 2rem 3rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
+  border: 3px solid black;
+  background: white;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
   color: black;
-  margin: 10rem auto 0;
+  margin: 5rem auto 0;
 }
 .custom-form input {
-  display: block;
+  display:flex;
+  flex-direction:column;
   margin: 2rem 0;
   width: 100%;
   border-radius: 0.5rem;
   padding: 1rem;
-  border: none;
+  border: 1px solid black;
   box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
   rgba(0, 0, 0, 0.1);
-  background: #ebf5fc;
+  background: whitesmoke;
 }
 
 .custom-form select {
@@ -39,10 +42,10 @@ h1 {
   width: 100%;
   border-radius: 0.5rem;
   padding: 1rem;
-  border: none;
+  border: 1px solid black;
   box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
   rgba(0, 0, 0, 0.1);
-  background: #ebf5fc;
+  background: ghostwhite;
 }
 
 .custom-form button {

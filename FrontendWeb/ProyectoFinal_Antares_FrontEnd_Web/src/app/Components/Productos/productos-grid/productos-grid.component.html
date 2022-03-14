@@ -1,8 +1,8 @@
+<br>
 <div style="width: 100%;">
-  <button type="button" class="btn btn-default" (click)="crearProducto()">Ir al formulario</button>
-  <button type="button" class="btn btn-default" (click)="delete(1)">Borrar</button>
+  <button type="button" class="btn btn-default rightButton"  (click)="crearProducto()">Nuevo Producto</button>
   <ag-grid-angular
-    style="width: 100%; height: 300px;"
+    style="width: 100%; height: 40rem;"
     class="ag-theme-alpine"
     [context]="context"
     [rowData]="productos"
@@ -10,6 +10,5 @@
     [modules]="modules"
     [gridOptions]="gridOptions"
     (gridReady)="onGridReady($event)">
-
   </ag-grid-angular>
 </div>
