@@ -38,6 +38,7 @@ export class ProductosFormComponent implements OnInit
         if (this.idView !== undefined)
         {
             this.isViewMode = true;
+            this.titulo = "Detalle producto"
             this.id = this.idView;
         }
 
@@ -47,6 +48,7 @@ export class ProductosFormComponent implements OnInit
 
         if (!this.isAddMode)
         {
+          this.titulo = "Editar producto"
             this.productoService.findOne(this.id)
                 .pipe(first())
                 .subscribe(x =>
@@ -55,6 +57,9 @@ export class ProductosFormComponent implements OnInit
                   this.imageSrc = x.imagen.base64Image;
                 } );
         }
+
+        if(this.isViewMode)
+          this.titulo = "Detalle producto"
     }
 
     get f()

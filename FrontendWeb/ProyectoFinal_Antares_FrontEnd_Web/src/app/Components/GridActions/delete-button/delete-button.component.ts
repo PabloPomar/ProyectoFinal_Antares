@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { ICellRendererParams } from '@ag-grid-community/core';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-delete-button',
@@ -9,8 +10,10 @@ import { ICellRendererParams } from '@ag-grid-community/core';
 })
 export class DeleteButtonComponent implements ICellRendererAngularComp
 {
+    public faTrash = faTrash;
     componentParent: any;
     private params: any;
+
 
     agInit(params: any): void
     {

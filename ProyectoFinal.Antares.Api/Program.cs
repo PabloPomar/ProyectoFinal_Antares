@@ -9,7 +9,7 @@ namespace ProyectoFinal.Antares.Api
     {
         private static readonly IConfiguration Configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", false, true)
+            .AddJsonFile(OperatingSystem.IsMacOS() ? "appsettings.mac.json" : "appsettings.json"  , false, true)
             .AddJsonFile(
                 $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development"}.json",
                 true)
