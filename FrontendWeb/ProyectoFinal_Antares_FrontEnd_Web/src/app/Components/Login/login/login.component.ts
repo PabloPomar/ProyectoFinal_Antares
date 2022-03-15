@@ -2,25 +2,45 @@ import { Component, OnInit } from '@angular/core';
 import {LoginService} from "../../../Services/login.service";
 import jwtDecode from "jwt-decode";
 import {TipoUsuario} from "../../../Models/usuario";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  userForm: FormGroup;
   user: string;
   password: string;
   userName: string;
   userType: string;
   isLogged: boolean = false;
 
-  constructor(public loginService: LoginService) {}
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  constructor(public loginService: LoginService, private fb: FormBuilder) {
+  }
 
   login() {
+    this.user = this.userForm.value.user;
+    this.password = this.userForm.value.password;
     this.loginService.validarUsuario(this.user, this.password).subscribe((data: any) => {
       if (data != null)
         this.checkToken()
+    });
+  }
+
+  private initForm(): void{
+    this.userForm = this.fb.group({
+      user: new FormControl('', [
+        Validators.required
+      ]),
+      password: new FormControl('', [
+        Validators.required
+      ])
     });
   }
 
