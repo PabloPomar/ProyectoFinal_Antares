@@ -7,26 +7,25 @@ const initialState = {
     name: "Visa",
     type: "font-awesome",
     icon: "cc-visa",
-    desc: "terminada en **** 1234",
-    selected: true,
+    desc: "terminada en **** 2243",
+    selected: false,
   },
   1: {
     id: 1,
     name: "MasterCard",
     type: "font-awesome",
     icon: "cc-mastercard",
-    desc: "terminada en **** 1234",
-    selected: true,
+    desc: "terminada en **** 4576",
+    selected: false,
   },
   2: {
     id: 2,
     name: "Amex",
     type: "font-awesome",
     icon: "cc-amex",
-    desc: "terminada en **** 1234",
-    selected: true,
+    desc: "terminada en **** 9712",
+    selected: false,
   },
-  
 };
 
 export const paymentMethodsSlice = createSlice({
@@ -41,12 +40,23 @@ export const paymentMethodsSlice = createSlice({
         }
       }
     },
+    removeSelection: (state, _action) => {
+      let selectedKey = Object.keys(state).filter(
+        (key) => state[key].selected == true
+      );
+      state[selectedKey].selected = false
+    },
   },
 });
 
-export const { selectCard } = paymentMethodsSlice.actions;
+export const { selectCard, removeSelection } = paymentMethodsSlice.actions;
 
 // Selectors
 export const selectPaymentMethods = (state) => state.paymentMethods;
+export const getSelectedPaymentMethod = (state) => {
+  return Object.keys(state.paymentMethods).filter(
+    (key) => state.paymentMethods[key].selected == true
+  );
+};
 
 export default paymentMethodsSlice.reducer;
