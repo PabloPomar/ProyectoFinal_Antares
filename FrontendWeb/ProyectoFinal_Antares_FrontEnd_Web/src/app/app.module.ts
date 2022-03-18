@@ -17,6 +17,7 @@ import {AuthInterceptor} from "./Interceptors/auth-interceptor.interceptor";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { HomeComponent } from './Components/home/home.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { FooterComponent } from './Components/footer/footer.component';
         LoginComponent,
         UserRegisterComponent,
         NavBarComponent,
-        FooterComponent
+        FooterComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

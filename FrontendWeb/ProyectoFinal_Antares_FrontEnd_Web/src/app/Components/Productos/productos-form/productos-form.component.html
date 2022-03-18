@@ -9,21 +9,41 @@
         <label for="descripcion">Nombre</label>
         <input id="descripcion" class="form-control" type="text" placeholder="nombre"
                formControlName="descripcion" name="descripcion"/>
+        <div class="invalidFeedback">
+          <small *ngIf="!isValidField('descripcion')">
+            El nombre es requerido
+          </small>
+        </div>
       </div>
       <div class="input-container ic2">
         <label for="stock">Stock inicial</label>
         <input type="number" class="form-control" id="stock"
                formControlName="stock"  name="stock">
+        <div class="invalidFeedback">
+          <small *ngIf="!isValidField('stock')">
+            El stock es requerido y debe ser 0 o mayor.
+          </small>
+        </div>
       </div>
       <div class="input-container ic2">
         <label for="nota">Nota</label>
         <input type="text" class="form-control" id="nota"
                placeholder="nota" formControlName="nota" name="nota">
+        <div class="invalidFeedback">
+          <small *ngIf="!isValidField('nota')">
+            El nota es requerida
+          </small>
+        </div>
       </div>
       <div class="input-container ic2">
         <label for="precio">Precio</label>
         <input type="text" class="form-control" id="precio"
                placeholder="precio" formControlName="precio" name="precio">
+        <div class="invalidFeedback">
+          <small *ngIf="!isValidField('precio')">
+            El precio es requerido y debe ser 1 o mayor.
+          </small>
+        </div>
       </div>
       <div class="input-container ic2" [hidden]="isViewMode">
         <label for="base64Image">Foto</label>
@@ -37,7 +57,7 @@
           <div *ngIf="f['base64Image'].errors && f['base64Image'].errors['required']">La foto es necesaria.</div>
         </div>
       </div>
-      <button type="submit" class="btn btn-success submit" [hidden]="isViewMode">Agregar</button>
+      <button type="submit" class="btn btn-success submit" [hidden]="isViewMode" [disabled]="!browserForm.valid">Agregar</button>
       <br>
       <button type="button" class="btn btn-default return" (click)="regresar()">Volver</button>
     </div>

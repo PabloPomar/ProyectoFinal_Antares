@@ -1,33 +1,44 @@
 <div class="register">
-  <form class="custom-form" method="post">
+  <form [formGroup]="userRegisterForm"  class="custom-form" method="post">
     <h1>Registro de usuario</h1>
     <input
       type="text"
-      [(ngModel)]="usuario.nombreUsuario"
       name="nombre"
       placeholder="nombre"
       required="required"
+      formControlName="nombreUsuario"
     />
+    <div class="invalidFeedback">
+      <small *ngIf="!isValidField('nombreUsuario')">
+        El nombre es requerido
+      </small>
+    </div>
     <input
       type="number"
-      [(ngModel)]="usuario.dni"
       name="dni"
       placeholder="dni"
+      formControlName="dni"
     />
     <input
       type="text"
-      [(ngModel)]="usuario.telefono"
       name="nro. telefono"
       placeholder="nro. telefono"
+      formControlName="telefono"
     />
     <input
       type="email"
-      [(ngModel)]="usuario.mail"
       name="email"
       placeholder="Email"
       required="required"
+      email="true"
+      formControlName="mail"
     />
-    <select [(ngModel)]="usuario.tipo" name="tipo">
+    <div class="invalidFeedback">
+      <small *ngIf="!isValidField('mail')">
+        El email es requerido y debee poseer formato de mail. Ejemplo: nombre@mail.com
+      </small>
+    </div>
+    <select name="tipo" formControlName="tipo">
       <option disabled selected>Tipo Usuario</option>
       <option [value]="0">Admin</option>
       <option [value]="1">Mozo</option>
@@ -36,19 +47,28 @@
     </select>
     <input
       type="password"
-      [(ngModel)]="usuario.password"
       name="password"
-      placeholder="Password"
+      placeholder="contraseña"
       required="required"
+      formControlName="password"
     />
+    <div class="invalidFeedback">
+        <small *ngIf="!isValidField('password')">
+            La contraseña debe poseer 8 caracteres, Al menos una letra en minuscula, 1 en mayuscula y un número.
+        </small>
+    </div>
     <input
       type="password"
-      [(ngModel)]="confirmPassword"
       name="password"
-      placeholder="Repetir password"
-      required="required"
+      placeholder="Repetir contraseña"
+      formControlName="confirmPassword"
     />
-    <button type="submit" (click)="register()">Register</button>
+    <div class="invalidFeedback">
+      <small *ngIf="!isValidField('confirmPassword')">
+        Las contraseñas deben ser iguales
+      </small>
+    </div>
+    <button type="submit" [disabled]="!userRegisterForm.valid" (click)="register()">Register</button>
   </form>
 </div>
 <br>

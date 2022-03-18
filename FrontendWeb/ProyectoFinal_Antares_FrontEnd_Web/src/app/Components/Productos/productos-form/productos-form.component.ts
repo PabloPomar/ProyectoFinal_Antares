@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../../Models/producto';
 import { ProductosService } from '../../../Services/productos.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { first } from 'rxjs';
 
 @Component({
@@ -12,7 +12,6 @@ import { first } from 'rxjs';
 })
 export class ProductosFormComponent implements OnInit
 {
-
     imageSrc: string = '';
     producto: Producto;
     id: number;
@@ -71,11 +70,21 @@ export class ProductosFormComponent implements OnInit
     {
         this.browserForm = this.fb.group({
             id: 0,
-            descripcion: new FormControl({ value: '', disabled: this.isViewMode }),
-            stock: new FormControl({ value: 0, disabled: this.isViewMode }),
+            descripcion: new FormControl({ value: '', disabled: this.isViewMode }, [
+              Validators.required
+            ]),
+            stock: new FormControl({ value: 0, disabled: this.isViewMode }, [
+              Validators.required,
+              Validators.min(0)
+            ]),
             activo: true,
-            nota: new FormControl({ value: '', disabled: this.isViewMode }),
-            precio: new FormControl({ value: 0, disabled: this.isViewMode }),
+            nota: new FormControl({ value: '', disabled: this.isViewMode }, [
+              Validators.required
+            ]),
+            precio: new FormControl({ value: 0, disabled: this.isViewMode }, [
+              Validators.required,
+              Validators.min(1)
+            ]),
             base64Image: new FormControl({ value: '', disabled: this.isViewMode })
         });
     }
@@ -118,6 +127,14 @@ export class ProductosFormComponent implements OnInit
             };
         }
     }
+
+  isValidField(field: string): boolean {
+    const validatedField = this.browserForm.get(field);
+    if(!validatedField.touched)
+      return true;
+
+    return (validatedField.valid);
+  }
 
     async regresar(): Promise<void>
     {
