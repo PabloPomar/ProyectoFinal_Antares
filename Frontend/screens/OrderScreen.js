@@ -1,12 +1,19 @@
-import { FlatList, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ScreenLayout from "../components/ScreenLayout";
 import tw from "tailwind-react-native-classnames";
 import { selectOrder, selectProducts } from "../slices/productSlice";
 import { Button, Divider, Icon } from "react-native-elements";
 import { selectLoginStatus } from "../slices/loginSlice";
 import { useNavigation } from "@react-navigation/native";
+import { setSelected } from "../slices/navOptionsSlice";
 
 const OrderScreen = () => {
   const isLoggedIn = useSelector(selectLoginStatus);
@@ -15,6 +22,7 @@ const OrderScreen = () => {
   const navigation = useNavigation();
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(0);
+  const dispatch = useDispatch()
 
   const envio = 90;
 
@@ -92,7 +100,13 @@ const OrderScreen = () => {
                   <View
                     style={tw`flex-col flex-1 justify-center ml-2 mr-2 h-20`}
                   >
-                    <Button buttonStyle={tw`rounded-full`} title={"Pagar"} />
+                    <Button
+                      buttonStyle={tw`rounded-full`}
+                      title={"Proceder a pagar"}
+                      onPress={() => {
+                        dispatch(setSelected({id:3}))
+                        navigation.navigate("PaymentScreen")}}
+                    />
                   </View>
                 </View>
               </View>

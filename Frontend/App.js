@@ -7,11 +7,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
+import OrderScreen from "./screens/OrderScreen";
+import PaymentScreen from "./screens/PaymentScreen";
 import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { store } from "./store";
 import { StatusBar } from "expo-status-bar";
-import OrderScreen from "./screens/OrderScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,13 @@ const App = () => {
               <Stack.Screen
                 name="OrderScreen"
                 component={OrderScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="PaymentScreen"
+                component={PaymentScreen}
                 options={{
                   headerShown: false,
                 }}
