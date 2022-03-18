@@ -45,13 +45,13 @@ function MenuScreen() {
                     <View style={tw`flex-row`}>
                       {/* IMAGE */}
                       <Card.Image
-                        style={tw`w-28`}
+                        style={tw`w-24`}
                         resizeMode="contain"
                         source={{ uri: products.productList[key].imageURL }}
                       />
                       {/* CONTENT */}
                       <View style={styles.cardContent}>
-                        <View style={tw`flex-row justify-between`}>
+                        <View style={tw`flex-row justify-between pr-3`}>
                           <Text style={tw`font-bold text-lg`}>
                             {products.productList[key].title}
                           </Text>
