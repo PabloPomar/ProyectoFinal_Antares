@@ -68,7 +68,13 @@
         Las contraseñas deben ser iguales
       </small>
     </div>
-    <button type="submit" [disabled]="!userRegisterForm.valid" (click)="register()">Register</button>
+    <div style="margin-left: auto; margin-right: auto; text-align: center; margin-top: 2rem;">
+      <re-captcha
+        style="display: inline-block;"
+        (resolved)="resolved($event)"
+        [siteKey]="siteKey"></re-captcha>
+    </div>
+    <button type="submit" [disabled]="!userRegisterForm.valid || !captchaResolved" (click)="register()">Register</button>
   </form>
 </div>
 <br>

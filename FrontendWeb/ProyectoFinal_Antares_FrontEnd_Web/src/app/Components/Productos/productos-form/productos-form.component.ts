@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Producto } from '../../../Models/producto';
-import { ProductosService } from '../../../Services/productos.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Producto, TipoProducto} from '../../../Models/producto';
+import {ProductosService} from '../../../Services/productos.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { first } from 'rxjs';
+import {first} from 'rxjs';
 
 @Component({
     selector: 'app-productos-form',
@@ -19,6 +19,9 @@ export class ProductosFormComponent implements OnInit
     isAddMode: boolean;
     isViewMode: boolean;
     browserForm: FormGroup;
+    esBebida: TipoProducto = TipoProducto.BebidaAlcoholica;
+    nombreOriginal: string;
+    productoExiste: boolean = false;
 
     titulo: string = 'Agregar producto';
 
@@ -30,7 +33,6 @@ export class ProductosFormComponent implements OnInit
 
     ngOnInit(): void
     {
-
         this.id = this.route.snapshot.params['id'];
         this.idView = this.route.snapshot.params['idView'];
 
@@ -54,6 +56,7 @@ export class ProductosFormComponent implements OnInit
                 {
                   this.browserForm.patchValue(x);
                   this.imageSrc = x.imagen.base64Image;
+                  this.nombreOriginal = x.nombre;
                 } );
         }
 
@@ -70,6 +73,13 @@ export class ProductosFormComponent implements OnInit
     {
         this.browserForm = this.fb.group({
             id: 0,
+            tipoProducto: new FormControl({ value: TipoProducto.BebidaAlcoholica, disabled: this.isViewMode }, [
+              Validators.required
+            ]),
+            nombre: new FormControl({ value: '', disabled: this.isViewMode }, [
+              Validators.required
+            ]),
+            subtitulo: new FormControl({ value: '', disabled: this.isViewMode }),
             descripcion: new FormControl({ value: '', disabled: this.isViewMode }, [
               Validators.required
             ]),
@@ -85,6 +95,7 @@ export class ProductosFormComponent implements OnInit
               Validators.required,
               Validators.min(1)
             ]),
+            porcentageAlcohol: new FormControl({ value: null, disabled: this.isViewMode }),
             base64Image: new FormControl({ value: '', disabled: this.isViewMode })
         });
     }
@@ -93,6 +104,8 @@ export class ProductosFormComponent implements OnInit
     {
         this.producto = {
             id: this.browserForm.value.id,
+            nombre: this.browserForm.value.nombre,
+            subtitulo: this.browserForm.value.subtitulo,
             descripcion: this.browserForm.value.descripcion,
             stock: this.browserForm.value.stock,
             activo: true,
@@ -101,14 +114,30 @@ export class ProductosFormComponent implements OnInit
                 id: 0,
                 base64Image: this.imageSrc
             },
-            precio: this.browserForm.value.precio
+            precio: this.browserForm.value.precio,
+            porcentageAlcohol: this.browserForm.value.porcentageAlcohol,
+            tipoProducto: this.browserForm.value.tipoProducto
         };
-
-        if (this.isAddMode)
-            await this.productoService.create(this.producto).subscribe(_ => this.router.navigate(['/productos']));
-        else
-            await this.productoService.edit(this.producto).subscribe(_ => this.router.navigate(['/productos']));
-
+          if (this.isAddMode)
+          {
+            this.productoService.validarNombre(this.producto.nombre).subscribe(async x => {
+              if (x)
+                alert(`El producto con nombre ${this.producto.nombre} se encuentra en uso. Utilize otro nombre.`)
+              else
+                await this.productoService.create(this.producto).subscribe(_ => this.router.navigate(['/productos']));
+            });
+          }
+          else
+          {
+            this.productoService.validarNombreEdit(this.producto.nombre, this.nombreOriginal).subscribe(async x => {
+                if (x) {
+                  alert(`El producto con nombre ${this.producto.nombre} se encuentra en uso. Utilize otro nombre.`)
+                } else {
+                  await this.productoService.edit(this.producto).subscribe(_ => this.router.navigate(['/productos']));
+                }
+              }
+            );
+          }
     }
 
     onFileChange(event:any)
@@ -136,8 +165,8 @@ export class ProductosFormComponent implements OnInit
     return (validatedField.valid);
   }
 
-    async regresar(): Promise<void>
-    {
-        await this.router.navigate(['/productos']);
-    }
+  async regresar(): Promise<void>
+  {
+      await this.router.navigate(['/productos']);
+  }
 }

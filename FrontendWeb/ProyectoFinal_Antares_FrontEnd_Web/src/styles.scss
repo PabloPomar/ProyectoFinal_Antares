@@ -10,3 +10,83 @@
   color: red;
 }
 
+
+* {
+  box-sizing: border-box;
+}
+
+.custom-form {
+  min-width: 300px;
+  max-width: 60%;
+  padding: 2rem 3rem;
+  border-radius: 2.5rem;
+  border: 3px solid black;
+  background: white;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  color: black;
+  margin: 5rem auto 0;
+}
+.custom-form input {
+  display:flex;
+  flex-direction:column;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid black;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  rgba(0, 0, 0, 0.1);
+  background: whitesmoke;
+  color: black;
+}
+
+.custom-form select {
+  display: block;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid black;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  rgba(0, 0, 0, 0.1);
+  background: ghostwhite;
+}
+
+.custom-form button {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: none;
+  font-size: 0.875rem;
+  color: #ffffff;
+  font-weight: bold;
+  background-color: black;
+  width: 100%;
+  display: block;
+  padding: 0.875rem 1rem;
+  border-radius: 1.5rem;
+  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  cursor: pointer;
+}
+
+.custom-form textarea {
+  display:flex;
+  flex-direction:column;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid black;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  rgba(0, 0, 0, 0.1);
+  background: white;
+  color: black;
+}
+
+.custom-form button:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.input-container{
+  margin-bottom: 2rem;
+}
+
+

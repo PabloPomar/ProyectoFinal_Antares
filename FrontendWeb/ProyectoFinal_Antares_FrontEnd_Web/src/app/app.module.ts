@@ -18,6 +18,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { HomeComponent } from './Components/home/home.component';
+import {RecaptchaModule} from "ng-recaptcha";
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { HomeComponent } from './Components/home/home.component';
         AgGridModule.withComponents([EditButtonComponent, DeleteButtonComponent, ViewButtonComponent]),
         ReactiveFormsModule,
         FormsModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        RecaptchaModule
     ],
     providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

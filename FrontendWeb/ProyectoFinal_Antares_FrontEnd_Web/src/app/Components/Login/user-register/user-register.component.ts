@@ -10,6 +10,7 @@ import {
   ValidatorFn,
   Validators
 } from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-register',
@@ -19,13 +20,18 @@ import {
 export class UserRegisterComponent implements OnInit {
   userRegisterForm: FormGroup;
   confirmPassword: string;
+  siteKey: any = "";
   usuario: Usuario = { id: 0, nombreUsuario:'', dni:null, telefono:'', password:'', mail:'', tipo: TipoUsuario.Cliente };
+  captchaResolved: boolean = false;
 
   ngOnInit(): void {
     this.initForm();
+    //Antares Proyecto UTN
+    this.siteKey = "6LfFsxwfAAAAADfIFGrQR0ZDVH0BMa0pruDFkRbC";
   }
 
-  constructor(public loginService: LoginService, private fb: FormBuilder) {
+  constructor(public loginService: LoginService, private fb: FormBuilder,
+              private router: Router) {
   }
 
   register() {
@@ -35,7 +41,31 @@ export class UserRegisterComponent implements OnInit {
     this.usuario.password = this.userRegisterForm.value.password;
     this.usuario.mail = this.userRegisterForm.value.mail;
     this.usuario.tipo = this.userRegisterForm.value.tipo;
-    this.loginService.registrarUsuario(this.usuario).subscribe(result => console.log(result) );
+
+    this.loginService.validarMail(this.usuario.mail).subscribe(x =>
+      {
+        if(x)
+        {
+          alert("El mail del usuario se encuentra en uso");
+        }
+          this.loginService.validarNombre(this.usuario.nombreUsuario).subscribe(async y => {
+              if (y) {
+                alert("El nombre del usuario se encuentra en uso");
+              } else {
+                await this.loginService.registrarUsuario(this.usuario).subscribe(result => alert("Usuario Creado"));
+                await this.router.navigate(['/login']);
+              }
+            }
+
+          )
+
+      }
+
+    )
+  }
+
+  resolved(captchaResponse: string) {
+    this.captchaResolved = true;
   }
 
   private initForm(): void{
