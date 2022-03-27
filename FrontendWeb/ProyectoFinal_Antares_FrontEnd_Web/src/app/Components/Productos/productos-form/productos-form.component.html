@@ -6,17 +6,53 @@
         <img [src]="imageSrc" *ngIf="imageSrc" alt="Birra">
       </div>
       <div class="input-container ic1">
-        <label for="descripcion">Nombre</label>
-        <input id="descripcion" class="form-control" type="text" placeholder="nombre"
-               formControlName="descripcion" name="descripcion"/>
+        <label for="tipoProducto">Tipo Producto</label>
+        <select name="tipoProducto" formControlName="tipoProducto" id="tipoProducto">
+          <option disabled selected>Tipo Producto</option>
+          <option [value]="0">Bebida Alcoholica</option>
+          <option [value]="1">Bebida No Alcoholica</option>
+          <option [value]="2">Minuta</option>
+          <option [value]="3">Platos Principales</option>
+          <option [value]="4">Postre</option>
+        </select>
         <div class="invalidFeedback">
-          <small *ngIf="!isValidField('descripcion')">
+          <small *ngIf="!isValidField('tipoProducto')">
+            El tipo es requerido
+          </small>
+        </div>
+      </div>
+      <div class="input-container ic1">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" class="form-control" type="text" placeholder="nombre"
+               formControlName="nombre" name="nombre"/>
+        <div class="invalidFeedback">
+          <small *ngIf="!isValidField('nombre')">
             El nombre es requerido
           </small>
         </div>
       </div>
       <div class="input-container ic2">
-        <label for="stock">Stock inicial</label>
+        <label for="subtitulo">Subtitulo</label>
+        <input type="text" class="form-control" id="subtitulo"
+               formControlName="subtitulo"  name="subtitulo">
+      </div>
+      <div class="input-container ic2">
+        <label for="descripcion">Descripcion</label>
+        <textarea type="number" class="form-control" id="descripcion"
+                  formControlName="descripcion"  name="descripcion" rows = 3> </textarea>
+        <div class="invalidFeedback">
+          <small *ngIf="!isValidField('descripcion')">
+            La descripcion es requerida
+          </small>
+        </div>
+      </div>
+      <div class="input-container ic2" *ngIf="browserForm.value.tipoProducto == esBebida">
+        <label for="porcentageAlcohol">PorcentageAlcohol</label>
+        <input type="number" class="form-control" id="porcentageAlcohol"
+               formControlName="porcentageAlcohol"  name="porcentageAlcohol">
+      </div>
+      <div class="input-container ic2">
+        <label for="stock">Stock inicial (En unidades)</label>
         <input type="number" class="form-control" id="stock"
                formControlName="stock"  name="stock">
         <div class="invalidFeedback">

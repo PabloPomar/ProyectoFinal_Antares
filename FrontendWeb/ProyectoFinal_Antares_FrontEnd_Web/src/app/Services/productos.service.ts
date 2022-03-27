@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Producto } from '../Models/producto';
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -39,6 +40,16 @@ export class ProductosService
 
     delete(id: number)
     {
-        return this.http.delete<Producto>(`${this.requestUrl}/${id}`);
+        return this.http.delete<Producto>(`${this.requestUrl}/id?id=${id}`);
+    }
+
+    validarNombre(nombre: string)
+    {
+      return this.http.get<boolean>(`${this.requestUrl}/ValidarNombre?nombre=${nombre}`);
+    }
+
+    validarNombreEdit(nombre: string, nombreOriginal: string)
+    {
+      return this.http.get<boolean>(`${this.requestUrl}/ValidarNombre?nombre=${nombre}&nombreActual=${nombreOriginal}`);
     }
 }

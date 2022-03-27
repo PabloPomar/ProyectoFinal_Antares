@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { ProductosService } from '../../../Services/productos.service';
-import { Producto } from '../../../Models/producto';
+import {Producto, TipoProducto} from '../../../Models/producto';
 import { Router } from '@angular/router';
 import { EditButtonComponent } from '../../GridActions/edit-button/edit-button.component';
 import { DeleteButtonComponent } from '../../GridActions/delete-button/delete-button.component';
@@ -39,14 +39,22 @@ export class ProductosGridComponent implements OnInit
     ngOnInit(): void
     {
         this.productoService.getAll().subscribe((data: Producto[]) => this.productos = data);
+
     }
 
     columnDefs = [
-        { field: 'id', filter: true, cellStyle: {fontSize: '20px'}},
-        { field: 'descripcion', filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
-        { field: 'stock', sortable: true , cellStyle: {fontSize: '20px'}},
-        { field: 'activo', sortable: true , cellStyle: {fontSize: '20px'}},
-        { field: 'precio', sortable: true , cellStyle: {fontSize: '20px'}},
+        { field: 'id', filter: true, cellStyle: {fontSize: '20px'}, maxWidth: 40},
+        { field: 'nombre', filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
+        { field: 'subtitulo', filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
+        { field: 'stock', sortable: true , cellStyle: {fontSize: '20px'}, type: 'rightAligned'},
+        { field: 'precio', valueFormatter: (params: { data: { precio: any; }; }) => this.currencyFormatter(params, '$'),
+          sortable: true , cellStyle: {fontSize: '20px'}, type: 'rightAligned'},
+        { field: 'tipoProducto', filter: true, sortable: true , cellStyle: {fontSize: '20px'}, cellRenderer: (data: { value: TipoProducto }) => {
+            return (data.value !== null && data.value !== undefined)
+              ? TipoProducto[data.value] : 'not found';}},
+        { field: 'activo', sortable: true , cellStyle: {fontSize: '20px'}, cellRenderer: (data: { value: boolean }) => {
+            return (data.value !== null && data.value !== undefined && data.value === true)
+              ? '<i class="fa fa-check" style="color: green"/>' : '<i class="fa fa-x" style="color: red"/>';}},
         {
             headerName: '',
             field: 'id',
@@ -76,6 +84,11 @@ export class ProductosGridComponent implements OnInit
         }
     ];
 
+    currencyFormatter(params: any, sign: any) {
+      var sansDec = params.data.precio.toFixed(2);
+      return sign + `${sansDec}`;
+    }
+
     public gridOptions = {
         rowData: this.productos,
         columnDefs: this.columnDefs,
@@ -93,10 +106,10 @@ export class ProductosGridComponent implements OnInit
     {
         this.api = params.api;
         this.columnApi = params.columnApi;
-        this.api.sizeColumnsToFit();
         this.api.frameworkComponents = {
             editButtonComponent: EditButtonComponent
         };
+        this.api.sizeColumnsToFit();
     };
 
     public async delete(id: number): Promise<void>

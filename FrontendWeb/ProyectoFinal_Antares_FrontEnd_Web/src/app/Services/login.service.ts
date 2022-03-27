@@ -51,6 +51,16 @@ export class LoginService {
     this.loggedUserSubject.next(null);
   }
 
+  validarNombre(nombre: string)
+  {
+    return this.http.get<boolean>(`${this.requestUrl}/ValidarNombre?nombre=${nombre}`);
+  }
+
+  validarMail(mail: string)
+  {
+    return this.http.get<boolean>(`${this.requestUrl}/ValidarMail?email=${mail}`);
+  }
+
   public get loggedInUserValue(){
     return this.loggedUserSubject.value;
   }

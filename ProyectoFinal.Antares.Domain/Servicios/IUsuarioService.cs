@@ -10,4 +10,7 @@ public interface IUsuarioService : IReferenceService<Usuario>
     
     Task<Usuario?> GetUsuario(string nombreUsuario, string password);
 
+    Task<bool> EmailEnUso(string email);
+
+    Task<bool> NombreUsuarioEnUso(string nombre);
 }

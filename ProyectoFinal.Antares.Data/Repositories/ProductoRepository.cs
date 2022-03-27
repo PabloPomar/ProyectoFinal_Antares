@@ -22,4 +22,34 @@ public class ProductoRepository : BaseRepository<Producto>, IProductoRepository
             .Include(x => x.Imagen)
             .Where(x => x.Id == id).FirstOrDefaultAsync();
     }
+    
+    public async Task<bool> ValidarNombreProducto(string nombre, string? nombreActual = null)
+    {
+        if (nombreActual == null)
+        {
+            var producto = await Context.Set<Producto>()
+                .Where(x => x.Nombre.ToLower() == nombre).FirstOrDefaultAsync();
+
+            return producto != null;
+        }
+        else
+        {
+            var producto = await Context.Set<Producto>()
+                .Where(x => x.Nombre.ToLower() == nombre).FirstOrDefaultAsync();
+
+            if (producto?.Nombre.ToLower() == nombreActual)
+                return false;
+            
+            return producto != null;
+        }
+    }
+    
+    public async Task DesactivarProducto(int id)
+    {
+        var producto = await Context.Set<Producto>()
+            .Where(x => x.Id == id).FirstOrDefaultAsync();
+
+        if(producto != null)
+            producto.Activo = !producto.Activo;
+    }
 }

@@ -7,10 +7,12 @@ namespace ProyectoFinal.Antares.Domain.Servicios;
 public class ProductoService : ReferenceService<Producto>, IProductoService
 {
     private readonly IProductoRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public ProductoService(IProductoRepository repository, IUnitOfWork unitOfWork, ILogger<Producto> logger) : base(repository, unitOfWork, logger)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IList<Producto>> GetMenu()
@@ -29,5 +31,15 @@ public class ProductoService : ReferenceService<Producto>, IProductoService
         
         return menu;
     }
-
+    
+    public async Task DesactivarProducto(int id)
+    {
+        await _repository.DesactivarProducto(id);
+        await _unitOfWork.SaveAsync();
+    }
+    
+    public async Task<bool> ValidarProducto(string nombre, string? nombreActual = null)
+    {
+        return await _repository.ValidarNombreProducto(nombre, nombreActual);
+    }
 }
