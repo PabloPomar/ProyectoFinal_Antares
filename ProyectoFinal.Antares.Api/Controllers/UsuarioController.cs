@@ -20,6 +20,28 @@ public class UsuarioController : BaseController<Usuario>
         return await _usuarioService.ValidarUsuario(request.Usuario, request.Contrasenia);
     }
     
+    [HttpGet("nombre")]
+    [Route("ValidarNombre")]
+    public async Task<IActionResult> ValidarNombreUsuario(string nombre)
+    {
+        bool existe;
+
+        existe = await _usuarioService.NombreUsuarioEnUso(nombre);
+        
+        return Ok(existe);
+    }
+    
+    [HttpGet("mail")]
+    [Route("ValidarMail")]
+    public async Task<IActionResult> ValidarEmailUsuario(string email)
+    {
+        bool existe;
+
+        existe = await _usuarioService.EmailEnUso(email);
+        
+        return Ok(existe);
+    }
+    
     [HttpPost("token")]
     public async Task<IActionResult> GenerarTokenDeUsuario(GetUsuarioRequest request)
     {

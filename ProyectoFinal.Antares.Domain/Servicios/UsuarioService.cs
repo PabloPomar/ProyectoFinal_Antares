@@ -52,6 +52,16 @@ public class UsuarioService : ReferenceService<Usuario>, IUsuarioService
         return await _repository.GetUsuario(nombreUsuario, password);
     }
     
+    public async Task<bool> EmailEnUso(string email)
+    {
+        return await _repository.EmailEnUso(email);
+    }
+    
+    public async Task<bool> NombreUsuarioEnUso(string nombre)
+    {
+        return await _repository.NombreUsuarioEnUso(nombre);
+    }
+    
     public string GenerateToken(Usuario usuario)
     {
         const string mySecret = "asdv234234^&%&^%&^hjsdfb2%%%";
