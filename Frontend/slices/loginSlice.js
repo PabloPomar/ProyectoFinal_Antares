@@ -3,30 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 // pasamos el estado inicial de la app
 const initialState = {
   loggedIn: false,
-  user: "pepito",
-  email: "pepito@gmail.com",
-  pwd: "123",
+  token: "",
 };
 
 export const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
-    setUserData: (state, action) => {
-      state.user = action.payload.user;
-      state.email = action.payload.email;
-      state.pwd = action.payload.pwd;
-    },
-    logInOut: (state, action) => {
+    login: (state, action) => {
       state.loggedIn = action.payload.loggedIn;
+      state.token = action.payload.token;
+    },
+    logout: (state, _action) => {
+      state.loggedIn = false;
+      state.token = "";
     },
   },
 });
 
-export const { setUserData, logInOut } = loginSlice.actions;
+export const { login, logout } = loginSlice.actions;
 
 // Selectors
-export const selectUserData = (state) => state.login;
 export const selectLoginStatus = (state) => state.login.loggedIn;
+export const selectToken = (state) => state.login.token;
 
 export default loginSlice.reducer;
