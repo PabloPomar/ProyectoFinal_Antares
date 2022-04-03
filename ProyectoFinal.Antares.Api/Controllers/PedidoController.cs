@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoFinal.Antares.Domain.Enums;
 using ProyectoFinal.Antares.Domain.Modelos;
 using ProyectoFinal.Antares.Domain.Servicios;
 
@@ -32,8 +31,22 @@ public class PedidoController : BaseController<Pedido>
  
     [HttpPost]
     [Route("CambiarEstado")]
-    public async Task UserHasRequestInProgress(int pedidoId, EstadoPedido newState)
-    {           
-        await _pedidoService.CambiarEstadoPedido(pedidoId, newState);
+    public async Task EvolucionarPedido(int pedidoId, int? deliveryId = null)
+    {
+        if (deliveryId != null)
+        {
+            await _pedidoService.CambiarEstadoPedido(pedidoId, deliveryId.Value);
+        }
+        else
+        {
+            await _pedidoService.CambiarEstadoPedido(pedidoId);
+        }
+    }
+    
+    [HttpPost]
+    [Route("CancelarPedido")]
+    public async Task CancelarPedido(int pedidoId)
+    {
+        await _pedidoService.CancelarPedido(pedidoId);
     }
 }

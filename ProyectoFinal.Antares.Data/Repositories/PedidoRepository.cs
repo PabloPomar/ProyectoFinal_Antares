@@ -9,7 +9,7 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
 {
     public PedidoRepository(ApplicationDbContext context) : base(context)
     { }
-    
+
     public new async Task AddAsync(Pedido pedido)
     {
         var pedidoEnCurso = await UserHasRequestInProgress(pedido.Usuario.Id);
@@ -31,7 +31,7 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
         return pedido != null;
     }
     
-    public async Task CambiarEstadoPedido(int pedidoId, EstadoPedido newState)
+    public async Task CambiarEstadoPedido(int pedidoId)
     {
         var pedido = await Context.Set<Pedido>()
             .Include(x => x.Usuario)
@@ -43,15 +43,103 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
             throw new HttpRequestException("El pedido no existe");
         }
         
-        if (pedido.EstadoPedido == newState)
+        if (pedido.EstadoPedido == EstadoPedido.Finalizado)
         {
-            throw new HttpRequestException("El nuevo estado es el mismo que el anterior");
+            throw new HttpRequestException("El pedido ya está finalizado");
         }
 
-        pedido.EstadoPedido = newState;
+        switch (pedido.EstadoPedido)
+        {
+            case EstadoPedido.Creado:
+                pedido.EstadoPedido = EstadoPedido.Pagado;
+                break;
+            case EstadoPedido.Pagado:
+                pedido.EstadoPedido = EstadoPedido.Preparando;
+                break;
+            case EstadoPedido.Preparando:
+                pedido.EstadoPedido = EstadoPedido.EnCamino;
+                break;
+            case EstadoPedido.EnCamino:
+                pedido.EstadoPedido = EstadoPedido.Entregado;
+                break;
+            case EstadoPedido.Entregado:
+                pedido.EstadoPedido = EstadoPedido.Finalizado;
+                break;
+        }
         
         await Context.SaveChangesAsync();
     }
     
+    public async Task CambiarEstadoPedido(int pedidoId, int deliveryId)
+    {
+        var pedido = await Context.Set<Pedido>()
+            .Include(x => x.Usuario)
+            .Where(x => x.Id == pedidoId)
+            .FirstOrDefaultAsync();
+
+        if (pedido == null)
+        {
+            throw new HttpRequestException("El pedido no existe");
+        }
+        
+        if (pedido.EstadoPedido == EstadoPedido.Finalizado)
+        {
+            throw new HttpRequestException("El pedido ya está finalizado");
+        }
+        
+        var delivery = await Context.Set<Usuario>()
+            .Where(x => x.Id == deliveryId)
+            .Where(x => x.Tipo == TipoUsuario.Delivery)
+            .FirstOrDefaultAsync();
+        
+        if (delivery == null)
+        {
+            throw new HttpRequestException("El delivery no existe");
+        }
+
+        switch (pedido.EstadoPedido)
+        {
+            case EstadoPedido.Creado:
+                pedido.EstadoPedido = EstadoPedido.Pagado;
+                break;
+            case EstadoPedido.Pagado:
+                pedido.EstadoPedido = EstadoPedido.Preparando;
+                break;
+            case EstadoPedido.Preparando:
+                pedido.EstadoPedido = EstadoPedido.EnCamino;
+                break;
+            case EstadoPedido.EnCamino:
+                pedido.EstadoPedido = EstadoPedido.Entregado;
+                break;
+            case EstadoPedido.Entregado:
+                pedido.EstadoPedido = EstadoPedido.Finalizado;
+                break;
+        }
+
+        pedido.Delivery = delivery;
+        
+        await Context.SaveChangesAsync();
+    }
     
+    public async Task CancelarPedido(int pedidoId)
+    {
+        var pedido = await Context.Set<Pedido>()
+            .Include(x => x.Usuario)
+            .Where(x => x.Id == pedidoId)
+            .FirstOrDefaultAsync();
+        
+        if (pedido == null)
+        {
+            throw new HttpRequestException("El pedido no existe");
+        }
+        
+        if (pedido.EstadoPedido == EstadoPedido.Finalizado)
+        {
+            throw new HttpRequestException("El pedido ya está finalizado");
+        }
+
+        pedido.EstadoPedido = EstadoPedido.Finalizado;
+
+        await Context.SaveChangesAsync();
+    }
 }

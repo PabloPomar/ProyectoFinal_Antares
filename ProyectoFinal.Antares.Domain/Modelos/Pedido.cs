@@ -9,6 +9,8 @@ public class Pedido : BaseModel
     public EstadoPedido EstadoPedido { get; set; }
 
     public List<PedidoProducto> ListaPedido { get; set; } = null!;
+    
+    public Usuario? Delivery { get; set; } = null!;
 
     public decimal PrecioTotal { get; set; }
 

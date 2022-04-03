@@ -6,5 +6,5 @@ public enum TipoUsuario
     Mozo,
     Delivery,
     Cliente,
-    caja
+    Caja
 }

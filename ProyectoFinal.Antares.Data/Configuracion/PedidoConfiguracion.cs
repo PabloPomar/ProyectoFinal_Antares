@@ -18,6 +18,13 @@ public class PedidoConfiguracion : IEntityTypeConfiguration<Pedido>
                 a => JsonConvert.SerializeObject(a),
                 a => JsonConvert.DeserializeObject<List<PedidoProducto>>(a) ?? new List<PedidoProducto>());
         
-        builder.HasOne(x => x.Usuario);
+        builder.HasOne(x => x.Usuario)
+            .WithMany()
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(x => x.Delivery)
+            .WithMany()
+            .OnDelete(DeleteBehavior.NoAction);
+            
     }
 }

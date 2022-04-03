@@ -6,16 +6,34 @@ import { ProductosFormComponent } from './Components/Productos/productos-form/pr
 import {LoginComponent} from "./Components/Login/login/login.component";
 import {UserRegisterComponent} from "./Components/Login/user-register/user-register.component";
 import {HomeComponent} from "./Components/home/home.component";
+import {AuthGuard} from "./auth-guard.guard";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'comun', component: ComunComponent },
     { path: 'productos', component: ProductosGridComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'userRegister', component: UserRegisterComponent },
-    { path: 'producto-form-add', component: ProductosFormComponent },
-    { path: 'producto-form-edit/:id', component: ProductosFormComponent },
-    { path: 'producto-form-view/:idView', component: ProductosFormComponent }
+    { path: 'userRegister', component: UserRegisterComponent,
+      canActivate: [AuthGuard],
+      data: {
+        role: 'Admin'
+      }
+      },
+    { path: 'producto-form-add', component: ProductosFormComponent,
+      canActivate: [AuthGuard],
+      data: {
+        role: 'Admin'
+      } },
+    { path: 'producto-form-edit/:id', component: ProductosFormComponent,
+      canActivate: [AuthGuard],
+      data: {
+        role: 'Admin'
+      } },
+    { path: 'producto-form-view/:idView', component: ProductosFormComponent,
+      canActivate: [AuthGuard],
+      data: {
+        role: 'Admin'
+      } }
 ];
 
 @NgModule({

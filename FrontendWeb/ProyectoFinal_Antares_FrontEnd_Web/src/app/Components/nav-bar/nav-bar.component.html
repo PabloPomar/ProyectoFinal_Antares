@@ -9,10 +9,10 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isAdmin">
           <a class="nav-link" routerLink="/userRegister" routerLinkActive="active">Registro</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isAdmin">
           <a class="nav-link" routerLink="/productos" routerLinkActive="active">Productos</a>
         </li>
       </ul>
