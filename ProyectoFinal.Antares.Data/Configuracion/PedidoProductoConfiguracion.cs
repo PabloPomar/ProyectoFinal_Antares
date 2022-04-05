@@ -12,7 +12,9 @@ public class PedidoProductoConfiguracion : IEntityTypeConfiguration<PedidoProduc
     {
         builder.HasKey(x => new { x.Id });
 
-        builder.HasOne(x => x.Producto);
+        builder.HasOne(x => x.Producto)
+            .WithMany()
+            .HasForeignKey(x => x.IdProducto);
 
         builder.Property(x => x.Cantidad)
             .IsRequired();

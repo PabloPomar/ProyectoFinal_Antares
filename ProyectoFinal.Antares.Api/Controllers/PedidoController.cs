@@ -17,7 +17,7 @@ public class PedidoController : BaseController<Pedido>
     [HttpPost]
     [Route("CrearPedido")]
     public new async Task<Pedido> CreateAsync(Pedido pedido)
-    {           
+    {
         await _pedidoService.SaveAsync(pedido);
         return pedido;
     }

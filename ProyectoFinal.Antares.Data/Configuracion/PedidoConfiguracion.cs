@@ -20,10 +20,12 @@ public class PedidoConfiguracion : IEntityTypeConfiguration<Pedido>
         
         builder.HasOne(x => x.Usuario)
             .WithMany()
+            .HasForeignKey(y => y.IdUsuario)
             .OnDelete(DeleteBehavior.NoAction);
         
         builder.HasOne(x => x.Delivery)
             .WithMany()
+            .HasForeignKey(y => y.IdDelivery)
             .OnDelete(DeleteBehavior.NoAction);
             
     }

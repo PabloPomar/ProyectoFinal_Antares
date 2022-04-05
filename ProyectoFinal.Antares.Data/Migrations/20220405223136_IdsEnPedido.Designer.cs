@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoFinal.Antares.Data;
 
@@ -11,9 +12,10 @@ using ProyectoFinal.Antares.Data;
 namespace ProyectoFinal.Antares.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220405223136_IdsEnPedido")]
+    partial class IdsEnPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,6 +153,9 @@ namespace ProyectoFinal.Antares.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("DeliveryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EstadoPedido")
                         .HasColumnType("int");
 
@@ -177,11 +182,14 @@ namespace ProyectoFinal.Antares.Data.Migrations
                     b.Property<decimal>("PrecioTotal")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdDelivery");
+                    b.HasIndex("DeliveryId");
 
-                    b.HasIndex("IdUsuario");
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Pedido");
                 });
@@ -197,12 +205,12 @@ namespace ProyectoFinal.Antares.Data.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdProducto")
+                    b.Property<int>("ProductoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdProducto");
+                    b.HasIndex("ProductoId");
 
                     b.ToTable("PedidoProducto");
                 });
@@ -425,12 +433,12 @@ namespace ProyectoFinal.Antares.Data.Migrations
                 {
                     b.HasOne("ProyectoFinal.Antares.Domain.Modelos.Usuario", "Delivery")
                         .WithMany()
-                        .HasForeignKey("IdDelivery")
+                        .HasForeignKey("DeliveryId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("ProyectoFinal.Antares.Domain.Modelos.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("IdUsuario")
+                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -443,7 +451,7 @@ namespace ProyectoFinal.Antares.Data.Migrations
                 {
                     b.HasOne("ProyectoFinal.Antares.Domain.Modelos.Producto", "Producto")
                         .WithMany()
-                        .HasForeignKey("IdProducto")
+                        .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
