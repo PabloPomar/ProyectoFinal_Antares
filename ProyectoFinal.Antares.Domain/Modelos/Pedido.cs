@@ -11,6 +11,10 @@ public class Pedido : BaseModel
     public List<PedidoProducto> ListaPedido { get; set; } = null!;
     
     public Usuario? Delivery { get; set; } = null!;
+    
+    public DateTime? HoraPedido { get; set; }
+    
+    public DateTime? HoraEntrega { get; set; }
 
     public decimal PrecioTotal { get; set; }
 

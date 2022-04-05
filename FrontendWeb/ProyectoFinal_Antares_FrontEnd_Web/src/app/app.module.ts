@@ -19,6 +19,8 @@ import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { HomeComponent } from './Components/home/home.component';
 import {RecaptchaModule} from "ng-recaptcha";
+import { PedidosFormComponent } from './Components/Pedidos/pedidos-form/pedidos-form.component';
+import { PedidosGridComponent } from './Components/Pedidos/pedidos-grid/pedidos-grid.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +35,9 @@ import {RecaptchaModule} from "ng-recaptcha";
         UserRegisterComponent,
         NavBarComponent,
         FooterComponent,
-        HomeComponent
+        HomeComponent,
+        PedidosFormComponent,
+        PedidosGridComponent
     ],
     imports: [
         BrowserModule,

@@ -7,11 +7,13 @@ import {LoginComponent} from "./Components/Login/login/login.component";
 import {UserRegisterComponent} from "./Components/Login/user-register/user-register.component";
 import {HomeComponent} from "./Components/home/home.component";
 import {AuthGuard} from "./auth-guard.guard";
+import {PedidosGridComponent} from "./Components/Pedidos/pedidos-grid/pedidos-grid.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'comun', component: ComunComponent },
     { path: 'productos', component: ProductosGridComponent },
+    { path: 'pedidos', component: PedidosGridComponent },
     { path: 'login', component: LoginComponent },
     { path: 'userRegister', component: UserRegisterComponent,
       canActivate: [AuthGuard],
