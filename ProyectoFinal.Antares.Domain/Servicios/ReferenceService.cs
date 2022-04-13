@@ -63,7 +63,7 @@ namespace ProyectoFinal.Antares.Domain.Servicios
             return await _repository.GetAsync(filter);
         } 
         
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             _logger.LogInformation(LogStrings.ReferenceService.All, typeof(T).Name); 
             return await _repository.GetAllAsync();

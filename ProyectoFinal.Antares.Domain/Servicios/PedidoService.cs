@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using ProyectoFinal.Antares.Domain.Enums;
 using ProyectoFinal.Antares.Domain.Modelos;
 using ProyectoFinal.Antares.Domain.Repositories;
 
@@ -13,7 +12,7 @@ public class PedidoService : ReferenceService<Pedido>, IPedidoService
     {
         _repository = repository;
     }
-    
+
     public override async Task SaveAsync(Pedido pedido)
     {
         await _repository.AddAsync(pedido);
@@ -24,9 +23,18 @@ public class PedidoService : ReferenceService<Pedido>, IPedidoService
         return await _repository.UserHasRequestInProgress(userId);
     }
     
-    public async Task CambiarEstadoPedido(int pedidoId, EstadoPedido newState)
+    public async Task CambiarEstadoPedido(int pedidoId)
     {
-        await _repository.CambiarEstadoPedido(pedidoId, newState);
+        await _repository.CambiarEstadoPedido(pedidoId);
     }
 
+    public async Task CambiarEstadoPedido(int pedidoId, int deliveryId)
+    {
+        await _repository.CambiarEstadoPedido(pedidoId, deliveryId);
+    }
+    
+    public async Task CancelarPedido(int pedidoId)
+    {
+        await _repository.CancelarPedido(pedidoId);
+    }
 }

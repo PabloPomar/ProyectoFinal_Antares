@@ -3,6 +3,7 @@ import {LoginService} from "../../../Services/login.service";
 import jwtDecode from "jwt-decode";
 import {TipoUsuario} from "../../../Models/usuario";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     this.initForm();
   }
 
-  constructor(public loginService: LoginService, private fb: FormBuilder) {
+  constructor(public loginService: LoginService, private fb: FormBuilder, private router: Router) {
   }
 
   login() {
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
       if (data != null)
         this.checkToken()
     });
+    this.router.navigate(['/pedidos']);
   }
 
   private initForm(): void{

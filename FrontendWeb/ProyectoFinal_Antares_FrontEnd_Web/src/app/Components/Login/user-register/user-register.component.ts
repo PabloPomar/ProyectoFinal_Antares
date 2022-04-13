@@ -21,7 +21,7 @@ export class UserRegisterComponent implements OnInit {
   userRegisterForm: FormGroup;
   confirmPassword: string;
   siteKey: any = "";
-  usuario: Usuario = { id: 0, nombreUsuario:'', dni:null, telefono:'', password:'', mail:'', tipo: TipoUsuario.Cliente };
+  usuario: Usuario = { id: 0, nombreUsuario:'', direccion: '', dni:null, telefono:'', password:'', mail:'', tipo: TipoUsuario.Cliente };
   captchaResolved: boolean = false;
 
   ngOnInit(): void {
@@ -36,6 +36,7 @@ export class UserRegisterComponent implements OnInit {
 
   register() {
     this.usuario.nombreUsuario = this.userRegisterForm.value.nombreUsuario;
+    this.usuario.direccion = this.userRegisterForm.value.direccion;
     this.usuario.dni = this.userRegisterForm.value.dni;
     this.usuario.telefono = this.userRegisterForm.value.telefono;
     this.usuario.password = this.userRegisterForm.value.password;
@@ -74,6 +75,7 @@ export class UserRegisterComponent implements OnInit {
       nombreUsuario: new FormControl('', [
         Validators.required
       ]),
+      direccion: new FormControl(''),
       dni: new FormControl('', [
         Validators.required,
         Validators.minLength(8)

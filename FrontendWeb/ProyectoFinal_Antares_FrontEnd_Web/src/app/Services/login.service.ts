@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Producto} from "../Models/producto";
 import {Usuario} from "../Models/usuario";
 import {BehaviorSubject, map, Observable} from "rxjs";
+import jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class LoginService {
   public requestUrl = 'https://localhost:7001/api/v1/Usuario';
   private loggedUserSubject: BehaviorSubject<Usuario>;
   public loggedInUser: Observable<any>;
+  public isLogged: boolean = false;
+  public role: string = '';
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -63,5 +66,29 @@ export class LoginService {
 
   public get loggedInUserValue(){
     return this.loggedUserSubject.value;
+  }
+
+  isLoggedIn() {
+    const loggedIn = localStorage.getItem('loggedInUser');
+    this.isLogged = loggedIn != null;
+    return this.isLogged;
+  }
+
+  getRole() {
+    let token = localStorage.getItem('loggedInUser');
+    if(token == null)
+      return false;
+    const tokenInfo = this.getDecodedAccessToken(token);
+    const expireDate = tokenInfo.exp;
+    this.role = tokenInfo.userType;
+    return this.role;
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwtDecode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 }

@@ -6,6 +6,7 @@
     tipo: TipoUsuario;
     dni: number;
     mail: string;
+    direccion: string;
     telefono: string;
 }
 

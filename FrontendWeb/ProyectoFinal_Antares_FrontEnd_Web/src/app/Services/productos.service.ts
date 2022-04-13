@@ -11,10 +11,6 @@ export class ProductosService
 
     public requestUrl = 'https://localhost:7001/api/v1/Producto';
 
-    private headers = new HttpHeaders({
-        'Content-Type': 'application/json'
-    });
-
     constructor(private http: HttpClient)
     { }
 

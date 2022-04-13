@@ -154,9 +154,17 @@ namespace ProyectoFinal.Antares.Data.Migrations
                     b.Property<int>("EstadoPedido")
                         .HasColumnType("int");
 
-                    b.Property<string>("ListaPedido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("HoraEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("HoraPedido")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("IdDelivery")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nota")
                         .IsRequired()
@@ -165,12 +173,11 @@ namespace ProyectoFinal.Antares.Data.Migrations
                     b.Property<decimal>("PrecioTotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("IdDelivery");
+
+                    b.HasIndex("IdUsuario");
 
                     b.ToTable("Pedido");
                 });
@@ -186,12 +193,17 @@ namespace ProyectoFinal.Antares.Data.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductoId")
+                    b.Property<int>("IdPedido")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProducto")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductoId");
+                    b.HasIndex("IdPedido");
+
+                    b.HasIndex("IdProducto");
 
                     b.ToTable("PedidoProducto");
                 });
@@ -345,6 +357,10 @@ namespace ProyectoFinal.Antares.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Dni")
                         .HasColumnType("int");
 
@@ -412,22 +428,37 @@ namespace ProyectoFinal.Antares.Data.Migrations
 
             modelBuilder.Entity("ProyectoFinal.Antares.Domain.Modelos.Pedido", b =>
                 {
+                    b.HasOne("ProyectoFinal.Antares.Domain.Modelos.Usuario", "Delivery")
+                        .WithMany()
+                        .HasForeignKey("IdDelivery")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("ProyectoFinal.Antares.Domain.Modelos.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Delivery");
 
                     b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ProyectoFinal.Antares.Domain.Modelos.PedidoProducto", b =>
                 {
+                    b.HasOne("ProyectoFinal.Antares.Domain.Modelos.Pedido", "Pedido")
+                        .WithMany("ListaPedido")
+                        .HasForeignKey("IdPedido")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("ProyectoFinal.Antares.Domain.Modelos.Producto", "Producto")
                         .WithMany()
-                        .HasForeignKey("ProductoId")
+                        .HasForeignKey("IdProducto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Pedido");
 
                     b.Navigation("Producto");
                 });
@@ -458,6 +489,11 @@ namespace ProyectoFinal.Antares.Data.Migrations
                     b.Navigation("Mesa");
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("ProyectoFinal.Antares.Domain.Modelos.Pedido", b =>
+                {
+                    b.Navigation("ListaPedido");
                 });
 #pragma warning restore 612, 618
         }
