@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Button, Icon, Input } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
 import ScreenLayout from "../components/ScreenLayout";
-import { logInOut, selectLoginStatus } from "../slices/loginSlice";
+import { login, logout, selectLoginStatus, selectToken } from "../slices/loginSlice";
 import { validate } from "react-email-validator";
 import { useNavigation } from "@react-navigation/native";
 import { setSelected } from "../slices/navOptionsSlice";
 import { selectOrder } from "../slices/productSlice";
-
-const antaresURL = "https://www.cervezaantares.com/";
+import { useUserLoginMutation } from "../services/usuario";
+import { getUserFromToken } from "../utils";
 
 function HomeScreen() {
   const [userData, setUserData] = useState({ email: "", pwd: "" });
+  const [userLogin, { isLoading, isError, isSuccess, data }] =
+    useUserLoginMutation();
   const dispatch = useDispatch();
   const orderLines = useSelector(selectOrder);
   const isLoggedIn = useSelector(selectLoginStatus);
+  const token = useSelector(selectToken);
   const navigation = useNavigation();
+
+  const handleLogin = async (data) => {
+    let userName = data.email.split("@")[0];
+    const response = await userLogin({
+      usuario: userName,
+      contrasenia: data.pwd
+    })
+    dispatch(login({loggedIn: true, token: response.error.data}))
+  };
 
   return (
     <ScreenLayout>
@@ -62,9 +74,10 @@ function HomeScreen() {
             raised
             disabled={!validate(userData.email) || userData.pwd.length == 0}
             containerStyle={{ width: "80%" }}
-            onPress={() => {
+            isLoading={isLoading}
+            onPress={async () => {
               if (validate(userData.email) && userData.pwd.length > 0) {
-                dispatch(logInOut({ loggedIn: !isLoggedIn }));
+                await handleLogin(userData);
               }
             }}
           />
@@ -83,9 +96,21 @@ function HomeScreen() {
             rounded
             activeOpacity={0.7}
           />
+          <Button 
+            icon={
+              <Icon
+                name="log-out"
+                type="entypo"
+                size={30}
+                color="white"
+              />
+            }
+            containerStyle={{position: "absolute", right: 20}}
+            onPress={() => dispatch(logout())}
+          />
           <View style={tw`h-1/2`}>
             <Text style={tw`text-xl font-bold leading-10`}>
-              Bienvenida, Loquita
+              {`Bienvenido, ${getUserFromToken(token).toUpperCase()}`}
             </Text>
           </View>
           <View style={tw`flex-1 w-full px-5 py-5`}>
