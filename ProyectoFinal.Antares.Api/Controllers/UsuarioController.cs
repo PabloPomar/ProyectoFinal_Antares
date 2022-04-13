@@ -31,6 +31,15 @@ public class UsuarioController : BaseController<Usuario>
         return Ok(existe);
     }
     
+    [HttpGet]
+    [Route("deliveries")]
+    public async Task<IActionResult> GetDeliveries()
+    {
+        var deliveries = await _usuarioService.GetDeliveries();
+        
+        return Ok(deliveries);
+    }
+    
     [HttpGet("mail")]
     [Route("ValidarMail")]
     public async Task<IActionResult> ValidarEmailUsuario(string email)

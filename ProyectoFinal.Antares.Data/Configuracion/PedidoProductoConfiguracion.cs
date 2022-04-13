@@ -12,6 +12,11 @@ public class PedidoProductoConfiguracion : IEntityTypeConfiguration<PedidoProduc
     {
         builder.HasKey(x => new { x.Id });
 
+        builder.HasOne(x => x.Pedido)
+            .WithMany(x => x.ListaPedido)
+            .HasForeignKey(x => x.IdPedido)
+            .OnDelete(DeleteBehavior.NoAction);
+        
         builder.HasOne(x => x.Producto)
             .WithMany()
             .HasForeignKey(x => x.IdProducto);

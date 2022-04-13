@@ -12,7 +12,7 @@ public class PedidoService : ReferenceService<Pedido>, IPedidoService
     {
         _repository = repository;
     }
-    
+
     public override async Task SaveAsync(Pedido pedido)
     {
         await _repository.AddAsync(pedido);

@@ -12,6 +12,8 @@ public class Usuario : BaseModel
     
     public int Dni { get; set; }
     
+    public string Direccion { get; set; } = null!;
+    
     public string Mail { get; set; } = null!;
 
     public string Telefono { get; set; } = null!;

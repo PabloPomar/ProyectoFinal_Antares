@@ -13,4 +13,6 @@ public interface IUsuarioRepository : IBaseRepository<Usuario>
     Task<bool> EmailEnUso(string email);
 
     Task<bool> NombreUsuarioEnUso(string nombre);
+
+    Task<List<Usuario>> GetDeliveries();
 }

@@ -29,7 +29,7 @@ public class PedidoController : BaseController<Pedido>
         return await _pedidoService.UserHasRequestInProgress(userId);
     }
  
-    [HttpPost]
+    [HttpPut]
     [Route("CambiarEstado")]
     public async Task EvolucionarPedido(int pedidoId, int? deliveryId = null)
     {
@@ -45,8 +45,15 @@ public class PedidoController : BaseController<Pedido>
     
     [HttpPost]
     [Route("CancelarPedido")]
-    public async Task CancelarPedido(int pedidoId)
+    public async Task CancelarPedido([FromBody] int pedidoId)
     {
         await _pedidoService.CancelarPedido(pedidoId);
+    }
+    
+    [HttpGet("id")]
+    [Route("unPedido")]
+    public async Task<Pedido> GetItemMenu(int id)
+    {
+        return await _pedidoService.FindAsync(id);
     }
 }
