@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PedidosFormComponent} from "../pedidos-form/pedidos-form.component";
 import {AbrirPedidoComponent} from "../../GridActions/abrir-pedido/abrir-pedido.component";
 import {CancelarPedidoComponent} from "../../GridActions/cancelar-pedido/cancelar-pedido.component";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-pedidos-grid',
@@ -58,8 +59,10 @@ export class PedidosGridComponent implements OnInit
   columnDefs = [
     { headerName: 'id', field: 'id', filter: true, cellStyle: {fontSize: '20px'}, maxWidth: 40},
     { headerName: 'usuario', field: 'usuario.nombreUsuario', filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
-    { headerName: 'horaPedido', field: 'horaPedido', filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
-    { headerName: 'horaEntrega', field: 'horaEntrega', filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
+    { headerName: 'horaPedido', field: 'horaPedido', valueFormatter: (params: { data: { horaPedido: Date; }; }) => this.formatDateVista(params.data.horaPedido),
+      filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
+    { headerName: 'horaEntrega', field: 'horaEntrega', valueFormatter: (params: { data: { horaEntrega: Date; }; }) => this.formatDateVista(params.data.horaEntrega),
+      filter: true, sortable: true , cellStyle: {fontSize: '20px'}},
     { headerName: 'precioTotal', field: 'precioTotal', valueFormatter: (params: { data: { precioTotal: any; }; }) => this.currencyFormatter(params, '$'),
       sortable: true , cellStyle: {fontSize: '20px'}, type: 'rightAligned'},
     { headerName: 'Estado', field: 'estadoPedido', filter: true, sortable: true , cellStyle: {fontSize: '20px'}, cellRenderer: (data: { value: EstadoPedido }) => {
@@ -80,6 +83,13 @@ export class PedidosGridComponent implements OnInit
       maxWidth: 75
     }
   ];
+
+  formatDateVista(date: Date) {
+    if(date == null)
+      return 'No Entregado';
+
+    return formatDate(date, 'YYYY/MM/dd HH:MM', 'en-US');
+  }
 
   currencyFormatter(params: any, sign: any) {
     var sansDec = params.data.precioTotal.toFixed(2);

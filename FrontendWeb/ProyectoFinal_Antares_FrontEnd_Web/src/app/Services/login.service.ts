@@ -38,9 +38,14 @@ export class LoginService {
 
     return this.http.post(this.requestUrl + '/token', params, { responseType: 'text' as 'json' } )
       .pipe(map(response=> {
-      localStorage.setItem('loggedInUser', JSON.stringify(response));
-      this.loggedUserSubject.next(<Usuario>response);
-      return response;
+        if(response !== "false") {
+          localStorage.setItem('loggedInUser', JSON.stringify(response));
+          this.loggedUserSubject.next(<Usuario>response);
+          return response;
+        }
+        else {
+          return false;
+        }
     }));
   }
 

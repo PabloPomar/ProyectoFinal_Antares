@@ -40,7 +40,7 @@ export class PedidosService
       id: id
     };
 
-    return this.http.post(this.requestUrl + '/CancelarPedido', params);
+    return this.http.post(this.requestUrl + '/CancelarPedido', id);
   }
 
   cambiarEstado(idPedido: number)

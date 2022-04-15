@@ -29,10 +29,19 @@ export class LoginComponent implements OnInit {
     this.user = this.userForm.value.user;
     this.password = this.userForm.value.password;
     this.loginService.validarUsuario(this.user, this.password).subscribe((data: any) => {
-      if (data != null)
-        this.checkToken()
+      if (data !== false) {
+        this.checkToken();
+        this.router.navigate(['/pedidos']).then(
+          () => {
+            window.location.reload();
+          }
+        );
+      }
+      else
+      {
+        alert("Usuario o contraseña incorrectos");
+      }
     });
-    this.router.navigate(['/pedidos']);
   }
 
   private initForm(): void{
