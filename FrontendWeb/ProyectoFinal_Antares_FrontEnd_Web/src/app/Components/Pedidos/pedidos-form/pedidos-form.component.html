@@ -1,16 +1,20 @@
 <div mat-dialog-content class="dialog">
 <h1 mat-dialog-title>Pedido de {{data.pedido.usuario.nombreUsuario}}</h1>
+  <div *ngIf="isCancelled">
+    <hr>
+    <p class="cancelledBar">EL PEDIDO FUE CANCELADO</p>
+  </div>
   <hr>
-  <p>Hora Pedido: {{data.pedido.horaPedido}} </p>
+  <p>Hora Pedido: {{formatDateVista(data.pedido.horaPedido)}} </p>
   <hr>
-  <p *ngIf="data.pedido.horaEntrega != null">Hora Entrega: {{data.pedido.horaEntrega}} </p>
-  <p *ngIf="data.pedido.horaEntrega == null">Hora Entrega: **PENDIENTE**</p>
+  <p *ngIf="data.pedido.horaEntrega != null">Hora Entrega: {{formatDateVista(data.pedido.horaEntrega)}} </p>
+  <p *ngIf="data.pedido.horaEntrega == null && !isCancelled">Hora Entrega: **PENDIENTE**</p>
   <hr>
   <p>Direccion: {{data.pedido.usuario.direccion}} </p>
   <hr>
   <p>Telefono: {{data.pedido.usuario.telefono}} </p>
   <hr>
-  <p>Estado Pedido: {{data.pedido.estadoPedido}}</p>
+  <p>Estado Pedido: {{estadoPedido}}</p>
   <hr>
   <hr>
   <table>
@@ -49,12 +53,12 @@
       </option>
     </select>
   </div>
-  <div mat-dialog-actions>
-    <div *ngIf="needsDelivery">
-      <button mat-button (click)="evolucionarPedidoDelivery()" [disabled]="idDelivery == 0 || idDelivery == null">Evolucionar Delivery</button>
+  <div>
+    <div *ngIf="needsDelivery && !isCancelled && canEvolve">
+      <button mat-button class="dialogButton" (click)="evolucionarPedidoDelivery()" [disabled]="idDelivery == 0 || idDelivery == null">Avanzar Pedido</button>
     </div>
-    <div *ngIf="!needsDelivery">
-      <button mat-button (click)="evolucionarPedido()">Evolucionar</button>
+    <div *ngIf="!needsDelivery && !isCancelled && canEvolve">
+      <button mat-button class="dialogButton" (click)="evolucionarPedido()">Avanzar Pedido</button>
     </div>
   </div>
 </div>
