@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from "jwt-decode";
 import {TipoUsuario} from "../../Models/usuario";
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
 
   userName: string;
   userType: string;
@@ -17,6 +17,19 @@ export class NavBarComponent {
   isLogged: boolean = false;
   public faUser = faUser;
   constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    let token = localStorage.getItem('loggedInUser');
+    if(token != null){
+      const tokenInfo = this.getDecodedAccessToken(token);
+      const expireDate = tokenInfo.exp;
+      this.userName = tokenInfo.userName;
+      this.userType = tokenInfo.userType;
+      this.isAdmin = this.userType === "Admin";
+      this.isLogged = true;
+    }
+  }
+
 
   get checkToken() {
     let token = localStorage.getItem('loggedInUser');
@@ -44,6 +57,9 @@ export class NavBarComponent {
     this.isLogged = false;
     this.isAdmin = false;
     await this.router.navigate(['/login'])
+      .then(() => {
+        window.location.reload();
+      });
   }
 
 }

@@ -31,12 +31,17 @@ export class LoginComponent implements OnInit {
     this.loginService.validarUsuario(this.user, this.password).subscribe((data: any) => {
       if (data !== false) {
         this.checkToken();
-        this.router.navigate(['/pedidos']);
-      } else {
+        this.router.navigate(['/pedidos']).then(
+          () => {
+            window.location.reload();
+          }
+        );
+      }
+      else
+      {
         alert("Usuario o contraseña incorrectos");
       }
     });
-
   }
 
   private initForm(): void{
