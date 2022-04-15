@@ -4,16 +4,23 @@ import { URL_API } from "@env";
 
 export const usuarioApi = createApi({
   reducerPath: "usuarioApi",
-  baseQuery: fetchBaseQuery({ baseUrl: URL_API + "/api/v1" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: URL_API + "/api/v1",
+    prepareHeaders: (headers, { getState }) => {
+      headers.set("accept", "application/octet-stream");
+      headers.set("accept", "application/json");
+      return headers;
+    },
+  }),
   endpoints: (build) => ({
     userLogin: build.mutation({
-        query: (body) => {
-          return {
-            url: `/Usuario/token`,
-            method: 'POST',
-            body: body,
-          }
-        },
+      query: (body) => {
+        return {
+          url: `/Usuario/token`,
+          method: "POST",
+          body: body,
+        };
+      },
     }),
   }),
 });

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Card, Icon } from "react-native-elements";
+import { Card, Icon } from "@rneui/themed";
 import { FAB } from "react-native-paper";
 import InputSpinner from "react-native-input-spinner";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,13 +17,16 @@ import {
   addToRemoveFromSelection,
   createOrder,
   selectProductSelection,
-  selectProducts,
+  selectProductsByType,
+  selectType,
 } from "../slices/productSlice";
 import { setSelected } from "../slices/navOptionsSlice";
+import FoodDropdown from "../components/FoodDropdown";
 
 function MenuScreen() {
   const isLoggedIn = useSelector(selectLoginStatus);
-  const products = useSelector(selectProducts);
+  const type = useSelector(selectType);
+  const products = useSelector((state) => selectProductsByType(state, type));
   const selectedProducts = useSelector(selectProductSelection);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -33,27 +36,30 @@ function MenuScreen() {
       {isLoggedIn ? (
         <>
           <View style={tw`flex-1 w-full`}>
-            <View style={tw`flex-row justify-between`}>
-              <Text style={tw`text-xl font-bold p-2 pt-0`}>
+            <View style={tw`flex-row`}>
+              <Text style={tw`text-xl font-bold pt-3`}>
                 ¿Qué desea pedir hoy?
               </Text>
+              <View style={tw`w-44`}>
+                <FoodDropdown />
+              </View>
             </View>
             <View style={tw`flex-1 flex-col pt-3`}>
               <ScrollView style={tw`mb-2`} nestedScrollEnabled={true}>
-                {Object.keys(products?.productList).map((key) => (
-                  <Card key={products.productList[key].id}>
+                {Object.keys(products).map((key) => (
+                  <Card key={products[key].id}>
                     <View style={tw`flex-row`}>
                       {/* IMAGE */}
                       <Card.Image
                         style={tw`w-24`}
                         resizeMode="contain"
-                        source={{ uri: products.productList[key].imageURL }}
+                        source={{ uri: products[key].imageURL }}
                       />
                       {/* CONTENT */}
                       <View style={styles.cardContent}>
                         <View style={tw`flex-row justify-between pr-3`}>
                           <Text style={tw`font-bold text-lg`}>
-                            {products.productList[key].title}
+                            {products[key].title}
                           </Text>
                           {/* counter */}
                           <InputSpinner
@@ -63,10 +69,10 @@ function MenuScreen() {
                             colorMax={"red"}
                             color={"blue"}
                             colorMin={"black"}
-                            value={selectedProducts[key] || 0}
+                            value={selectedProducts[products[key].id] || 0}
                             onChange={(num) => {
                               dispatch(
-                                addToRemoveFromSelection({ id: key, quantity: num })
+                                addToRemoveFromSelection({ id: products[key].id, quantity: num })
                               );
                             }}
                             buttonStyle={tw`w-8 h-8`}
@@ -77,11 +83,11 @@ function MenuScreen() {
                         </View>
 
                         <Text style={tw`italic pt-0 text-xs pb-1`}>
-                          {products.productList[key].subtitle}
+                          {products[key].subtitle}
                         </Text>
                         <ScrollView>
                           <Text style={tw`text-xs w-60`}>
-                            {products.productList[key].desc}
+                            {products[key].desc}
                           </Text>
                         </ScrollView>
                       </View>

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ScreenLayout from "../components/ScreenLayout";
 import tw from "tailwind-react-native-classnames";
 import { selectOrder } from "../slices/productSlice";
-import { Button, Icon, Card, Overlay, Input } from "react-native-elements";
+import { Button, Icon, Card, Overlay, Input } from "@rneui/themed";
 import { selectLoginStatus } from "../slices/loginSlice";
 import { useNavigation } from "@react-navigation/native";
 import {

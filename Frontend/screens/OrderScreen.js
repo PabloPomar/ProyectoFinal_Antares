@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ScreenLayout from "../components/ScreenLayout";
 import tw from "tailwind-react-native-classnames";
 import { selectOrder, selectProducts } from "../slices/productSlice";
-import { Button, Divider, Icon } from "react-native-elements";
+import { Button, Divider, Icon } from "@rneui/themed";
 import { selectLoginStatus } from "../slices/loginSlice";
 import { useNavigation } from "@react-navigation/native";
 import { setSelected } from "../slices/navOptionsSlice";
@@ -52,7 +52,7 @@ const OrderScreen = () => {
       <View style={tw`flex-row p-4 justify-between`}>
         <Text>{products.productList[item[0]].title}</Text>
         <Text>cantidad: {item[1]}</Text>
-        <Text>precio: {products.productList[item[0]].price * item[1]}</Text>
+        <Text>precio: ${products.productList[item[0]].price * item[1]}</Text>
       </View>
     );
   };

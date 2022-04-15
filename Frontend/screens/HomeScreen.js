@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Avatar, Button, Icon, Input } from "react-native-elements";
+import { Avatar, Button, Icon, Input } from "@rneui/themed";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
 import ScreenLayout from "../components/ScreenLayout";
@@ -28,7 +28,7 @@ function HomeScreen() {
       usuario: userName,
       contrasenia: data.pwd
     })
-    dispatch(login({loggedIn: true, token: response.error.data}))
+    dispatch(login({loggedIn: true, token: response.data}))
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Alert, Linking } from "react-native";
-import { Button } from "react-native-elements";
+import { Button } from "@rneui/themed";
 
 
 export const OpenURLButton = ({ url, children }) => {

@@ -1,7 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
-import { Icon } from "react-native-elements";
+import { Icon } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectNavOptions, setSelected } from "../slices/navOptionsSlice";
