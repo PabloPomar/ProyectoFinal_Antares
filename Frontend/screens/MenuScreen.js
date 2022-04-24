@@ -37,10 +37,10 @@ function MenuScreen() {
         <>
           <View style={tw`flex-1 w-full`}>
             <View style={tw`flex-row`}>
-              <Text style={tw`text-xl font-bold pt-3`}>
+              <Text style={tw`text-lg font-bold pl-1 pt-3`}>
                 ¿Qué desea pedir hoy?
               </Text>
-              <View style={tw`w-44`}>
+              <View style={tw`w-48`}>
                 <FoodDropdown />
               </View>
             </View>
@@ -50,11 +50,13 @@ function MenuScreen() {
                   <Card key={products[key].id}>
                     <View style={tw`flex-row`}>
                       {/* IMAGE */}
-                      <Card.Image
-                        style={tw`w-24`}
-                        resizeMode="contain"
-                        source={{ uri: products[key].imageURL }}
-                      />
+                      <View style={tw`pr-2`}>
+                        <Card.Image
+                          style={tw`w-24`}
+                          resizeMode="contain"
+                          source={{ uri: products[key].imageURL }}
+                        />
+                      </View>
                       {/* CONTENT */}
                       <View style={styles.cardContent}>
                         <View style={tw`flex-row justify-between pr-3`}>
@@ -72,7 +74,10 @@ function MenuScreen() {
                             value={selectedProducts[products[key].id] || 0}
                             onChange={(num) => {
                               dispatch(
-                                addToRemoveFromSelection({ id: products[key].id, quantity: num })
+                                addToRemoveFromSelection({
+                                  id: products[key].id,
+                                  quantity: num,
+                                })
                               );
                             }}
                             buttonStyle={tw`w-8 h-8`}
@@ -98,15 +103,19 @@ function MenuScreen() {
             </View>
           </View>
           <FAB
-            style={Object.keys(selectedProducts).length == 0 ? styles.fabDisabled : styles.fab}
+            style={
+              Object.keys(selectedProducts).length == 0
+                ? styles.fabDisabled
+                : styles.fab
+            }
             big
             animated
             disabled={Object.keys(selectedProducts).length == 0}
             icon="arrow-right"
             onPress={() => {
-              dispatch(setSelected({id: 2})) // se selecciona la pantalla de order
-              dispatch(createOrder())
-              navigation.navigate("OrderScreen")
+              dispatch(setSelected({ id: 2 })); // se selecciona la pantalla de order
+              dispatch(createOrder());
+              navigation.navigate("OrderScreen");
             }}
           />
         </>
@@ -134,7 +143,7 @@ const styles = StyleSheet.create({
     right: 3,
     bottom: 3,
     backgroundColor: "black",
-    elevation: 3
+    elevation: 3,
   },
   fabDisabled: {
     position: "absolute",
@@ -142,7 +151,7 @@ const styles = StyleSheet.create({
     right: 3,
     bottom: 3,
     backgroundColor: "#ebecec",
-    elevation: 3
+    elevation: 3,
   },
   cardContent: {
     flexDirection: "column",

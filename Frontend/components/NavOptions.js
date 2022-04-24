@@ -4,11 +4,14 @@ import tw from "tailwind-react-native-classnames";
 import { Icon } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { selectNavOptions, setSelected } from "../slices/navOptionsSlice";
+import { selectInitialNavOptions, selectNavOptions, setSelected } from "../slices/navOptionsSlice";
 import { createOrder } from "../slices/productSlice";
+import { selectLoginStatus } from "../slices/loginSlice";
 
 const NavOptions = () => {
   const menuOptions = useSelector(selectNavOptions);
+  const initialMenuOptions = useSelector(selectInitialNavOptions)
+  const isLoggedIn = useSelector(selectLoginStatus);
   const dispatch = useDispatch(setSelected);
   const navigation = useNavigation();
 
@@ -16,7 +19,7 @@ const NavOptions = () => {
   return (
     <View style={tw`border-t border-gray-300 bg-white w-full pb-2 `}>
       <FlatList
-        data={Object.entries(menuOptions)}
+        data={isLoggedIn ? Object.entries(menuOptions) : Object.entries(initialMenuOptions)}
         keyExtractor={(item) => item[0]}
         horizontal
         renderItem={({ item }) => (

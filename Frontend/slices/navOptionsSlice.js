@@ -51,5 +51,8 @@ export const { setSelected } = navOptionSlice.actions;
 
 // Selectors
 export const selectNavOptions = (state) => state.navOptions;
+export const selectInitialNavOptions = (state) => {
+  return {0: state.navOptions[0]}
+};
 
 export default navOptionSlice.reducer;

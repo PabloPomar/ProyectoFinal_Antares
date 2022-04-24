@@ -98,7 +98,7 @@ const OrderScreen = () => {
                     </View>
                   </View>
                   <View
-                    style={tw`flex-col flex-1 justify-center ml-2 mr-2 h-20`}
+                    style={tw`flex-col flex-1 justify-center ml-4 mr-1 h-20`}
                   >
                     <Button
                       buttonStyle={tw`rounded-full`}
