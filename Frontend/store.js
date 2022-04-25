@@ -3,6 +3,7 @@ import loginReducer from "./slices/loginSlice";
 import productReducer from "./slices/productSlice";
 import navOptionsReducer from "./slices/navOptionsSlice";
 import paymentMethodsReducer from "./slices/paymentMethodsSlice";
+import orderSliceReducer from "./slices/orderSlice";
 import { usuarioApi } from "./services/usuario";
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     products: productReducer,
     paymentMethods: paymentMethodsReducer,
     navOptions: navOptionsReducer,
+    order: orderSliceReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

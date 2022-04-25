@@ -4,20 +4,31 @@ import { Avatar, Button, Icon, Input } from "@rneui/themed";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
 import ScreenLayout from "../components/ScreenLayout";
-import { login, logout, selectLoginStatus, selectToken } from "../slices/loginSlice";
+import {
+  login,
+  logout,
+  selectLoginStatus,
+  selectToken,
+} from "../slices/loginSlice";
 import { validate } from "react-email-validator";
 import { useNavigation } from "@react-navigation/native";
 import { setSelected } from "../slices/navOptionsSlice";
-import { selectOrder } from "../slices/productSlice";
 import { useUserLoginMutation } from "../services/usuario";
 import { getUserFromToken } from "../utils";
+import {
+  selectOrderPaid,
+  selectOrderStatus,
+  statusColors,
+  updateOrderStatus,
+} from "../slices/orderSlice";
 
 function HomeScreen() {
   const [userData, setUserData] = useState({ email: "", pwd: "" });
   const [userLogin, { isLoading, isError, isSuccess, data }] =
     useUserLoginMutation();
   const dispatch = useDispatch();
-  const orderLines = useSelector(selectOrder);
+  const orderPaid = useSelector(selectOrderPaid);
+  const orderStatus = useSelector(selectOrderStatus);
   const isLoggedIn = useSelector(selectLoginStatus);
   const token = useSelector(selectToken);
   const navigation = useNavigation();
@@ -26,10 +37,32 @@ function HomeScreen() {
     let userName = data.email.split("@")[0];
     const response = await userLogin({
       usuario: userName,
-      contrasenia: data.pwd
-    })
-    dispatch(login({loggedIn: true, token: response.data}))
+      contrasenia: data.pwd,
+    });
+    dispatch(login({ loggedIn: true, token: response.data }));
   };
+
+  // automatically update order status
+  useEffect(() => {
+    const timeout1 = setTimeout(() => {
+      if (orderPaid) {
+        dispatch(updateOrderStatus({status: "En Camino"}))
+      }
+    }, 10000);
+
+    return () => clearTimeout(timeout1);
+  }, [orderPaid]);
+
+  useEffect(() => {
+    const timeout2 = setTimeout(() => {
+      if (orderPaid) {
+        if (orderStatus == "En Camino") {
+          dispatch(updateOrderStatus({status: "Entregado"}))
+        }
+      }
+    }, 10000);
+    return () => clearTimeout(timeout2);
+  }, [orderStatus])
 
   return (
     <ScreenLayout>
@@ -96,22 +129,21 @@ function HomeScreen() {
             rounded
             activeOpacity={0.7}
           />
-          <Button 
-            icon={
-              <Icon
-                name="log-out"
-                type="entypo"
-                size={30}
-                color="white"
-              />
-            }
-            containerStyle={{position: "absolute", right: 20}}
+          <Button
+            icon={<Icon name="log-out" type="entypo" size={30} color="white" />}
+            containerStyle={{ position: "absolute", right: 20 }}
             onPress={() => dispatch(logout())}
           />
-          <View style={tw`h-1/2`}>
-            <Text style={tw`text-xl font-bold leading-10`}>
+          <View style={tw`h-1/2 px-4 w-full`}>
+            <Text style={tw`text-xl h-1/6 font-bold leading-10`}>
               {`Bienvenido, ${getUserFromToken(token).toUpperCase()}`}
             </Text>
+            <View style={tw`bg-${orderStatus ? statusColors[orderStatus] + "-200" : "white"} h-5/6`}>
+              <Text style={tw`text-lg`}>
+                {orderPaid? orderStatus : "No hay órdenes en curso"}
+              </Text>
+              <View style={tw`flex-1 w-full pb-2`}></View>
+            </View>
           </View>
           <View style={tw`flex-1 w-full px-5 py-5`}>
             <View style={tw`mb-3`}>
@@ -133,7 +165,7 @@ function HomeScreen() {
                 }}
               />
             </View>
-            <Button
+            {/* <Button
               title={"Ver orden creada"}
               raised
               disabled={Object.keys(orderLines).length == 0}
@@ -141,7 +173,7 @@ function HomeScreen() {
                 dispatch(setSelected({ id: 2 })); // seteo que el seleccionado es la pantalla de orden
                 navigation.navigate("OrderScreen");
               }}
-            />
+            /> */}
           </View>
         </View>
       )}

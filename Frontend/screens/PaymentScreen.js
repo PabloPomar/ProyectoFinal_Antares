@@ -1,6 +1,4 @@
 import {
-  FlatList,
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -20,6 +18,8 @@ import {
   selectCard,
   selectPaymentMethods,
 } from "../slices/paymentMethodsSlice";
+import { generateOrder } from "../slices/orderSlice";
+import { setSelected } from "../slices/navOptionsSlice";
 
 const PaymentScreen = () => {
   const isLoggedIn = useSelector(selectLoginStatus);
@@ -39,11 +39,17 @@ const PaymentScreen = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-       setPaying(false);
-     }, 3000);
- 
+      if (paying == true) {
+        setPaying(false);
+        dispatch(setSelected({ id: 0 })); // Home Screen...
+        dispatch(removeSelection()) // deselecciono la tarjeta
+        
+        navigation.navigate("HomeScreen");
+      }
+    }, 3000);
+
     return () => clearTimeout(timeout);
-   },[paying]);
+  }, [paying]);
 
   return (
     <ScreenLayout>
@@ -131,7 +137,10 @@ const PaymentScreen = () => {
                 disabled={selectedPaymentMethod.length == 0}
                 title="PAGAR"
                 loading={paying}
-                onPress={() => setPaying(true)}
+                onPress={() => {
+                  setPaying(true);
+                  dispatch(generateOrder({paid: true, status: "Preparando" }));
+                }}
               />
             </View>
           </>
