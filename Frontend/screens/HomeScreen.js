@@ -18,9 +18,10 @@ import { getUserFromToken } from "../utils";
 import {
   selectOrderPaid,
   selectOrderStatus,
-  statusColors,
   updateOrderStatus,
 } from "../slices/orderSlice";
+import { statusColors } from "../utils";
+import { LinearProgress } from "@rneui/base";
 
 function HomeScreen() {
   const [userData, setUserData] = useState({ email: "", pwd: "" });
@@ -46,7 +47,7 @@ function HomeScreen() {
   useEffect(() => {
     const timeout1 = setTimeout(() => {
       if (orderPaid) {
-        dispatch(updateOrderStatus({status: "En Camino"}))
+        dispatch(updateOrderStatus({ status: "En Camino" }));
       }
     }, 10000);
 
@@ -57,12 +58,12 @@ function HomeScreen() {
     const timeout2 = setTimeout(() => {
       if (orderPaid) {
         if (orderStatus == "En Camino") {
-          dispatch(updateOrderStatus({status: "Entregado"}))
+          dispatch(updateOrderStatus({ status: "Entregado" }));
         }
       }
     }, 10000);
     return () => clearTimeout(timeout2);
-  }, [orderStatus])
+  }, [orderStatus]);
 
   return (
     <ScreenLayout>
@@ -138,10 +139,48 @@ function HomeScreen() {
             <Text style={tw`text-xl h-1/6 font-bold leading-10`}>
               {`Bienvenido, ${getUserFromToken(token).toUpperCase()}`}
             </Text>
-            <View style={tw`bg-${orderStatus ? statusColors[orderStatus] + "-200" : "white"} h-5/6`}>
-              <Text style={tw`text-lg`}>
-                {orderPaid? orderStatus : "No hay órdenes en curso"}
-              </Text>
+            <View
+              style={tw`bg-${
+                orderStatus ? `${statusColors[orderStatus].color}-200` : "white"
+              } h-5/6 border border-gray-300 rounded-xl shadow-xl mb-8`}
+            >
+              {orderPaid ? (
+                <View style={tw`p-3`}>
+                  <Text style={tw`text-lg font-bold pb-3`}>
+                    Estado de la orden:
+                  </Text>
+                  {orderStatus != "Entregado" ? (
+                    <Text style={tw`text-lg`}>Pedido en curso...</Text>
+                  ) : (
+                    <Text style={tw`text-lg`}>Pedido completado!</Text>
+                  )}
+                  <LinearProgress
+                    value={statusColors[orderStatus].progress}
+                    variant="determinate"
+                    color={statusColors[orderStatus].color}
+                  />
+                  {orderStatus == "Entregado" ? (
+                    <View>
+                      <Text style={tw`pt-2`}>Disfrute de su orden!</Text>
+                      <Icon
+                        name="checkcircle"
+                        type="antdesign"
+                        style={tw`p-2`}
+                        size={60}
+                        color={
+                          orderStatus != "Entregado" ? "grey" : "green"
+                        }
+                        disabled={orderStatus != "Entregado"}
+                        disabledStyle={{ backgroundColor: "white" }}
+                      />
+                    </View>
+                  ) : null}
+                </View>
+              ) : (
+                <View style={tw`p-3`}>
+                  <Text style={tw`text-lg`}>No hay órdenes en curso</Text>
+                </View>
+              )}
               <View style={tw`flex-1 w-full pb-2`}></View>
             </View>
           </View>
@@ -165,15 +204,6 @@ function HomeScreen() {
                 }}
               />
             </View>
-            {/* <Button
-              title={"Ver orden creada"}
-              raised
-              disabled={Object.keys(orderLines).length == 0}
-              onPress={() => {
-                dispatch(setSelected({ id: 2 })); // seteo que el seleccionado es la pantalla de orden
-                navigation.navigate("OrderScreen");
-              }}
-            /> */}
           </View>
         </View>
       )}

@@ -1,14 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const statusColors = {
-  "Preparando": "red",
-  "En Camino": "yellow",
-  "Entregado": "green"
-}
-
 const initialState = {
   paid: false,
-  status: ""
+  status: "",
 };
 
 export const orderSlice = createSlice({
@@ -16,12 +10,12 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     generateOrder: (state, action) => {
-      state.paid = action.payload.paid
-      state.status = action.payload.status
+      state.paid = action.payload.paid;
+      state.status = action.payload.status;
     },
     updateOrderStatus: (state, action) => {
-      state.status = action.payload.status
-    }
+      state.status = action.payload.status;
+    },
   },
 });
 
