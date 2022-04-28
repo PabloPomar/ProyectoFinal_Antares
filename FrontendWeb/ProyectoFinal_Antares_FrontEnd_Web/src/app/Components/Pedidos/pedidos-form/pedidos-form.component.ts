@@ -6,6 +6,7 @@ import {Usuario} from "../../../Models/usuario";
 import {PedidosService} from "../../../Services/pedidos.service";
 import {formatDate} from "@angular/common";
 import jwtDecode from "jwt-decode";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pedidos-form',
@@ -60,12 +61,19 @@ export class PedidosFormComponent {
   }
 
   formatDateVista(date: Date) {
-    return formatDate(date, 'YYYY/MM/dd HH:MM', 'en-US');
+    return formatDate(date, 'HH:MM dd/MM/YYYY', 'en-US');
+  }
+
+  get hasDeliverySelected(): boolean {
+    return this.idDelivery > 0;
   }
 
   evolucionarPedido() {
     this.pedidosService.cambiarEstado(this.data.pedido.id).subscribe(() => {
-      alert("Pedido avanzado");
+      Swal.fire("El pedido ha sido avanzado a estado " + EstadoPedido[this.data.pedido.estadoPedido + 1])
+        .then(() => {
+          window.location.reload();
+        });
     });
 
     this.dialogRef.close();
@@ -73,7 +81,10 @@ export class PedidosFormComponent {
 
   evolucionarPedidoDelivery() {
     this.pedidosService.cambiarEstadoDelivery(this.data.pedido.id, this.idDelivery).subscribe(() => {
-      alert("Pedido avanzado, delivery asignado");
+      Swal.fire("El pedido ha sido avanzado a estado " + EstadoPedido[this.data.pedido.estadoPedido + 1] + " y se ha asignado al delivery " + this.idDelivery)
+        .then(() => {
+          window.location.reload();
+        });
     });
 
     this.dialogRef.close();
@@ -84,18 +95,11 @@ export class PedidosFormComponent {
     if(token == null)
       return false;
     const tokenInfo = this.getDecodedAccessToken(token);
-    console.log(tokenInfo);
     const expireDate = tokenInfo.exp;
     this.userId = tokenInfo.userId;
     this.userType = tokenInfo.userType;
     this.isAdmin = this.userType === "Admin";
     this.isLogged = true;
-
-    console.log(this.userId);
-    console.log(this.userType);
-    console.log(this.isAdmin);
-    console.log(this.isLogged);
-
     return true;
   }
 
@@ -108,6 +112,10 @@ export class PedidosFormComponent {
   }
 
   canEvolvePedido(){
+    if(this.data.pedido.estadoPedido == EstadoPedido.Finalizado)
+      return false;
+    if(this.data.pedido.estadoPedido == EstadoPedido.Cancelado)
+      return false;
     if(this.isAdmin)
       return true;
     if(this.data.pedido.estadoPedido == EstadoPedido.Pagado && this.userType == "Caja")
@@ -116,14 +124,8 @@ export class PedidosFormComponent {
       return true;
     if(this.data.pedido.estadoPedido == EstadoPedido.EnCamino && this.userType == "Delivery" && this.data.pedido.delivery.id == this.userId)
       return true;
-    if(this.data.pedido.estadoPedido == EstadoPedido.Entregado && this.userType == "Caja")
-      return true;
-    if(this.data.pedido.estadoPedido == EstadoPedido.Finalizado)
-      return false;
-    if(this.data.pedido.estadoPedido == EstadoPedido.Cancelado)
-      return false;
 
-    return false;
+    return this.data.pedido.estadoPedido == EstadoPedido.Entregado && this.userType == "Caja";
   }
 
 }

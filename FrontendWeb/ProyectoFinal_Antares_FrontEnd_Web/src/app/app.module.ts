@@ -46,7 +46,7 @@ import { CancelarPedidoComponent } from './Components/GridActions/cancelar-pedid
         PedidosFormComponent,
         PedidosGridComponent,
         AbrirPedidoComponent,
-        CancelarPedidoComponent
+        CancelarPedidoComponent,
     ],
   imports: [
     BrowserModule,
@@ -61,7 +61,7 @@ import { CancelarPedidoComponent } from './Components/GridActions/cancelar-pedid
     MatDialogModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
   ],
     providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

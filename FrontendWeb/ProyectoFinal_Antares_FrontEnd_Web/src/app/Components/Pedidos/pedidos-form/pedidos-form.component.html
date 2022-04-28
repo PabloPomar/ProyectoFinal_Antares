@@ -5,10 +5,10 @@
     <p class="cancelledBar">EL PEDIDO FUE CANCELADO</p>
   </div>
   <hr>
-  <p>Hora Pedido: {{formatDateVista(data.pedido.horaPedido)}} </p>
+  <p>Hora/Fecha Pedido: {{formatDateVista(data.pedido.horaPedido)}} </p>
   <hr>
-  <p *ngIf="data.pedido.horaEntrega != null">Hora Entrega: {{formatDateVista(data.pedido.horaEntrega)}} </p>
-  <p *ngIf="data.pedido.horaEntrega == null && !isCancelled">Hora Entrega: **PENDIENTE**</p>
+  <p *ngIf="data.pedido.horaEntrega != null">Hora/Fecha: {{formatDateVista(data.pedido.horaEntrega)}} </p>
+  <p *ngIf="data.pedido.horaEntrega == null && !isCancelled">Hora/Fecha Entrega: **PENDIENTE**</p>
   <hr>
   <p>Direccion: {{data.pedido.usuario.direccion}} </p>
   <hr>
@@ -54,7 +54,8 @@
     </select>
   </div>
   <div>
-    <div *ngIf="needsDelivery && !isCancelled && canEvolve">
+    <div *ngIf="needsDelivery && !isCancelled && canEvolve && hasDeliverySelected">
+      <br>
       <button mat-button class="dialogButton" (click)="evolucionarPedidoDelivery()" [disabled]="idDelivery == 0 || idDelivery == null">Avanzar Pedido</button>
     </div>
     <div *ngIf="!needsDelivery && !isCancelled && canEvolve">

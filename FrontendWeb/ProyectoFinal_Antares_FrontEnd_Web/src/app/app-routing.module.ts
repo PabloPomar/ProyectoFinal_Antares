@@ -13,7 +13,11 @@ const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'comun', component: ComunComponent },
     { path: 'productos', component: ProductosGridComponent },
-    { path: 'pedidos', component: PedidosGridComponent },
+    { path: 'pedidos', component: PedidosGridComponent,
+      canActivate: [AuthGuard],
+      data: {
+        isLoggedIn: 'true'
+      } },
     { path: 'login', component: LoginComponent },
     { path: 'userRegister', component: UserRegisterComponent,
       canActivate: [AuthGuard],

@@ -63,7 +63,7 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
         var pedido = await _context.Set<Pedido>()
             .Include(x => x.Usuario)
             .Where(x => x.IdUsuario == userId && 
-                        (x.EstadoPedido != EstadoPedido.Finalizado || x.EstadoPedido != EstadoPedido.Cancelado))
+                        (x.EstadoPedido != EstadoPedido.Finalizado && x.EstadoPedido != EstadoPedido.Cancelado))
             .FirstOrDefaultAsync();
 
         return pedido != null;
