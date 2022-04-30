@@ -15,7 +15,7 @@ public class ReporteService : IReporteService
         _connectionString = connectionString;
     }
 
-    public async Task<List<VentasDto>> TestReporteVentas()
+    public async Task<List<VentasDto>> GetReporteVentas()
     {
         var ventas1 = await GetJsonResult(QueriesReportes.Ventas.VentasQuery);
 
@@ -52,7 +52,7 @@ public class ReporteService : IReporteService
         return ventasCompletadas!;
     }
     
-    public async Task<List<PedidosClientesDto>> TestPedidoClientes()
+    public async Task<List<PedidosClientesDto>> GetReportePedidoClientes()
     {
         var ventas1 = await GetJsonResult(QueriesReportes.PedidosCLientes.PedidosCLientesQuery);
 
@@ -93,7 +93,7 @@ public class ReporteService : IReporteService
         return pedidosCompletados!;
     }
     
-    public async Task<List<DeliveriesDto>> TestDeliveries()
+    public async Task<List<DeliveriesDto>> GetReporteDeliveries()
     {
         var ventas1 = await GetJsonResult(QueriesReportes.Deliveries.DeliveriesQuery);
 
