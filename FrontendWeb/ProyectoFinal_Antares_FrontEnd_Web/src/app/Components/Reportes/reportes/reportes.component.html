@@ -1,0 +1,28 @@
+<hr>
+<div>
+  <mat-card-title class="text">Reportes</mat-card-title>
+  <mat-form-field class="text" appearance="fill">
+    <select matNativeControl [(ngModel)]="tipoReporte">
+      <option [value]="0">Ninguno</option>
+      <option [value]="1">Reporte de ventas</option>
+      <option [value]="2">Reporte de pedidos de clientes</option>
+      <option [value]="3">Reporte de deliveries</option>
+    </select>
+  </mat-form-field>
+
+  <button class="text" mat-raised-button color="primary" [disabled]="tipoReporte == 0" (click)="reportSeleccionado()">Generar reporte</button>
+</div>
+<hr>
+<div *ngIf="reporteSeleccionado == 1">
+  <app-reporte-ventas></app-reporte-ventas>
+</div>
+<div *ngIf="reporteSeleccionado == 2">
+  <app-reporte-pedidos-clientes></app-reporte-pedidos-clientes>
+</div>
+<div *ngIf="reporteSeleccionado == 3">
+  <app-reporte-deliveries></app-reporte-deliveries>
+</div>
+
+<br>
+<br>
+<br>

@@ -8,6 +8,7 @@ import {UserRegisterComponent} from "./Components/Login/user-register/user-regis
 import {HomeComponent} from "./Components/home/home.component";
 import {AuthGuard} from "./auth-guard.guard";
 import {PedidosGridComponent} from "./Components/Pedidos/pedidos-grid/pedidos-grid.component";
+import {ReportesComponent} from "./Components/Reportes/reportes/reportes.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -39,7 +40,13 @@ const routes: Routes = [
       canActivate: [AuthGuard],
       data: {
         role: 'Admin'
-      } }
+      } },
+    { path: 'reportes', component: ReportesComponent,
+      canActivate: [AuthGuard],
+      data: {
+        role: 'Admin'
+      }
+    },
 ];
 
 @NgModule({

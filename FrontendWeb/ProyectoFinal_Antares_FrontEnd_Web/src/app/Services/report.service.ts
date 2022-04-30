@@ -13,14 +13,14 @@ export class ReportService {
   constructor(private http: HttpClient) { }
 
   getVentasReporte() {
-    return this.http.get<ventasDto>(this.requestUrl + '/ventas');
+    return this.http.get<ventasDto[]>(this.requestUrl + '/ventas');
   }
 
   getDeliveriesReporte() {
-    return this.http.get<deliveriesDto>(this.requestUrl + '/deliveries');
+    return this.http.get<deliveriesDto[]>(this.requestUrl + '/deliveries');
   }
 
   getClientesReporte() {
-    return this.http.get<pedidosClientesDto>(this.requestUrl + '/clientes');
+    return this.http.get<pedidosClientesDto[]>(this.requestUrl + '/clientes');
   }
 }
