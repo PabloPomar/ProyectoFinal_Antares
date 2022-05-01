@@ -37,10 +37,10 @@ export class ReporteVentasComponent implements OnInit {
     {headerName: 'Mes', field: 'salesMonth', sortable: true, filter: true, cellStyle: {fontSize: '20px'}, cellRenderer: (data: { value: Meses }) => {
         return (data.value !== null && data.value !== undefined)
           ? Meses[data.value] : 'not found';}},
-    {headerName: 'Año', field: 'salesYear', sortable: true, filter: true},
-    {headerName: 'Ventas', field: 'totalSales', valueFormatter: (params: { data: { totalSales: any; }; }) => this.currencyFormatter(params, '$'), sortable: true},
-    {headerName: 'Completadas', field: 'completadas', sortable: true},
-    {headerName: 'No Completadas', field: 'noCompletadas', sortable: true},
+    {headerName: 'Año', field: 'salesYear', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Ventas', field: 'totalSales', cellStyle: {fontSize: '20px'}, valueFormatter: (params: { data: { totalSales: any; }; }) => this.currencyFormatter(params, '$'), sortable: true},
+    {headerName: 'Completadas', field: 'completadas', sortable: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'No Completadas', field: 'noCompletadas', sortable: true, cellStyle: {fontSize: '20px'}},
   ];
 
   currencyFormatter(params: any, sign: any) {

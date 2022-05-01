@@ -38,11 +38,11 @@ export class ReportePedidosClientesComponent implements OnInit {
     {headerName: 'Mes', field: 'salesMonth', sortable: true, filter: true, cellStyle: {fontSize: '20px'}, cellRenderer: (data: { value: Meses }) => {
         return (data.value !== null && data.value !== undefined)
           ? Meses[data.value] : 'not found';}},
-    {headerName: 'Año', field: 'salesYear', sortable: true, filter: true},
-    {headerName: 'Id', field: 'idUsuario', sortable: true, filter: true},
-    {headerName: 'Nombre', field: 'nombre', sortable: true, filter: true},
-    {headerName: 'Completadas', field: 'completadas', sortable: true, filter: true},
-    {headerName: 'Canceladas', field: 'canceladas', sortable: true, filter: true},
+    {headerName: 'Año', field: 'salesYear', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Id', field: 'idUsuario', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Nombre', field: 'nombre', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Completadas', field: 'completadas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Canceladas', field: 'canceladas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
   ];
 
   onGridReady = (params: any) =>
