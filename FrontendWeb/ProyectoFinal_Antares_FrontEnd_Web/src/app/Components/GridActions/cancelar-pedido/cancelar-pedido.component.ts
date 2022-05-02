@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ICellRendererParams} from "@ag-grid-community/core";
 import {ICellRendererAngularComp} from "@ag-grid-community/angular";
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-cancelar-pedido',
@@ -26,9 +27,24 @@ export class CancelarPedidoComponent implements ICellRendererAngularComp {
   {
     if(this.isActive)
     {
-      if(confirm("¿Esta seguro que cancelar el pedido?")) {
-        await this.componentParent.cancelar(this.params.value as number);
-      }
+      Swal.fire({
+        title: '¿Esta seguro que desea cancelar el pedido?',
+        text: "El pedido sera cancelado y no podra ser recuperado",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cancelar'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await this.componentParent.cancelar(this.params.value as number);
+          await Swal.fire(
+            'Cancelado',
+            'El pedido fue cancelado.',
+            'success'
+          )
+        }
+      })
     }
   }
 
