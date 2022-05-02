@@ -46,11 +46,14 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
             if (producto == null)
                 throw new Exception("El producto no existe");
 
-            if (producto.Stock < item.Cantidad)
+            if (producto.Stock < item.Cantidad && producto.TipoProducto != TipoProducto.ServicioDelivery)
                 throw new Exception("No hay stock suficiente");
 
-            producto.Stock -= item.Cantidad;
+            if (producto.TipoProducto != TipoProducto.ServicioDelivery)
+                producto.Stock -= item.Cantidad;
         }
+
+        await AgregarServicioDelivery(pedido);
 
         await _context.Set<Pedido>().AddAsync(pedido);
 
@@ -63,7 +66,7 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
         var pedido = await _context.Set<Pedido>()
             .Include(x => x.Usuario)
             .Where(x => x.IdUsuario == userId && 
-                        (x.EstadoPedido != EstadoPedido.Finalizado || x.EstadoPedido != EstadoPedido.Cancelado))
+                        (x.EstadoPedido != EstadoPedido.Finalizado && x.EstadoPedido != EstadoPedido.Cancelado))
             .FirstOrDefaultAsync();
 
         return pedido != null;
@@ -184,5 +187,30 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
         pedido.EstadoPedido = EstadoPedido.Cancelado;
 
         await Context.SaveChangesAsync();
+    }
+
+    private async Task AgregarServicioDelivery(Pedido pedido)
+    {
+        var servicioDelivery = await GetServicioDeliveryAsync();
+        
+        if(servicioDelivery == null)
+            throw new Exception("No hay servicio de delivery");
+        
+        var delivery = new PedidoProducto()
+        {   IdPedido = pedido.Id,   
+            IdProducto = servicioDelivery.Id,
+            Cantidad = 1
+        };
+        
+        pedido.ListaPedido.Add(delivery);
+        
+        pedido.PrecioTotal += servicioDelivery.Precio;
+    }
+
+    private async Task<Producto?> GetServicioDeliveryAsync()
+    {
+        return await _context.Set<Producto>()
+            .Where(x => x.TipoProducto == TipoProducto.ServicioDelivery)
+            .FirstOrDefaultAsync();
     }
 }

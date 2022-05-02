@@ -22,5 +22,6 @@ export enum TipoProducto
   BebidaNoAlcoholica,
   Minuta,
   PlatosPrincipales,
-  Postre
+  Postre,
+  ServicioDelivery
 }

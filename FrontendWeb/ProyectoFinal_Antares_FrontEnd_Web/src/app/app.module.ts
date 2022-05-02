@@ -28,6 +28,12 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import { AbrirPedidoComponent } from './Components/GridActions/abrir-pedido/abrir-pedido.component';
 import { CancelarPedidoComponent } from './Components/GridActions/cancelar-pedido/cancelar-pedido.component';
+import { ReportesComponent } from './Components/Reportes/reportes/reportes.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatInputModule} from "@angular/material/input";
+import { ReporteVentasComponent } from './Components/Reportes/reporte-ventas/reporte-ventas.component';
+import { ReporteDeliveriesComponent } from './Components/Reportes/reporte-deliveries/reporte-deliveries.component';
+import { ReportePedidosClientesComponent } from './Components/Reportes/reporte-pedidos-clientes/reporte-pedidos-clientes.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +52,11 @@ import { CancelarPedidoComponent } from './Components/GridActions/cancelar-pedid
         PedidosFormComponent,
         PedidosGridComponent,
         AbrirPedidoComponent,
-        CancelarPedidoComponent
+        CancelarPedidoComponent,
+        ReportesComponent,
+        ReporteVentasComponent,
+        ReporteDeliveriesComponent,
+        ReportePedidosClientesComponent,
     ],
   imports: [
     BrowserModule,
@@ -61,7 +71,9 @@ import { CancelarPedidoComponent } from './Components/GridActions/cancelar-pedid
     MatDialogModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule
   ],
     providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
