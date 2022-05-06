@@ -38,15 +38,15 @@ public static class QueriesReportes
 			ORDER BY YEAR([HoraEntrega]), MONTH([HoraEntrega]), [IdDelivery], Completadas desc";
 
         public static string DeliveriesQueryCanceladas =
-            @"SELECT YEAR([HoraEntrega]) as SalesYear,
-			         MONTH([HoraEntrega]) as SalesMonth,
+            @"SELECT YEAR([HoraPedido]) as SalesYear,
+			         MONTH([HoraPedido]) as SalesMonth,
 					 [IdDelivery], u.NombreUsuario as Nombre,
 					 Count([EstadoPedido]) as NoCompletadas 
 			      FROM [Antares].[dbo].[Pedido]
 				  Inner Join Usuario u on IdDelivery = u.Id
 				  where EstadoPedido != 5
-			GROUP BY YEAR([HoraEntrega]), MONTH([HoraEntrega]), [IdDelivery], u.NombreUsuario
-			ORDER BY YEAR([HoraEntrega]), MONTH([HoraEntrega]), [IdDelivery], NoCompletadas desc";
+			GROUP BY YEAR([HoraPedido]), MONTH([HoraPedido]), [IdDelivery], u.NombreUsuario
+			ORDER BY YEAR([HoraPedido]), MONTH([HoraPedido]), [IdDelivery], NoCompletadas desc";
     }
 
     public static class PedidosCLientes
