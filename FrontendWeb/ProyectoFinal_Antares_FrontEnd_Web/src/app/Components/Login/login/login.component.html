@@ -1,20 +1,20 @@
 <div class="login">
-  <form [formGroup]="userForm" class="custom-form" method="post">
-    <h1>Login</h1>
+  <form [formGroup]="userForm" class="custom-form" style="width: 30%" method="post">
+    <h1>Inicio de sesión</h1>
     <input
       type="text"
       name="user"
-      placeholder="usuario o mail"
+      placeholder="Usuario o Mail"
       required="required"
       formControlName="user"
     />
     <input
       type="password"
       name="password"
-      placeholder="Password"
+      placeholder="Contraseña"
       required="required"
       formControlName="password"
     />
-    <button type="submit" [disabled]="!userForm.valid" (click)="login()">Log in</button>
+    <button type="submit" [disabled]="!userForm.valid" (click)="login()">Iniciar Sesión</button>
   </form>
 </div>

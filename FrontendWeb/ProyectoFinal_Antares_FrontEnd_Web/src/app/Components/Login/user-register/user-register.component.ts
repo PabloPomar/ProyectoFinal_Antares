@@ -11,6 +11,7 @@ import {
   Validators
 } from "@angular/forms";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-user-register',
@@ -47,11 +48,11 @@ export class UserRegisterComponent implements OnInit {
       {
         if(x)
         {
-          alert("El mail del usuario se encuentra en uso");
+          Swal.fire("El mail del usuario se encuentra en uso");
         }
           this.loginService.validarNombre(this.usuario.nombreUsuario).subscribe(async y => {
               if (y) {
-                alert("El nombre del usuario se encuentra en uso");
+                Swal.fire("El nombre del usuario se encuentra en uso");
               } else {
                 await this.loginService.registrarUsuario(this.usuario).subscribe(result => alert("Usuario Creado"));
                 await this.router.navigate(['/login']);
