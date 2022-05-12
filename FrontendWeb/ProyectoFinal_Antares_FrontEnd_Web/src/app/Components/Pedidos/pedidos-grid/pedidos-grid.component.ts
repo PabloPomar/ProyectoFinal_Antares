@@ -8,6 +8,7 @@ import {PedidosFormComponent} from "../pedidos-form/pedidos-form.component";
 import {AbrirPedidoComponent} from "../../GridActions/abrir-pedido/abrir-pedido.component";
 import {CancelarPedidoComponent} from "../../GridActions/cancelar-pedido/cancelar-pedido.component";
 import {formatDate} from "@angular/common";
+import {AG_GRID_LOCALE_ES} from "../../../Models/traduccion";
 
 @Component({
   selector: 'app-pedidos-grid',
@@ -112,10 +113,12 @@ export class PedidosGridComponent implements OnInit
     rowData: this.pedidos,
     columnDefs: this.columnDefs,
     pagination: true,
+    paginationPageSize: 20,
     rowSelection: 'single',
     components: {
       abrirPedidoComponent: AbrirPedidoComponent,
       cancelarPedidoComponent: CancelarPedidoComponent
-    }
+    },
+    localeText: AG_GRID_LOCALE_ES
   };
 }

@@ -5,6 +5,7 @@ import {Meses} from "../../../Models/meses";
 import {pedidosClientesDto} from "../../../Models/Reportes/pedidosClientesDto";
 import {GridApi, ModuleRegistry} from "@ag-grid-community/core";
 import { CsvExportModule } from "@ag-grid-community/csv-export";
+import {AG_GRID_LOCALE_ES} from "../../../Models/traduccion";
 
 @Component({
   selector: 'app-reporte-pedidos-clientes',
@@ -39,7 +40,7 @@ export class ReportePedidosClientesComponent implements OnInit {
         return (data.value !== null && data.value !== undefined)
           ? Meses[data.value] : 'not found';}},
     {headerName: 'Año', field: 'salesYear', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
-    {headerName: 'Id', field: 'idUsuario', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Identificador', field: 'idUsuario', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Nombre', field: 'nombre', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Completadas', field: 'completadas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Canceladas', field: 'canceladas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
@@ -56,10 +57,12 @@ export class ReportePedidosClientesComponent implements OnInit {
     rowData: this.reportePedidoCliente,
     columnDefs: this.columnDefs,
     pagination: true,
-    rowSelection: 'single'
+    rowSelection: 'single',
+    localeText: AG_GRID_LOCALE_ES
   };
 
   onBtnExport() {
     this.api.exportDataAsCsv();
   }
 }
+

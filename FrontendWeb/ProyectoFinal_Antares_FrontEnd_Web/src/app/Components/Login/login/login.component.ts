@@ -4,6 +4,8 @@ import jwtDecode from "jwt-decode";
 import {TipoUsuario} from "../../../Models/usuario";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
+import {EstadoPedido} from "../../../Models/pedido";
 
 @Component({
   selector: 'app-login',
@@ -39,7 +41,10 @@ export class LoginComponent implements OnInit {
       }
       else
       {
-        alert("Usuario o contraseña incorrectos");
+        Swal.fire("Usuario o contraseña incorrectos ")
+          .then(() => {
+            window.location.reload();
+          });
       }
     });
   }

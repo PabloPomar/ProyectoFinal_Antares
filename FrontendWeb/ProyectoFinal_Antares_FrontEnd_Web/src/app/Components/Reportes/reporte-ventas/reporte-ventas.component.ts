@@ -4,6 +4,7 @@ import {ventasDto} from "../../../Models/Reportes/ventasDto";
 import {Meses} from "../../../Models/meses";
 import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
 import {CsvExportModule} from "@ag-grid-community/csv-export";
+import {AG_GRID_LOCALE_ES} from "../../../Models/traduccion";
 
 @Component({
   selector: 'app-reporte-ventas',
@@ -59,7 +60,8 @@ export class ReporteVentasComponent implements OnInit {
     rowData: this.reporteVentas,
     columnDefs: this.columnDefs,
     pagination: true,
-    rowSelection: 'single'
+    rowSelection: 'single',
+    localeText: AG_GRID_LOCALE_ES
   };
 
   onBtnExport() {

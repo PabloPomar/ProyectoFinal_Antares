@@ -7,6 +7,7 @@ import {AbrirPedidoComponent} from "../../GridActions/abrir-pedido/abrir-pedido.
 import {CancelarPedidoComponent} from "../../GridActions/cancelar-pedido/cancelar-pedido.component";
 import {deliveriesDto} from "../../../Models/Reportes/deliveriesDto";
 import {CsvExportModule} from "@ag-grid-community/csv-export";
+import {AG_GRID_LOCALE_ES} from "../../../Models/traduccion";
 
 @Component({
   selector: 'app-reporte-deliveries',
@@ -41,7 +42,7 @@ export class ReporteDeliveriesComponent implements OnInit {
         return (data.value !== null && data.value !== undefined)
           ? Meses[data.value] : 'not found';}},
     {headerName: 'Año', field: 'salesYear', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
-    {headerName: 'Id', field: 'idDelivery', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Identificador', field: 'idDelivery', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Nombre', field: 'nombre', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Completadas', field: 'completadas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'No Completadas', field: 'noCompletadas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
@@ -58,7 +59,8 @@ export class ReporteDeliveriesComponent implements OnInit {
     rowData: this.reporteDeliveries,
     columnDefs: this.columnDefs,
     pagination: true,
-    rowSelection: 'single'
+    rowSelection: 'single',
+    localeText: AG_GRID_LOCALE_ES
   };
 
   onBtnExport() {
