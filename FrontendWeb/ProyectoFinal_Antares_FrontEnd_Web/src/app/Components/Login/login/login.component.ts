@@ -3,6 +3,9 @@ import {LoginService} from "../../../Services/login.service";
 import jwtDecode from "jwt-decode";
 import {TipoUsuario} from "../../../Models/usuario";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import Swal from "sweetalert2";
+import {EstadoPedido} from "../../../Models/pedido";
 
 @Component({
   selector: 'app-login',
@@ -21,15 +24,28 @@ export class LoginComponent implements OnInit {
     this.initForm();
   }
 
-  constructor(public loginService: LoginService, private fb: FormBuilder) {
+  constructor(public loginService: LoginService, private fb: FormBuilder, private router: Router) {
   }
 
   login() {
     this.user = this.userForm.value.user;
     this.password = this.userForm.value.password;
     this.loginService.validarUsuario(this.user, this.password).subscribe((data: any) => {
-      if (data != null)
-        this.checkToken()
+      if (data !== false) {
+        this.checkToken();
+        this.router.navigate(['/pedidos']).then(
+          () => {
+            window.location.reload();
+          }
+        );
+      }
+      else
+      {
+        Swal.fire("Usuario o contraseña incorrectos ")
+          .then(() => {
+            window.location.reload();
+          });
+      }
     });
   }
 

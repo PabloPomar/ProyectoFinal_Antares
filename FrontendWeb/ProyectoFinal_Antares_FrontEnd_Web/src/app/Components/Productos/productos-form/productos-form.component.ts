@@ -4,6 +4,7 @@ import {ProductosService} from '../../../Services/productos.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs';
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-productos-form',
@@ -122,7 +123,9 @@ export class ProductosFormComponent implements OnInit
           {
             this.productoService.validarNombre(this.producto.nombre).subscribe(async x => {
               if (x)
-                alert(`El producto con nombre ${this.producto.nombre} se encuentra en uso. Utilize otro nombre.`)
+              {
+                await Swal.fire(`El producto con nombre ${this.producto.nombre} se encuentra en uso. Utilize otro nombre.`);
+              }
               else
                 await this.productoService.create(this.producto).subscribe(_ => this.router.navigate(['/productos']));
             });
@@ -131,7 +134,7 @@ export class ProductosFormComponent implements OnInit
           {
             this.productoService.validarNombreEdit(this.producto.nombre, this.nombreOriginal).subscribe(async x => {
                 if (x) {
-                  alert(`El producto con nombre ${this.producto.nombre} se encuentra en uso. Utilize otro nombre.`)
+                  await Swal.fire(`El producto con nombre ${this.producto.nombre} se encuentra en uso. Utilize otro nombre.`);
                 } else {
                   await this.productoService.edit(this.producto).subscribe(_ => this.router.navigate(['/productos']));
                 }

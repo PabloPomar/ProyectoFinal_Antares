@@ -52,6 +52,11 @@ public class UsuarioService : ReferenceService<Usuario>, IUsuarioService
         return await _repository.GetUsuario(nombreUsuario, password);
     }
     
+    public async Task<List<Usuario>> GetDeliveries()
+    {
+        return await _repository.GetDeliveries();
+    }
+    
     public async Task<bool> EmailEnUso(string email)
     {
         return await _repository.EmailEnUso(email);

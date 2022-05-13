@@ -19,6 +19,21 @@ import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { HomeComponent } from './Components/home/home.component';
 import {RecaptchaModule} from "ng-recaptcha";
+import { PedidosFormComponent } from './Components/Pedidos/pedidos-form/pedidos-form.component';
+import { PedidosGridComponent } from './Components/Pedidos/pedidos-grid/pedidos-grid.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDialogModule} from "@angular/material/dialog";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatSelectModule} from "@angular/material/select";
+import {MatButtonModule} from "@angular/material/button";
+import { AbrirPedidoComponent } from './Components/GridActions/abrir-pedido/abrir-pedido.component';
+import { CancelarPedidoComponent } from './Components/GridActions/cancelar-pedido/cancelar-pedido.component';
+import { ReportesComponent } from './Components/Reportes/reportes/reportes.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatInputModule} from "@angular/material/input";
+import { ReporteVentasComponent } from './Components/Reportes/reporte-ventas/reporte-ventas.component';
+import { ReporteDeliveriesComponent } from './Components/Reportes/reporte-deliveries/reporte-deliveries.component';
+import { ReportePedidosClientesComponent } from './Components/Reportes/reporte-pedidos-clientes/reporte-pedidos-clientes.component';
 
 @NgModule({
     declarations: [
@@ -33,18 +48,33 @@ import {RecaptchaModule} from "ng-recaptcha";
         UserRegisterComponent,
         NavBarComponent,
         FooterComponent,
-        HomeComponent
+        HomeComponent,
+        PedidosFormComponent,
+        PedidosGridComponent,
+        AbrirPedidoComponent,
+        CancelarPedidoComponent,
+        ReportesComponent,
+        ReporteVentasComponent,
+        ReporteDeliveriesComponent,
+        ReportePedidosClientesComponent,
     ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        AgGridModule.withComponents([EditButtonComponent, DeleteButtonComponent, ViewButtonComponent]),
-        ReactiveFormsModule,
-        FormsModule,
-        FontAwesomeModule,
-        RecaptchaModule
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    AgGridModule.withComponents([EditButtonComponent, DeleteButtonComponent, ViewButtonComponent]),
+    ReactiveFormsModule,
+    FormsModule,
+    FontAwesomeModule,
+    RecaptchaModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule
+  ],
     providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],

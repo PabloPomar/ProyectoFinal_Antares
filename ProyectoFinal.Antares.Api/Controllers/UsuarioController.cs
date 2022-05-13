@@ -31,6 +31,15 @@ public class UsuarioController : BaseController<Usuario>
         return Ok(existe);
     }
     
+    [HttpGet]
+    [Route("deliveries")]
+    public async Task<IActionResult> GetDeliveries()
+    {
+        var deliveries = await _usuarioService.GetDeliveries();
+        
+        return Ok(deliveries);
+    }
+    
     [HttpGet("mail")]
     [Route("ValidarMail")]
     public async Task<IActionResult> ValidarEmailUsuario(string email)
@@ -48,12 +57,12 @@ public class UsuarioController : BaseController<Usuario>
         var validUser = await _usuarioService.ValidarUsuario(request.Usuario, request.Contrasenia);
 
         if (!validUser)
-            return NotFound();
+            return Ok(false);
 
         var user = await _usuarioService.GetUsuario(request.Usuario, request.Contrasenia);
         
         if(user == null)
-            return NotFound();
+            return Ok(false);
 
         var token = _usuarioService.GenerateToken(user);
 

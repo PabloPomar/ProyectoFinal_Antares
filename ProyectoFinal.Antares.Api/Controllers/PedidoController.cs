@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoFinal.Antares.Domain.Enums;
 using ProyectoFinal.Antares.Domain.Modelos;
 using ProyectoFinal.Antares.Domain.Servicios;
 
@@ -18,7 +17,7 @@ public class PedidoController : BaseController<Pedido>
     [HttpPost]
     [Route("CrearPedido")]
     public new async Task<Pedido> CreateAsync(Pedido pedido)
-    {           
+    {
         await _pedidoService.SaveAsync(pedido);
         return pedido;
     }
@@ -30,10 +29,31 @@ public class PedidoController : BaseController<Pedido>
         return await _pedidoService.UserHasRequestInProgress(userId);
     }
  
-    [HttpPost]
+    [HttpPut]
     [Route("CambiarEstado")]
-    public async Task UserHasRequestInProgress(int pedidoId, EstadoPedido newState)
-    {           
-        await _pedidoService.CambiarEstadoPedido(pedidoId, newState);
+    public async Task EvolucionarPedido(int pedidoId, int? deliveryId = null)
+    {
+        if (deliveryId != null)
+        {
+            await _pedidoService.CambiarEstadoPedido(pedidoId, deliveryId.Value);
+        }
+        else
+        {
+            await _pedidoService.CambiarEstadoPedido(pedidoId);
+        }
+    }
+    
+    [HttpPost]
+    [Route("CancelarPedido")]
+    public async Task CancelarPedido([FromBody] int pedidoId)
+    {
+        await _pedidoService.CancelarPedido(pedidoId);
+    }
+    
+    [HttpGet("id")]
+    [Route("unPedido")]
+    public async Task<Pedido> GetItemMenu(int id)
+    {
+        return await _pedidoService.FindAsync(id);
     }
 }

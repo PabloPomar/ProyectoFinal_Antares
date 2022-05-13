@@ -1,0 +1,65 @@
+<div mat-dialog-content class="dialog">
+<h1 mat-dialog-title>Pedido de {{data.pedido.usuario.nombreUsuario}}</h1>
+  <div *ngIf="isCancelled">
+    <hr>
+    <p class="cancelledBar">EL PEDIDO FUE CANCELADO</p>
+  </div>
+  <hr>
+  <p>Hora/Fecha Pedido: {{formatDateVista(data.pedido.horaPedido)}} </p>
+  <hr>
+  <p *ngIf="data.pedido.horaEntrega != null">Hora/Fecha: {{formatDateVista(data.pedido.horaEntrega)}} </p>
+  <p *ngIf="data.pedido.horaEntrega == null && !isCancelled">Hora/Fecha Entrega: **PENDIENTE**</p>
+  <hr>
+  <p>Direccion: {{data.pedido.usuario.direccion}} </p>
+  <hr>
+  <p>Telefono: {{data.pedido.usuario.telefono}} </p>
+  <hr>
+  <p>Estado Pedido: {{estadoPedido}}</p>
+  <hr>
+  <hr>
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data.pedido.listaPedido">
+        <td>{{item.producto.nombre}}</td>
+        <td>{{item.cantidad}}</td>
+        <td>$ {{item.producto.precio * item.cantidad}},00</td>
+      </tr>
+      <tr>
+        <td><hr></td>
+        <td><hr></td>
+        <td><hr></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td><hr></td>
+        <td>$ {{data.pedido.precioTotal}},00</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <div *ngIf="needsDelivery">
+    <label for="idDelivery">Seleccione un delivery:  </label>
+    <select [(ngModel)]="idDelivery" id="idDelivery">
+      <option value="0" disabled selected>Seleccione un delivery</option>
+      <option *ngFor="let delivery of deliveries" [value]="delivery.id">
+        {{delivery.nombreUsuario}}
+      </option>
+    </select>
+  </div>
+  <div>
+    <div *ngIf="needsDelivery && !isCancelled && canEvolve && hasDeliverySelected">
+      <br>
+      <button mat-button class="dialogButton" (click)="evolucionarPedidoDelivery()" [disabled]="idDelivery == 0 || idDelivery == null">Avanzar Pedido</button>
+    </div>
+    <div *ngIf="!needsDelivery && !isCancelled && canEvolve">
+      <button mat-button class="dialogButton" (click)="evolucionarPedido()">Avanzar Pedido</button>
+    </div>
+  </div>
+</div>

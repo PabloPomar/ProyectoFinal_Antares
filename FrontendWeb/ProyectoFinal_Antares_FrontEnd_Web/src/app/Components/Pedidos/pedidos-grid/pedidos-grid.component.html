@@ -1,0 +1,14 @@
+<br>
+<div style="width: 100%;">
+  <ag-grid-angular
+    style="width: 100%; height: 40rem;"
+    class="ag-theme-alpine"
+    [context]="context"
+    [rowData]="pedidos"
+    [columnDefs]="columnDefs"
+    [modules]="modules"
+    [gridOptions]="gridOptions"
+    (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+</div>
+

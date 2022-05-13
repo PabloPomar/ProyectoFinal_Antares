@@ -18,7 +18,7 @@ namespace ProyectoFinal.Antares.Data.Repositories
             await Context.Set<T>().AddAsync(entity);
         }
 
-        public async Task<T?> FindAsync(int id, bool asNoTracking = false)
+        public virtual async Task<T?> FindAsync(int id, bool asNoTracking = false)
         {
             if (asNoTracking)
                 return await Context.Set<T>().AsNoTracking().AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
@@ -40,7 +40,7 @@ namespace ProyectoFinal.Antares.Data.Repositories
             return new PageQueryResult<T>(list, list.Count);
         }
         
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             var list = await Context.Set<T>().AsSplitQuery().ToListAsync();
 

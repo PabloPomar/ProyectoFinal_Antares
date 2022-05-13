@@ -11,6 +11,7 @@ import {
   Validators
 } from "@angular/forms";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-user-register',
@@ -21,7 +22,7 @@ export class UserRegisterComponent implements OnInit {
   userRegisterForm: FormGroup;
   confirmPassword: string;
   siteKey: any = "";
-  usuario: Usuario = { id: 0, nombreUsuario:'', dni:null, telefono:'', password:'', mail:'', tipo: TipoUsuario.Cliente };
+  usuario: Usuario = { id: 0, nombreUsuario:'', direccion: '', dni:null, telefono:'', password:'', mail:'', tipo: TipoUsuario.Cliente };
   captchaResolved: boolean = false;
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class UserRegisterComponent implements OnInit {
 
   register() {
     this.usuario.nombreUsuario = this.userRegisterForm.value.nombreUsuario;
+    this.usuario.direccion = this.userRegisterForm.value.direccion;
     this.usuario.dni = this.userRegisterForm.value.dni;
     this.usuario.telefono = this.userRegisterForm.value.telefono;
     this.usuario.password = this.userRegisterForm.value.password;
@@ -46,11 +48,11 @@ export class UserRegisterComponent implements OnInit {
       {
         if(x)
         {
-          alert("El mail del usuario se encuentra en uso");
+          Swal.fire("El mail del usuario se encuentra en uso");
         }
           this.loginService.validarNombre(this.usuario.nombreUsuario).subscribe(async y => {
               if (y) {
-                alert("El nombre del usuario se encuentra en uso");
+                Swal.fire("El nombre del usuario se encuentra en uso");
               } else {
                 await this.loginService.registrarUsuario(this.usuario).subscribe(result => alert("Usuario Creado"));
                 await this.router.navigate(['/login']);
@@ -74,6 +76,7 @@ export class UserRegisterComponent implements OnInit {
       nombreUsuario: new FormControl('', [
         Validators.required
       ]),
+      direccion: new FormControl(''),
       dni: new FormControl('', [
         Validators.required,
         Validators.minLength(8)

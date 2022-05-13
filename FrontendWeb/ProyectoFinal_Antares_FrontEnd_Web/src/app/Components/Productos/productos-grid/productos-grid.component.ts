@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { EditButtonComponent } from '../../GridActions/edit-button/edit-button.component';
 import { DeleteButtonComponent } from '../../GridActions/delete-button/delete-button.component';
 import { ViewButtonComponent } from '../../GridActions/view-button/view-button.component';
+import {AG_GRID_LOCALE_ES} from "../../../Models/traduccion";
 
 @Component({
     selector: 'app-productos-grid',
@@ -98,7 +99,8 @@ export class ProductosGridComponent implements OnInit
             editButtonComponent: EditButtonComponent,
             deleteButtonComponent: DeleteButtonComponent,
             viewButtonComponent: ViewButtonComponent
-        }
+        },
+      localeText: AG_GRID_LOCALE_ES
     };
 
 
