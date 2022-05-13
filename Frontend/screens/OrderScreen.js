@@ -22,7 +22,7 @@ const OrderScreen = () => {
   const navigation = useNavigation();
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(0);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const envio = 90;
 
@@ -50,9 +50,11 @@ const OrderScreen = () => {
   const renderItem = ({ item }) => {
     return (
       <View style={tw`flex-row p-4 justify-between`}>
-        <Text>{products.productList[item[0]].title}</Text>
-        <Text>cantidad: {item[1]}</Text>
-        <Text>precio: ${products.productList[item[0]].price * item[1]}</Text>
+        <Text style={tw`w-1/3`}>{products.productList[item[0]].title}</Text>
+        <Text style={tw`w-1/3`}>{item[1]}</Text>
+        <Text style={tw`w-1/3`}>
+          ${products.productList[item[0]].price * item[1]}
+        </Text>
       </View>
     );
   };
@@ -66,6 +68,15 @@ const OrderScreen = () => {
               <View style={tw`h-5/6 w-full`}>
                 <View style={tw`p-3`}>
                   <Text style={tw`font-bold text-xl`}>Resumen de orden:</Text>
+                </View>
+                <View style={tw`p-3 flex-row w-full`}>
+                  <Text style={tw`font-bold w-1/3`}>
+                    Producto
+                  </Text>
+                  <Text style={tw`font-bold w-1/3`}>Cantidad</Text>
+                  <Text style={tw`font-bold w-1/3`}>
+                    Precio
+                  </Text>
                 </View>
                 <View style={tw`flex-1 p-2`}>
                   <FlatList
@@ -104,8 +115,9 @@ const OrderScreen = () => {
                       buttonStyle={tw`rounded-full`}
                       title={"Proceder a pagar"}
                       onPress={() => {
-                        dispatch(setSelected({id:3}))
-                        navigation.navigate("PaymentScreen")}}
+                        dispatch(setSelected({ id: 3 }));
+                        navigation.navigate("PaymentScreen");
+                      }}
                     />
                   </View>
                 </View>
