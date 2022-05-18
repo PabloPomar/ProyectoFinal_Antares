@@ -40,6 +40,7 @@ function HomeScreen() {
       usuario: userName,
       contrasenia: data.pwd,
     });
+    console.log(response)
     dispatch(login({ loggedIn: true, token: response.data }));
   };
 
@@ -125,7 +126,7 @@ function HomeScreen() {
               resizeMode: "contain",
             }}
             source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/profile_pictures%2Fleodicaprio.jpeg?alt=media&token=6aadb338-5c59-4a35-ab09-130929f6ab0d",
+              uri: "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/profile_pictures%2Fuser-pic-circle.png?alt=media&token=b55ac671-e501-4660-a7a3-739e54c93546",
             }}
             rounded
             activeOpacity={0.7}
