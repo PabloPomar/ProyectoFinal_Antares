@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProyectoFinal.Antares.Domain.Enums;
 using ProyectoFinal.Antares.Domain.Modelos;
 using ProyectoFinal.Antares.Domain.Repositories;
 
@@ -36,5 +37,10 @@ public class PedidoService : ReferenceService<Pedido>, IPedidoService
     public async Task CancelarPedido(int pedidoId)
     {
         await _repository.CancelarPedido(pedidoId);
+    }
+
+    public async Task<EstadoPedido> GetEstadoPedidoAsync(int id)
+    {
+         return await _repository.GetEstadoPedidoAsync(id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProyectoFinal.Antares.Domain.Enums;
 using ProyectoFinal.Antares.Domain.Modelos;
 using ProyectoFinal.Antares.Domain.Servicios;
 
@@ -13,7 +14,7 @@ public class PedidoController : BaseController<Pedido>
     {
         _pedidoService = pedidoService;
     }
-    
+
     [HttpPost]
     [Route("CrearPedido")]
     public new async Task<Pedido> CreateAsync(Pedido pedido)
@@ -55,5 +56,12 @@ public class PedidoController : BaseController<Pedido>
     public async Task<Pedido> GetItemMenu(int id)
     {
         return await _pedidoService.FindAsync(id);
+    }
+    
+    [HttpGet("idPedido")]
+    [Route("getEstado")]
+    public async Task<EstadoPedido> GetEstadoPedido(int idPedido)
+    {   
+        return await _pedidoService.GetEstadoPedidoAsync(idPedido);
     }
 }
