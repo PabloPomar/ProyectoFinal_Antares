@@ -1,9 +1,10 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_API } from "@env";
+import { data } from "./pedidoData";
 
-export const usuarioApi = createApi({
-  reducerPath: "usuarioApi",
+export const pedidoApi = createApi({
+  reducerPath: "pedidoApi",
   baseQuery: fetchBaseQuery({
     // baseUrl: URL_API + "/api/v1",
     baseUrl: "https://cb4d-190-246-205-106.ngrok.io/api/v1",
@@ -14,16 +15,27 @@ export const usuarioApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    userLogin: build.mutation({
-      query: (body) => {
+    createOrder: build.mutation({
+      query: (_body) => {
         return {
-          url: `/Usuario/token`,
+          url: `/Pedido/CrearPedido`,
           method: "POST",
-          body: body,
+          body: data,
+        };
+      },
+    }),
+    getOrderState: build.query({
+      query: (arg) => {
+        const { OrderId } = arg;
+        console.log("id: ", OrderId);
+        return {
+          url: "/Pedido/getEstado",
+          method: "GET",
+          params: { OrderId },
         };
       },
     }),
   }),
 });
 
-export const { useUserLoginMutation } = usuarioApi;
+export const { useCreateOrderMutation, useGetOrderStateQuery } = pedidoApi;

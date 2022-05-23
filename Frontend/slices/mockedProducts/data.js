@@ -10,7 +10,7 @@ export const productsInfo = {
     amargor: "2/4",
     imageURL:
       "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/productos%2Fcervezas%2Fkolsch_beer.png?alt=media&token=0b744a21-74d5-4983-aaa6-adc6c11662e9",
-    price: 150,
+    price: 300,
   },
   scotch1: {
     id: "scotch1",
@@ -76,6 +76,6 @@ export const productsInfo = {
     subtitle: "",
     desc: "Mozzarella, panceta, morrón asado y huevo frito",
     imageURL: "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/productos%2Fpizzas%2Fpizza_americana.jpeg?alt=media&token=8b818ba7-0280-47b3-bbbd-c48c79701d9d",
-    price: 1170,
+    price: 1670,
   },
 };
