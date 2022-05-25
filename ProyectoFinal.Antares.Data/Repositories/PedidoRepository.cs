@@ -29,6 +29,7 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
             .Include(x => x.Usuario)
             .Include(x => x.Delivery)
             .Include(x => x.ListaPedido).ThenInclude(y => y.Producto)
+            .OrderByDescending(x => x.HoraPedido)
             .ToListAsync();
     }
 
@@ -38,6 +39,8 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
 
         if (pedidoEnCurso)
             throw new Exception("El usuario ya tiene un pedido en curso");
+        
+        pedido.HoraPedido = DateTime.Now;
 
         foreach (var item in pedido.ListaPedido)
         {
@@ -53,7 +56,8 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
                 producto.Stock -= item.Cantidad;
         }
 
-        await AgregarServicioDelivery(pedido);
+        if(pedido.ListaPedido.All(x => x.IdProducto != 6))
+            await AgregarServicioDelivery(pedido);
 
         await _context.Set<Pedido>().AddAsync(pedido);
 
@@ -187,6 +191,15 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
         pedido.EstadoPedido = EstadoPedido.Cancelado;
 
         await Context.SaveChangesAsync();
+    }
+    
+    public async Task<EstadoPedido> GetEstadoPedidoAsync(int id)
+    {
+        var pedido = await Context.Set<Pedido>()
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
+        
+        return pedido.EstadoPedido;
     }
 
     private async Task AgregarServicioDelivery(Pedido pedido)

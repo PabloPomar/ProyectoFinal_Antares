@@ -81,7 +81,7 @@ export class PedidosFormComponent {
 
   evolucionarPedidoDelivery() {
     this.pedidosService.cambiarEstadoDelivery(this.data.pedido.id, this.idDelivery).subscribe(() => {
-      Swal.fire("El pedido ha sido avanzado a estado " + EstadoPedido[this.data.pedido.estadoPedido + 1] + " y se ha asignado al delivery " + this.idDelivery)
+      Swal.fire("El pedido ha sido avanzado a estado " + EstadoPedido[this.data.pedido.estadoPedido + 1] + " y se ha asignado al delivery ID: " + this.idDelivery)
         .then(() => {
           window.location.reload();
         });

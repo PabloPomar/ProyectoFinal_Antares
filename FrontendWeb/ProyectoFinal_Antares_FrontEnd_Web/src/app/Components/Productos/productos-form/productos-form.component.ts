@@ -20,7 +20,7 @@ export class ProductosFormComponent implements OnInit
     isAddMode: boolean;
     isViewMode: boolean;
     browserForm: FormGroup;
-    esBebida: TipoProducto = TipoProducto.BebidaAlcoholica;
+    esBebida: TipoProducto = TipoProducto.Cerveza;
     nombreOriginal: string;
     productoExiste: boolean = false;
 
@@ -74,7 +74,7 @@ export class ProductosFormComponent implements OnInit
     {
         this.browserForm = this.fb.group({
             id: 0,
-            tipoProducto: new FormControl({ value: TipoProducto.BebidaAlcoholica, disabled: this.isViewMode }, [
+            tipoProducto: new FormControl({ value: TipoProducto.Cerveza, disabled: this.isViewMode }, [
               Validators.required
             ]),
             nombre: new FormControl({ value: '', disabled: this.isViewMode }, [
