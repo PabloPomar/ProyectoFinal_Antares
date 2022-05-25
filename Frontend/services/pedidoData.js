@@ -2,7 +2,7 @@ export const data = {
   id: 0,
   idUsuario: 12,
   idDelivery: 8,
-  estadoPedido: 2,
+  estadoPedido: 1,
   listaPedido: [
     {
       id: 0,

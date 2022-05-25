@@ -18,8 +18,9 @@ import {
   selectCard,
   selectPaymentMethods,
 } from "../slices/paymentMethodsSlice";
-import { generateOrder } from "../slices/orderSlice";
+import { generateOrder, updateOrderStatus } from "../slices/orderSlice";
 import { setSelected } from "../slices/navOptionsSlice";
+import { useCreateOrderMutation } from "../services/pedido";
 
 const PaymentScreen = () => {
   const isLoggedIn = useSelector(selectLoginStatus);
@@ -28,6 +29,7 @@ const PaymentScreen = () => {
   const selectedPaymentMethod = useSelector(getSelectedPaymentMethod);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [createOrder, { isLoading, isError, isSuccess, data }] = useCreateOrderMutation()
 
   const [visible, setVisible] = useState(false);
   const [cvv, setCvv] = useState("");
@@ -46,7 +48,7 @@ const PaymentScreen = () => {
         
         navigation.navigate("HomeScreen");
       }
-    }, 3000);
+    }, 4000);
 
     return () => clearTimeout(timeout);
   }, [paying]);
@@ -129,6 +131,11 @@ const PaymentScreen = () => {
                     ))
                   : null}
               </ScrollView>
+              <Button 
+                icon={"plus"} 
+                title={"Agregar medio de pago"}
+                onPress={() => console.log("nothing")}
+              />
             </View>
             <View style={tw`flex-1 w-80 justify-center items-center`}>
               <Button
@@ -137,9 +144,11 @@ const PaymentScreen = () => {
                 disabled={selectedPaymentMethod.length == 0}
                 title="PAGAR"
                 loading={paying}
-                onPress={() => {
+                onPress={async () => {
                   setPaying(true);
-                  dispatch(generateOrder({paid: true, status: "Preparando" }));
+                  let response = await createOrder()
+                  console.log("pedido creado: ", response.data.id)
+                  dispatch(generateOrder({paid: true, id: response.data.id}));
                 }}
               />
             </View>

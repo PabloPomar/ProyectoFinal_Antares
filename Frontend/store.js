@@ -5,11 +5,13 @@ import navOptionsReducer from "./slices/navOptionsSlice";
 import paymentMethodsReducer from "./slices/paymentMethodsSlice";
 import orderSliceReducer from "./slices/orderSlice";
 import { usuarioApi } from "./services/usuario";
+import { pedidoApi } from "./services/pedido";
 
 export const store = configureStore({
   reducer: {
     login: loginReducer,
     [usuarioApi.reducerPath]: usuarioApi.reducer,
+    [pedidoApi.reducerPath]: pedidoApi.reducer,
     products: productReducer,
     paymentMethods: paymentMethodsReducer,
     navOptions: navOptionsReducer,
@@ -18,7 +20,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false
-    }).concat(usuarioApi.middleware),
+    }).concat(usuarioApi.middleware).concat(pedidoApi.middleware),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

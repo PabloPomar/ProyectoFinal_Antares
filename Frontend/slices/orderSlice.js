@@ -1,8 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const idToStatus = {
+  1: "Pagado",
+  2: "Preparando",
+  3: "EnCamino",
+  4: "Entregado",
+};
+
 const initialState = {
-  paid: false,
-  status: "",
+  paid: false, // poner en false
+  status: "Pagado",
+  orderId: 0,
 };
 
 export const orderSlice = createSlice({
@@ -11,10 +19,11 @@ export const orderSlice = createSlice({
   reducers: {
     generateOrder: (state, action) => {
       state.paid = action.payload.paid;
-      state.status = action.payload.status;
+      state.status = idToStatus[1]; // se inicializa en 1 como pagado
+      state.orderId = action.payload.id;
     },
     updateOrderStatus: (state, action) => {
-      state.status = action.payload.status;
+      state.status = idToStatus[action.payload.status];
     },
   },
 });
@@ -24,5 +33,6 @@ export const { generateOrder, updateOrderStatus } = orderSlice.actions;
 // Selectors
 export const selectOrderStatus = (state) => state.order.status;
 export const selectOrderPaid = (state) => state.order.paid;
+export const selectOrderId = (state) => state.order.orderId;
 
 export default orderSlice.reducer;

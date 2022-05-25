@@ -16,12 +16,15 @@ import { setSelected } from "../slices/navOptionsSlice";
 import { useUserLoginMutation } from "../services/usuario";
 import { getUserFromToken } from "../utils";
 import {
+  selectOrderId,
   selectOrderPaid,
   selectOrderStatus,
   updateOrderStatus,
 } from "../slices/orderSlice";
 import { statusColors } from "../utils";
 import { LinearProgress } from "@rneui/base";
+import { useGetOrderStateQuery } from "../services/pedido";
+import { IconButton } from "react-native-paper";
 
 function HomeScreen() {
   const [userData, setUserData] = useState({ email: "", pwd: "" });
@@ -34,37 +37,29 @@ function HomeScreen() {
   const token = useSelector(selectToken);
   const navigation = useNavigation();
 
+  const orderIdFromBack = useSelector(selectOrderId);
+
+  const getOrderStatusFromBE = async () => {
+    console.log("orderIdFromBack: ", orderIdFromBack)
+    let res = await fetch(
+      "https://13eb-190-244-188-46.ngrok.io/api/v1/Pedido/getEstado?idPedido=" +
+        orderIdFromBack
+    );
+    res = await res.text();
+    console.log(res);
+    dispatch(updateOrderStatus({status: res}))
+  };
+
   const handleLogin = async (data) => {
     let userName = data.email.split("@")[0];
     const response = await userLogin({
       usuario: userName,
       contrasenia: data.pwd,
     });
-    console.log(response)
     dispatch(login({ loggedIn: true, token: response.data }));
   };
 
-  // automatically update order status
-  useEffect(() => {
-    const timeout1 = setTimeout(() => {
-      if (orderPaid) {
-        dispatch(updateOrderStatus({ status: "En Camino" }));
-      }
-    }, 10000);
-
-    return () => clearTimeout(timeout1);
-  }, [orderPaid]);
-
-  useEffect(() => {
-    const timeout2 = setTimeout(() => {
-      if (orderPaid) {
-        if (orderStatus == "En Camino") {
-          dispatch(updateOrderStatus({ status: "Entregado" }));
-        }
-      }
-    }, 10000);
-    return () => clearTimeout(timeout2);
-  }, [orderStatus]);
+  // automatically get order status
 
   return (
     <ScreenLayout>
@@ -121,7 +116,7 @@ function HomeScreen() {
         <View style={tw`flex-col flex-1 items-center w-full `}>
           <Avatar
             size="xlarge"
-            onPress={() => console.log("Works!")}
+            onPress={() => console.log("avatar")}
             imageProps={{
               resizeMode: "contain",
             }}
@@ -147,13 +142,35 @@ function HomeScreen() {
             >
               {orderPaid ? (
                 <View style={tw`p-3`}>
-                  <Text style={tw`text-lg font-bold pb-3`}>
-                    Estado de la orden:
-                  </Text>
+                  <View style={tw`flex-row justify-between`}>
+                    <Text style={tw`text-lg font-bold pb-3`}>
+                      Estado de la orden:
+                    </Text>
+                    <IconButton
+                      icon="refresh"
+                      color={"blue"}
+                      animated
+                      size={30}
+                      onPress={() => {
+                        console.log("Fetching order state...")
+                        getOrderStatusFromBE()
+                      }}
+                    />
+                  </View>
                   {orderStatus != "Entregado" ? (
-                    <Text style={tw`text-lg`}>Pedido en curso...</Text>
+                    orderStatus == "Pagado" ? (
+                      <Text style={tw`text-lg`}>Pedido pagado...</Text>
+                    ) : orderStatus == "Preparando" ? (
+                      <Text style={tw`text-lg`}>
+                        Pedido está siendo preparado...
+                      </Text>
+                    ) : orderStatus == "EnCamino" ? (
+                      <Text style={tw`text-lg`}>Pedido en camino...</Text>
+                    ) : (
+                      <Text style={tw`text-lg`}>Pedido en curso...</Text>
+                    )
                   ) : (
-                    <Text style={tw`text-lg`}>Pedido completado!</Text>
+                    <Text style={tw`text-lg`}>Pedido entregado!</Text>
                   )}
                   <LinearProgress
                     value={statusColors[orderStatus].progress}
@@ -168,9 +185,7 @@ function HomeScreen() {
                         type="antdesign"
                         style={tw`p-2`}
                         size={60}
-                        color={
-                          orderStatus != "Entregado" ? "grey" : "green"
-                        }
+                        color={orderStatus != "Entregado" ? "grey" : "green"}
                         disabled={orderStatus != "Entregado"}
                         disabledStyle={{ backgroundColor: "white" }}
                       />

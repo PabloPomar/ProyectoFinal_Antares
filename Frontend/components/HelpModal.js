@@ -11,7 +11,7 @@ const OverlayComponent = ({ visible, toggleOverlay }) => {
         <Text style={styles.textSecondary}>Ayuda de la aplicación</Text>
         <OpenURLButton
           url={
-            "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/pdf_help%2FAyuda_Web.pdf?alt=media&token=a267d886-08f8-4e29-a3a9-d7b6f4e1ee53"
+            "https://firebasestorage.googleapis.com/v0/b/antaresfacu-17d20.appspot.com/o/pdf_help%2FAyuda_Mobile.pdf?alt=media&token=1a8b41e4-ad67-404d-9354-651acf728742"
           }
         >
           Ir a ayuda

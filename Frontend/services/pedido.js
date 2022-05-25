@@ -7,7 +7,7 @@ export const pedidoApi = createApi({
   reducerPath: "pedidoApi",
   baseQuery: fetchBaseQuery({
     // baseUrl: URL_API + "/api/v1",
-    baseUrl: "https://cb4d-190-246-205-106.ngrok.io/api/v1",
+    baseUrl: "https://13eb-190-244-188-46.ngrok.io/api/v1",
     prepareHeaders: (headers, { getState }) => {
       headers.set("accept", "application/octet-stream");
       headers.set("accept", "application/json");
@@ -26,12 +26,12 @@ export const pedidoApi = createApi({
     }),
     getOrderState: build.query({
       query: (arg) => {
-        const { OrderId } = arg;
-        console.log("id: ", OrderId);
+        const { orderId } = arg;
+        console.log("id: ", orderId);
         return {
           url: "/Pedido/getEstado",
           method: "GET",
-          params: { OrderId },
+          params: { orderId },
         };
       },
     }),

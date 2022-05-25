@@ -6,7 +6,8 @@ export function getUserFromToken(token) {
 }
 
 export const statusColors = {
-  Preparando: { color: "red", progress: 20 / 100 },
-  "En Camino": { color: "yellow", progress: 60 / 100 },
+  Pagado: {color: "red", progress: 20 / 100},
+  Preparando: { color: "red", progress: 40 / 100 },
+  EnCamino: { color: "yellow", progress: 70 / 100 },
   Entregado: { color: "green", progress: 100 / 100 },
 };
