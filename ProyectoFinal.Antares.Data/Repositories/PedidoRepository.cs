@@ -56,7 +56,7 @@ public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
                 producto.Stock -= item.Cantidad;
         }
 
-        if(pedido.ListaPedido.All(x => x.Producto?.TipoProducto != TipoProducto.ServicioDelivery))
+        if(pedido.ListaPedido.All(x => x.IdProducto != 6))
             await AgregarServicioDelivery(pedido);
 
         await _context.Set<Pedido>().AddAsync(pedido);

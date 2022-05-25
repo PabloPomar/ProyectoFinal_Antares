@@ -18,10 +18,10 @@ export interface Producto
 
 export enum TipoProducto
 {
-  BebidaAlcoholica,
+  Cerveza,
   BebidaNoAlcoholica,
   Minuta,
-  PlatosPrincipales,
+  Pizza,
   Postre,
   ServicioDelivery
 }
