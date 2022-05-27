@@ -61,7 +61,7 @@ export class PedidosFormComponent {
   }
 
   formatDateVista(date: Date) {
-    return formatDate(date, 'HH:MM dd/MM/YYYY', 'en-US');
+    return formatDate(date, 'HH:mm dd/MM/YYYY', 'en-US');
   }
 
   get hasDeliverySelected(): boolean {

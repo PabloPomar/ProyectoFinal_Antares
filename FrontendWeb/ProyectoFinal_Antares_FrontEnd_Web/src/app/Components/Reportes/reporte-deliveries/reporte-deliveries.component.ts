@@ -42,7 +42,7 @@ export class ReporteDeliveriesComponent implements OnInit {
         return (data.value !== null && data.value !== undefined)
           ? Meses[data.value] : 'not found';}},
     {headerName: 'Año', field: 'salesYear', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
-    {headerName: 'Identificador', field: 'idDelivery', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Número de delivery', field: 'idDelivery', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Nombre', field: 'nombre', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Completadas', field: 'completadas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'No Completadas', field: 'noCompletadas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},

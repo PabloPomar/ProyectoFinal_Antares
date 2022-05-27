@@ -89,7 +89,7 @@ export class PedidosGridComponent implements OnInit
     if(date == null)
       return 'No Entregado';
 
-    return formatDate(date, 'HH:MM dd/MM/YYYY', 'en-US');
+    return formatDate(date, 'HH:mm dd/MM/YYYY', 'en-US');
   }
 
   currencyFormatter(params: any, sign: any) {

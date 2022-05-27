@@ -40,7 +40,7 @@ export class ReportePedidosClientesComponent implements OnInit {
         return (data.value !== null && data.value !== undefined)
           ? Meses[data.value] : 'not found';}},
     {headerName: 'Año', field: 'salesYear', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
-    {headerName: 'Identificador', field: 'idUsuario', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
+    {headerName: 'Número de cliente', field: 'idUsuario', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Nombre', field: 'nombre', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Completadas', field: 'completadas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
     {headerName: 'Canceladas', field: 'canceladas', sortable: true, filter: true, cellStyle: {fontSize: '20px'}},
