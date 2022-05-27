@@ -23,7 +23,6 @@ import {
 } from "../slices/orderSlice";
 import { statusColors } from "../utils";
 import { LinearProgress } from "@rneui/base";
-import { useGetOrderStateQuery } from "../services/pedido";
 import { IconButton } from "react-native-paper";
 
 function HomeScreen() {
@@ -40,14 +39,14 @@ function HomeScreen() {
   const orderIdFromBack = useSelector(selectOrderId);
 
   const getOrderStatusFromBE = async () => {
-    console.log("orderIdFromBack: ", orderIdFromBack)
+    console.log("orderIdFromBack: ", orderIdFromBack);
     let res = await fetch(
-      "https://13eb-190-244-188-46.ngrok.io/api/v1/Pedido/getEstado?idPedido=" +
+      "https://ddae-190-244-188-46.ngrok.io/api/v1/Pedido/getEstado?idPedido=" +
         orderIdFromBack
     );
     res = await res.text();
     console.log(res);
-    dispatch(updateOrderStatus({status: res}))
+    dispatch(updateOrderStatus({ status: res }));
   };
 
   const handleLogin = async (data) => {
@@ -152,32 +151,30 @@ function HomeScreen() {
                       animated
                       size={30}
                       onPress={() => {
-                        console.log("Fetching order state...")
-                        getOrderStatusFromBE()
+                        console.log("Fetching order state...");
+                        getOrderStatusFromBE();
                       }}
                     />
                   </View>
-                  {orderStatus != "Entregado" ? (
-                    orderStatus == "Pagado" ? (
-                      <Text style={tw`text-lg`}>Pedido pagado...</Text>
-                    ) : orderStatus == "Preparando" ? (
-                      <Text style={tw`text-lg`}>
-                        Pedido está siendo preparado...
-                      </Text>
-                    ) : orderStatus == "EnCamino" ? (
-                      <Text style={tw`text-lg`}>Pedido en camino...</Text>
-                    ) : (
-                      <Text style={tw`text-lg`}>Pedido en curso...</Text>
-                    )
-                  ) : (
+                  {orderStatus == "Entregado" || orderStatus == "Finalizado" ? (
                     <Text style={tw`text-lg`}>Pedido entregado!</Text>
+                  ) : orderStatus == "Pagado" ? (
+                    <Text style={tw`text-lg`}>Pedido pagado...</Text>
+                  ) : orderStatus == "Preparando" ? (
+                    <Text style={tw`text-lg`}>
+                      Pedido está siendo preparado...
+                    </Text>
+                  ) : orderStatus == "EnCamino" ? (
+                    <Text style={tw`text-lg`}>Pedido en camino...</Text>
+                  ) : (
+                    <Text style={tw`text-lg`}>Pedido en curso...</Text>
                   )}
                   <LinearProgress
                     value={statusColors[orderStatus].progress}
                     variant="determinate"
                     color={statusColors[orderStatus].color}
                   />
-                  {orderStatus == "Entregado" ? (
+                  {orderStatus == "Entregado" || orderStatus == "Finalizado" ? (
                     <View>
                       <Text style={tw`pt-2`}>Disfrute de su orden!</Text>
                       <Icon
@@ -185,8 +182,8 @@ function HomeScreen() {
                         type="antdesign"
                         style={tw`p-2`}
                         size={60}
-                        color={orderStatus != "Entregado" ? "grey" : "green"}
-                        disabled={orderStatus != "Entregado"}
+                        color={(orderStatus != "Entregado" && orderStatus != "Finalizado") ? "grey" : "green"}
+                        disabled={orderStatus != "Entregado" && orderStatus != "Finalizado"}
                         disabledStyle={{ backgroundColor: "white" }}
                       />
                     </View>

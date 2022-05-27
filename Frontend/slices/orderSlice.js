@@ -5,6 +5,7 @@ const idToStatus = {
   2: "Preparando",
   3: "EnCamino",
   4: "Entregado",
+  5: "Finalizado",
 };
 
 const initialState = {

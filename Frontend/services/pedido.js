@@ -6,8 +6,7 @@ import { data } from "./pedidoData";
 export const pedidoApi = createApi({
   reducerPath: "pedidoApi",
   baseQuery: fetchBaseQuery({
-    // baseUrl: URL_API + "/api/v1",
-    baseUrl: "https://13eb-190-244-188-46.ngrok.io/api/v1",
+    baseUrl: URL_API + "/api/v1",
     prepareHeaders: (headers, { getState }) => {
       headers.set("accept", "application/octet-stream");
       headers.set("accept", "application/json");
